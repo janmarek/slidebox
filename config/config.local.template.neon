@@ -1,0 +1,11 @@
+parameters:
+  database:
+    driver: mysql
+    host: localhost
+    dbname: skeleton
+    user: root
+    password: xxx
+
+nette:
+  container:
+    debugger: true

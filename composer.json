@@ -1,0 +1,25 @@
+{
+	"config": {
+		"vendor-dir": "libs"
+	},
+	"name": "janmarek/presidos",
+	"description": "Presentations",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Jan Marek",
+			"email": "mail@janmarek.net"
+		}
+	],
+	"require": {
+		"nette/nette": "2.1.*",
+		"JanMarek/WebLoader": "2.2.*",
+		"texy/texy": "2.4.*",
+		"janmarek/doctrine": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Presidos\\": "app/"
+		}
+	}
+}

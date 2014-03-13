@@ -1,0 +1,11 @@
+parameters:
+  database:
+    driver: mysql
+    host: localhost
+    dbname: presidos
+    user: root
+    password:
+
+nette:
+  container:
+    debugger: true

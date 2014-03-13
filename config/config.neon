@@ -1,0 +1,33 @@
+parameters:
+
+php:
+  date.timezone: Europe/Prague
+
+nette:
+  session:
+    expiration: 14 days
+
+  application:
+    errorPresenter: Error
+    mapping:
+      *: Presidos\*Module\Presenter\*Presenter
+
+services:
+  router: Presidos\Router\RouterFactory::createRouter
+
+webloader:
+  css:
+    default:
+      files:
+        - style.less
+        - {files: ["*.css"], from: %appDir%/templates}
+  js:
+    default:
+      remoteFiles:
+        - http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+        - http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js
+      files:
+        - %wwwDir%/bower/jquery/dist/jquery.min.js
+        - %wwwDir%/bower/knockoutjs/build/output/knockout-latest.js
+#        - %appDir%/../libs/nette/nette/client-side/netteForms.js
+        - {files: "*.js", from: %appDir%/templates}
