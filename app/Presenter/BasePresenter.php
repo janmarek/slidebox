@@ -11,21 +11,6 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	/** @var \WebLoader\LoaderFactory @inject */
 	public $webLoader;
 
-//	public function formatLayoutTemplateFiles()
-//	{
-//		return array(
-//			dirname($this->getReflection()->getFileName()) . '/layout.latte',
-//			$this->context->parameters['appDir'] . '/presenters/layout.latte',
-//		);
-//	}
-//
-//	public function formatTemplateFiles()
-//	{
-//		return array(
-//			dirname($this->getReflection()->getFileName()) . '/' . $this->getView() . '.latte',
-//		);
-//	}
-
 	protected function afterRender()
 	{
 		parent::afterRender();

@@ -2,3 +2,4 @@ libs
 composer.lock
 app/dev
 app/config.local.neon
+node_modules

@@ -1,0 +1,91 @@
+{block bodyTag}<body class="editor-body">{/block}
+
+{block content}
+
+<div class="editor" id="presidos-editor">
+	<div class="editor-header">
+		<div class="header-cell properties">
+			<strong>Presidos</strong>
+		</div>
+		<div class="header-cell toolbar">
+			<a data-bind="click: texyEditor.heading.bind(texyEditor, '*')">
+				<img src="{$basePath}/images/silk-icons/text_heading_1.png" width="16" height="16">
+			</a>
+			<a data-bind="click: texyEditor.heading.bind(texyEditor, '=')">
+				<img src="{$basePath}/images/silk-icons/text_heading_2.png" width="16" height="16">
+			</a>
+			<a data-bind="click: texyEditor.heading.bind(texyEditor, '-')">
+				<img src="{$basePath}/images/silk-icons/text_heading_3.png" width="16" height="16">
+			</a>
+			|
+			<a data-bind="click: texyEditor.bold.bind(texyEditor)">
+				<img src="{$basePath}/images/silk-icons/text_bold.png" width="16" height="16">
+			</a>
+			<a data-bind="click: texyEditor.italics.bind(texyEditor)">
+				<img src="{$basePath}/images/silk-icons/text_italic.png" width="16" height="16">
+			</a>
+			|
+			<a>
+				<img src="{$basePath}/images/silk-icons/text_list_bullets.png" width="16" height="16">
+			</a>
+			<a>
+				<img src="{$basePath}/images/silk-icons/text_list_numbers.png" width="16" height="16">
+			</a>
+			|
+			<a>
+				<img src="{$basePath}/images/silk-icons/world_link.png" width="16" height="16">
+			</a>
+			|
+			<a>
+				<img src="{$basePath}/images/silk-icons/picture.png" width="16" height="16">
+			</a>
+			<a>
+				<img src="{$basePath}/images/youtube-icon.png" width="16" height="16">
+			</a>
+			<a>
+				<img src="{$basePath}/images/silk-icons/table.png" width="16" height="16">
+			</a>
+		</div>
+		<div class="header-cell preview">
+			Preview
+		</div>
+	</div>
+	<div class="editor-body">
+		<div class="body-cell properties">
+			Create new presentation
+		</div>
+		<div class="body-cell main-content">
+			<div id="editor">{*
+*}První slajd
+***********
+
+- fssdgfgf
+- fssdgfgf
+- fssdgfgf
+
+1) sfsdg sfg dfg
+2) sfdgdfgdf
+3) sfdfgfgd{*
+			*}</div>
+		</div>
+		<div class="body-cell preview">
+			<div class="theme-default">
+				<div class="slide">
+					<h1>První slajd</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{/block}
+
+{block js}
+{include #parent}
+<script src="{$basePath}/libs/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	var editor = aceFactory("editor");
+	var texyEditor = new TexyEditor(editor);
+	var presidosEditor = new PresidosEditor(texyEditor);
+	ko.applyBindings(presidosEditor, document.getElementById('presidos-editor'));
+</script>
+{/block}

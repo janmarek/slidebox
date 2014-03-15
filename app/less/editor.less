@@ -1,0 +1,76 @@
+.editor-body {
+	margin: 0;
+	height: 100%;
+}
+
+.editor {
+	display: table; width: 100%; height: 100%;
+
+	.editor-header {
+		display: table-row;
+
+		.header-cell {
+			display: table-cell;
+			padding: 15px;
+			background: #DDD;
+			border-bottom: 2px solid #BBB;
+		}
+	}
+
+	.toolbar {
+		padding: 10px 0 !important;
+		color: #BBB;
+		a {
+			cursor: pointer;
+			display: inline-block;
+			padding: 5px 7px;
+			border-radius: 3px;
+
+			&:hover {
+				background: #EEE;
+			}
+		}
+	}
+
+	.editor-body {
+		display: table-row;
+	}
+
+	.body-cell {
+		display: table-cell;
+		padding: 15px;
+		vertical-align: top;
+	}
+
+	.properties {
+		width: 20%;
+		&.body-cell {
+			background: #EEE;
+		}
+	}
+
+	.preview {
+		width: 30%;
+		&.body-cell {
+			background: #EEE;
+		}
+	}
+
+	.main-content {
+		padding: 5px !important;
+		#editor {height: 100%}
+	}
+
+	.body-cell.preview {
+		overflow: auto;
+
+		.slide {
+			min-height: 150px;
+
+			border: 1px solid #BBB;
+			box-shadow: #BBB 0 0 5px;
+		}
+	}
+
+
+}
