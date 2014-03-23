@@ -3,3 +3,6 @@
 define('CANCEL_START_APP', TRUE);
 
 require __DIR__ . '/../www/index.php';
+require __DIR__ . '/BaseTestCase.php';
+
+Tester\Environment::setup();

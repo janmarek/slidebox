@@ -6,15 +6,14 @@ define('CONFIG_DIR', ROOT_DIR . '/config');
 
 require ROOT_DIR . '/libs/autoload.php';
 
-$configurator = new Nette\Config\Configurator();
+umask(0);
 
-$debugMode = file_exists(CONFIG_DIR . '/dev');
+$configurator = new Nette\Configurator();
+
+$debugMode = !defined('CANCEL_START_APP') && file_exists(CONFIG_DIR . '/dev');
 $configurator->setDebugMode($debugMode);
 $configurator->enableDebugger(ROOT_DIR . '/log');
 $configurator->setTempDirectory(ROOT_DIR . '/temp');
-
-$webloaderExtension = new \WebLoader\Nette\Extension();
-$webloaderExtension->install($configurator);
 
 $configurator->addConfig(CONFIG_DIR . '/config.neon', FALSE);
 $configurator->addConfig(CONFIG_DIR . '/config.local.neon', FALSE);

@@ -67,16 +67,22 @@
 - fssdgfgf
 - fssdgfgf
 
+Druhý slajd
+***********
+
 1) sfsdg sfg dfg
 2) sfdgdfgdf
-3) sfdfgfgd{*
+3) sfdfgfgd
+
+Třetí slajd
+***********
+
+Tady je nějaký text.{*
 			*}</div>
 		</div>
 		<div class="body-cell preview">
-			<div class="theme-default">
-				<div class="slide">
-					<h1>První slajd</h1>
-				</div>
+			<div class="preview-content">
+				<div class="theme-default" data-bind="html: previewHtml"></div>
 			</div>
 		</div>
 	</div>
@@ -89,7 +95,7 @@
 <script>
 	var editor = aceFactory("editor");
 	var texyEditor = new TexyEditor(editor);
-	var presidosEditor = new PresidosEditor(texyEditor);
+	var presidosEditor = new PresidosEditor(texyEditor, {link preview});
 	ko.applyBindings(presidosEditor, document.getElementById('presidos-editor'));
 </script>
 {/block}

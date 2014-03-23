@@ -62,11 +62,17 @@
 	}
 
 	.body-cell.preview {
-		overflow: auto;
+		padding: 0;
+
+		.preview-content {
+			padding: 15px;
+			overflow: auto;
+			height: 100%;
+		}
 
 		.slide {
-			min-height: 200px;
-
+			min-height: 150px;
+			margin-bottom: 15px;
 			border: 1px solid #BBB;
 			box-shadow: #BBB 0 0 5px;
 		}

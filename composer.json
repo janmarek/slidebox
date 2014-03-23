@@ -12,10 +12,15 @@
 		}
 	],
 	"require": {
-		"nette/nette": "2.1.*",
-		"JanMarek/WebLoader": "2.2.*",
-		"texy/texy": "2.4.*",
-		"janmarek/doctrine": "dev-master"
+		"nette/nette": "~2.1.0",
+		"texy/texy": "~2.4.0",
+		"janmarek/doctrine": "dev-master",
+		"symfony/dom-crawler": "~2.0",
+		"symfony/css-selector": "~2.0"
+	},
+	"require-dev": {
+		"nette/tester": "dev-master",
+		"janmarek/mockista": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
