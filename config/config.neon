@@ -1,4 +1,10 @@
 parameters:
+  email: presidos@presidos.com
+  emailName: Presidos
+
+  facebook:
+    appId: "166170593540317"
+    secret: "62cc584dc96346422b71fc95d45842f8"
 
 php:
   date.timezone: Europe/Prague
@@ -10,10 +16,42 @@ nette:
   application:
     errorPresenter: Error
     mapping:
-      *: Presidos\*Module\Presenter\*Presenter
+      *: Presidos\*\Presenter\*Presenter
+  security:
+    frames:
 
 services:
   router: Presidos\Router\RouterFactory::createRouter
+
+  # doctrine
+  emFactory:
+    class: Presidos\Model\Doctrine\EntityManagerFactory
+    arguments:
+      - %database%
+      - %debugMode%
+      -
+        - %appDir%
+      - %tempDir%/proxies
+      - @cacheStorage
+  em:
+    class: Doctrine\ORM\EntityManager
+    factory: @emFactory::createEntityManager()
+
+  # users
+  userRepository:
+    class: Presidos\User\UserRepository
+    factory: @em::getRepository('Presidos\User\User')
+  passwordAuthenticator: Presidos\User\PasswordAuthenticator
+  facebook: Facebook( {appId: %facebook.appId%, secret: %facebook.secret%} )
+  facebookAuthenticator: Presidos\User\FacebookAuthenticator
+  registerEmailFactory: Presidos\User\Email\RegisterEmailFactory(%email%, %emailName%)
+  forgottenEmailFactory: Presidos\User\Email\ForgottenEmailFactory(%email%, %emailName%)
+
+  # presentations
+  presentationRepository:
+    class: Presidos\Model\Presentation\PresentationRepository
+    factory: @em::getRepository('Presidos\Model\Presentation\Presentation')
+
   texyFactory: Presidos\Model\TexyFactory
   texy: @texyFactory::createTexy()
   htmlGenerator: Presidos\Model\HtmlGenerator

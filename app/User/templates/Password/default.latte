@@ -1,0 +1,18 @@
+{var $title = 'Forgotten password'}
+
+{block #content}
+
+<h1>{$title}</h1>
+
+<p>Please insert your e-mail and we will send you password reset instructions.</p><br>
+
+<p class="alert alert-danger" n:foreach="$presenter['sendNewPasswordForm']->getErrors() as $error">
+	{$error}
+</p>
+
+{form sendNewPasswordForm class => form-inline}
+<div class="form-group">
+{label email /} {input email style => 'width: 300px'}
+</div>
+{input s}
+{/form}

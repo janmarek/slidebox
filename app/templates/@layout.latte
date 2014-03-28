@@ -20,7 +20,11 @@
 </head>
 
 {block bodyTag}<body>{/block}
-	{include #content}
+	{block body}
+		<div class="container">
+		{include #content}
+		</div>
+	{/block}
 	{block js}
 		<script src="{$basePath}/generated/web.js"></script>
 	{/block}

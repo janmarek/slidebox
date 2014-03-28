@@ -1,0 +1,16 @@
+{var $title = 'User'}
+
+{block content}
+
+<h1>{$title}</h1>
+
+<ul class="user-menu">
+	<li n:if="!$user->identity->facebookUid">
+		<a href="{$facebookConnectUrl}">Connect account with Facebook</a><br>
+		<span class="muted">If you want to use Facebook for signing in.</span>
+	</li>
+	<li>
+		<a n:href="Profile:edit">Edit user profile</a><br>
+		<span class="muted">Change your name, email or password.</span>
+	</li>
+</ul>

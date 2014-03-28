@@ -10,11 +10,10 @@ umask(0);
 
 $configurator = new Nette\Configurator();
 
-$debugMode = !defined('CANCEL_START_APP') && file_exists(CONFIG_DIR . '/dev');
+$debugMode = file_exists(CONFIG_DIR . '/dev');
 $configurator->setDebugMode($debugMode);
 $configurator->enableDebugger(ROOT_DIR . '/log');
 $configurator->setTempDirectory(ROOT_DIR . '/temp');
-
 $configurator->addConfig(CONFIG_DIR . '/config.neon', FALSE);
 $configurator->addConfig(CONFIG_DIR . '/config.local.neon', FALSE);
 $container = $configurator->createContainer();

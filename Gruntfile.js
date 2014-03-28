@@ -5,6 +5,7 @@ module.exports = function (grunt) {
 	var jsFiles = [
 		'www/libs/jquery.js',
 		'www/libs/knockout.js',
+		'libs/nette/nette/client-side/netteForms.js'
 	].concat(sourceJsFiles);
 	var lessFile = 'app/less/main.less';
 

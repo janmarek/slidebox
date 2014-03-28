@@ -1,0 +1,34 @@
+{var $title = 'Log in'}
+
+{block #content}
+
+<h1>{$title}</h1>
+
+<p>
+	<a n:href="FacebookLogin:">Login via facebook</a> |
+	<a n:href="Register:">Register</a>
+</p><br>
+
+{form logInForm}
+<p class="alert alert-danger" n:foreach="$control['logInForm']->getErrors() as $error">{$error}</p>
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="form-group">
+			{label email /}
+			{input email class => form-control}
+		</div>
+		<div class="form-group">
+			{label password /}
+			{input password class => form-control}
+		</div>
+		<p>
+			{input s class => 'btn btn-primary'}
+		</p>
+		
+		<p>
+			<a n:href="Password:">Forgotten password?</a>
+		</p>
+	</div>
+</div>
+{/form}
