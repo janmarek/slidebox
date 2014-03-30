@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Model\Doctrine;
+namespace Presidos\Doctrine;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,7 +11,7 @@ trait Timestampable
 	/**
 	 * @ORM\Column(type="datetimetz")
 	 */
-	private $inserted;
+	private $created;
 
 	/**
 	 * @ORM\Column(type="datetimetz")
@@ -20,7 +20,7 @@ trait Timestampable
 
 	protected function initDateTimes()
 	{
-		$this->inserted = $this->updated = new DateTime();
+		$this->created = $this->updated = new DateTime();
 	}
 
 	/**
@@ -42,9 +42,9 @@ trait Timestampable
 	/**
 	 * @return DateTime
 	 */
-	public function getInserted()
+	public function getCreated()
 	{
-		return $this->inserted;
+		return $this->created;
 	}
 
 }

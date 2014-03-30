@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Model\Doctrine;
+namespace Presidos\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;

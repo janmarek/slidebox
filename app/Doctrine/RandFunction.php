@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Model\Doctrine;
+namespace Presidos\Doctrine;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;

@@ -16,6 +16,8 @@ $helperSet = new \Symfony\Component\Console\Helper\HelperSet(array(
 $cli->setHelperSet($helperSet);
 
 $cli->addCommands(array(
+	$container->fixturesCommand,
+
 	// DBAL Commands
 	new \Doctrine\DBAL\Tools\Console\Command\RunSqlCommand(),
 	new \Doctrine\DBAL\Tools\Console\Command\ImportCommand(),

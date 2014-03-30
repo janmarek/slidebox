@@ -20,12 +20,15 @@ nette:
   security:
     frames:
 
+extensions:
+  doctrine2identity: Majkl578\NetteAddons\Doctrine2Identity\DI\IdentityExtension
+
 services:
   router: Presidos\Router\RouterFactory::createRouter
 
   # doctrine
   emFactory:
-    class: Presidos\Model\Doctrine\EntityManagerFactory
+    class: Presidos\Doctrine\EntityManagerFactory
     arguments:
       - %database%
       - %debugMode%
@@ -49,9 +52,17 @@ services:
 
   # presentations
   presentationRepository:
-    class: Presidos\Model\Presentation\PresentationRepository
-    factory: @em::getRepository('Presidos\Model\Presentation\Presentation')
+    class: Presidos\Presentation\PresentationRepository
+    factory: @em::getRepository('Presidos\Presentation\Presentation')
+  presentationFactory: Presidos\Presentation\PresentationFactory
+  themeRepository:
+    class: Presidos\Presentation\ThemeRepository
+    factory: @em::getRepository('Presidos\Presentation\Theme')
 
-  texyFactory: Presidos\Model\TexyFactory
+  texyFactory: Presidos\Presentation\TexyFactory
   texy: @texyFactory::createTexy()
-  htmlGenerator: Presidos\Model\HtmlGenerator
+  htmlGenerator: Presidos\Presentation\HtmlGenerator
+
+  #fixtures
+  fixtures: Presidos\Fixtures\Fixtures
+  fixturesCommand: Presidos\Fixtures\FixturesCommand

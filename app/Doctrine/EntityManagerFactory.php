@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Model\Doctrine;
+namespace Presidos\Doctrine;
 
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\ORM\EntityManager;

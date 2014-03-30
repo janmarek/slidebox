@@ -1,4 +1,4 @@
-.editor-body {
+body.editor-body {
 	margin: 0;
 	height: 100%;
 }
@@ -8,6 +8,7 @@
 
 	.editor-header {
 		display: table-row;
+		height: 52px;
 
 		.header-cell {
 			display: table-cell;
@@ -46,6 +47,30 @@
 		width: 20%;
 		&.body-cell {
 			background: #EEE;
+		}
+
+		h3 {
+			color: #888;
+			font-size: 120%;
+			padding: 0 0 5px;
+			&:first-child {margin-top: 0}
+		}
+
+		.theme-list {
+			.make-row(14px);
+			.theme-wrapper {
+				padding: 4px; background: #DDD;
+				&:hover {
+					background: #AAA;
+				}
+				&.active {
+					 background: #ff6f1d;
+				 }
+			}
+			.theme-column {
+				.make-sm-column(6);
+				padding: 0 7px;
+			}
 		}
 	}
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Model;
+namespace Presidos\Presentation;
 
 use Texy;
 

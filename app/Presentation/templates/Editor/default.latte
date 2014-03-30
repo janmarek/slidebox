@@ -1,6 +1,6 @@
 {block bodyTag}<body class="editor-body">{/block}
 
-{block content}
+{block body}
 
 <div class="editor" id="presidos-editor">
 	<div class="editor-header">
@@ -56,33 +56,54 @@
 	</div>
 	<div class="editor-body">
 		<div class="body-cell properties">
-			Create new presentation
+			<h3>Details</h3>
+
+			<p>
+				Name: <span data-bind="text: name"></span>
+				(<a href="">edit</a>)<br>
+				Created: <span></span><br>
+				Last update: <span></span>
+			</p>
+
+			<p>
+				<a href="">Publish</a> |
+				<a href="">Download PDF</a> |
+				<a href="">Delete</a>
+			</p>
+
+			<h3>Other presenations</h3>
+			<p>
+				<a n:href="List:create">Create new presentation</a>
+			</p>
+
+			<h3>Themes</h3>
+			<div class="theme-list" data-bind="foreach: themes">
+				<div class="theme-column">
+					<div class="theme-wrapper" data-bind="
+						css: { active: $data === $parent.selectedTheme() },
+						click: $parent.selectTheme.bind($parent),
+						event: {
+							mouseover: $parent.showPreviewTheme.bind($parent),
+							mouseout: $parent.resetPreviewTheme.bind($parent)
+						}
+					">
+						<div data-bind="attr: { 'class': 'theme-preview ' + className }">
+							<div class="heading" data-bind="text: name"></div>
+							<div class="body">text</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<h3>Fonts</h3>
+
 		</div>
 		<div class="body-cell main-content">
-			<div id="editor">{*
-*}První slajd
-***********
-
-- fssdgfgf
-- fssdgfgf
-- fssdgfgf
-
-Druhý slajd
-***********
-
-1) sfsdg sfg dfg
-2) sfdgdfgdf
-3) sfdfgfgd
-
-Třetí slajd
-***********
-
-Tady je nějaký text.{*
-			*}</div>
+			<div id="editor">{$presentation->texy}</div>
 		</div>
 		<div class="body-cell preview">
 			<div class="preview-content">
-				<div class="theme-default" data-bind="html: previewHtml"></div>
+				<div data-bind="html: previewHtml, attr: { 'class': previewTheme().className }"></div>
 			</div>
 		</div>
 	</div>
@@ -95,7 +116,15 @@ Tady je nějaký text.{*
 <script>
 	var editor = aceFactory("editor");
 	var texyEditor = new TexyEditor(editor);
-	var presidosEditor = new PresidosEditor(texyEditor, {link preview});
+	var presidosEditor = new PresidosEditor(
+		texyEditor,
+		{$presentation},
+		{$themes},
+		{
+			previewUrl: {link preview!},
+			saveThemeUrl: {link saveTheme!}
+		}
+	);
 	ko.applyBindings(presidosEditor, document.getElementById('presidos-editor'));
 </script>
 {/block}

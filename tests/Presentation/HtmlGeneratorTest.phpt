@@ -1,8 +1,8 @@
 <?php
 
-namespace Presidos\Test\Model;
+namespace Presidos\Test\Presentation;
 
-use Presidos\Model\HtmlGenerator;
+use Presidos\Presentation\HtmlGenerator;
 use Presidos\Test\BaseTestCase;
 use Tester\Assert;
 use Tester\DomQuery;
@@ -24,9 +24,9 @@ class HtmlGeneratorTest extends BaseTestCase
 
 		$htmlGenerator = new HtmlGenerator($texy);
 
-		$presentationHtml = $htmlGenerator->getPresentationHtml('...');
+		$result = $htmlGenerator->getPresentationHtml('...');
 
-		$doc = DomQuery::fromHtml($presentationHtml);
+		$doc = DomQuery::fromHtml($result->getHtml());
 		$slides = $doc->find('div.slide');
 		$headings = $doc->find('div.slide h2');
 		$lists = $doc->find('div.slide > div.slide-content > ul');
@@ -37,6 +37,8 @@ class HtmlGeneratorTest extends BaseTestCase
 		Assert::equal(1, count($lists));
 		Assert::equal(1, count($paragraphs));
 		Assert::true($doc->has('ul li')); // content is copied
+
+		Assert::equal('Heading', $result->getName());
 	}
 
 	public function testEmptyHtml()
@@ -47,12 +49,13 @@ class HtmlGeneratorTest extends BaseTestCase
 
 		$htmlGenerator = new HtmlGenerator($texy);
 
-		$presentationHtml = $htmlGenerator->getPresentationHtml('...');
+		$result = $htmlGenerator->getPresentationHtml('...');
 
-		$doc = DomQuery::fromHtml($presentationHtml);
+		$doc = DomQuery::fromHtml($result->getHtml());
 		$slides = $doc->find('div.slide');
 
 		Assert::equal(1, count($slides));
+		Assert::null($result->getName());
 	}
 
 }

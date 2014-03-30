@@ -1,20 +1,20 @@
 <?php
 
-namespace Presidos\Model\Presentation;
+namespace Presidos\Presentation;
 
 use Doctrine\ORM\Mapping as ORM;
-use Presidos\Model\Doctrine\Entity;
-use Presidos\Model\Doctrine\Timestampable;
+use Presidos\Doctrine\Entity;
+use Presidos\Doctrine\Timestampable;
 use Presidos\User\User;
 
 /**
  * @author Jan Marek
  *
  * @ORM\Table(name="presentation")
- * @ORM\Entity(repositoryClass="Presidos\Model\Presentation\PresentationRepository")
+ * @ORM\Entity(repositoryClass="Presidos\Presentation\PresentationRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Presentation extends Entity
+class Presentation extends Entity implements \JsonSerializable
 {
 
 	use Timestampable;
@@ -27,6 +27,9 @@ class Presentation extends Entity
 
 	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
 	private $user;
+
+	/** @ORM\ManyToOne(targetEntity="Presidos\Presentation\Theme") */
+	private $theme;
 
 	public function __construct(User $user)
 	{
@@ -57,6 +60,28 @@ class Presentation extends Entity
 	public function getUser()
 	{
 		return $this->user;
+	}
+
+	public function setTheme(Theme $theme)
+	{
+		$this->theme = $theme;
+	}
+
+	public function getTheme()
+	{
+		return $this->theme;
+	}
+
+	public function jsonSerialize()
+	{
+		return [
+			'id' => $this->getId(),
+			'name' => $this->name,
+			'texy' => $this->texy,
+			'theme' => $this->theme,
+			'updated' => $this->getUpdated(),
+			'created' => $this->getCreated(),
+		];
 	}
 
 }

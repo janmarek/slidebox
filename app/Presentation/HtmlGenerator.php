@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Model;
+namespace Presidos\Presentation;
 
 use Symfony\Component\DomCrawler\Crawler;
 use Texy;
@@ -25,6 +25,8 @@ class HtmlGenerator
 	{
 		$html = $this->texy->process($texy);
 
+		$firstHeading = NULL;
+
 		$original = new Crawler('<?xml version="1.0" encoding="UTF-8"?><body>' . $html . '</body>');
 		$new = new \DOMDocument('1.0', 'UTF-8');
 
@@ -40,6 +42,10 @@ class HtmlGenerator
 					$newContent = $this->createSlideContentElement($new, $newSlide);
 				}
 
+				if (!$firstHeading) {
+					$firstHeading = $child->textContent;
+				}
+
 				$newSlide->insertBefore($new->importNode($child, TRUE), $newContent);
 			} else {
 				$newContent->appendChild($new->importNode($child, TRUE));
@@ -49,7 +55,7 @@ class HtmlGenerator
 
 		$new->appendChild($newSlide);
 
-		return $new->saveHTML();
+		return new HtmlGeneratorResult($new->saveHTML(), $firstHeading);
 	}
 
 	private function createSlideElement(\DOMDocument $dom)

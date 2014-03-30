@@ -2,7 +2,7 @@
 
 namespace Presidos\User;
 
-use Presidos\Model\Doctrine\Repository;
+use Presidos\Doctrine\Repository;
 
 /**
  * @author Jan Marek

@@ -4,9 +4,12 @@ namespace Presidos\Presenter;
 
 use Nette\Application\ForbiddenRequestException;
 use Nette\Application\UI\Presenter;
+use Nextras\Application\UI\SecuredLinksPresenterTrait;
 
 abstract class BasePresenter extends Presenter
 {
+
+	use SecuredLinksPresenterTrait;
 
 	public function createTemplate($class = NULL)
 	{

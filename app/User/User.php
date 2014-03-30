@@ -5,8 +5,8 @@ namespace Presidos\User;
 use Doctrine\ORM\Mapping as ORM;
 use Nette\Security\IIdentity;
 use Nette\Utils\Strings;
-use Presidos\Model\Doctrine\Entity;
-use Presidos\Model\Doctrine\Timestampable;
+use Presidos\Doctrine\Entity;
+use Presidos\Doctrine\Timestampable;
 
 /**
  * @ORM\Table(name="user")
