@@ -51,6 +51,7 @@
 			</a>
 		</div>
 		<div class="header-cell preview">
+			<a class="pull-right" n:href="Present: id => $presentation->id">Present</a>
 			Preview
 		</div>
 	</div>
@@ -67,7 +68,7 @@
 
 			<p>
 				<a href="">Publish</a> |
-				<a href="">Download PDF</a> |
+				<a n:href="Pdf: id => $presentation->id">Download PDF</a> |
 				<a href="">Delete</a>
 			</p>
 

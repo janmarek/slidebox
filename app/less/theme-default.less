@@ -3,6 +3,7 @@
 	@heading-text: white;
 	@body: white;
 	@body-text: black;
+	@th: #DDD;
 
 	&.theme-preview {
 		background: @body; color: @body-text;
@@ -18,4 +19,21 @@
 			color: @heading-text;
 		}
 	}
+
+	.slide-content {
+		div, ul, table, p {
+			margin: 0 0 1em;
+		}
+
+		table {
+			th, td {
+				border: 0.1em solid #AAA;
+			}
+			th {
+				background: @th;
+			}
+		}
+	}
+
+
 }

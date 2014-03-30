@@ -25,6 +25,9 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="text", nullable=true) */
 	private $texy;
 
+	/** @ORM\Column(type="boolean") */
+	private $published;
+
 	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
 	private $user;
 
@@ -34,6 +37,7 @@ class Presentation extends Entity implements \JsonSerializable
 	public function __construct(User $user)
 	{
 		$this->user = $user;
+		$this->published = FALSE;
 		$this->initDateTimes();
 	}
 
@@ -72,6 +76,16 @@ class Presentation extends Entity implements \JsonSerializable
 		return $this->theme;
 	}
 
+	public function setPublished($published)
+	{
+		$this->published = $published;
+	}
+
+	public function isPublished()
+	{
+		return $this->published;
+	}
+
 	public function jsonSerialize()
 	{
 		return [
@@ -79,6 +93,7 @@ class Presentation extends Entity implements \JsonSerializable
 			'name' => $this->name,
 			'texy' => $this->texy,
 			'theme' => $this->theme,
+			'published' => $this->published,
 			'updated' => $this->getUpdated(),
 			'created' => $this->getCreated(),
 		];
