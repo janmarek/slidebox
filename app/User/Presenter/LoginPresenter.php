@@ -52,7 +52,7 @@ class LoginPresenter extends BasePresenter
 			$identity = $this->passwordAuthenticator->authenticate($values->email, $values->password);
 			$this->user->login($identity);
 
-			$this->restoreRequest($this->backlink);
+			$this->restoreRequest($this->getParameter('backlink'));
 			$this->flashMessage('You have been successfully logged in.');
 			$this->redirect('User:');
 

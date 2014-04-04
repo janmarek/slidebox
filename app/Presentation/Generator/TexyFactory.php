@@ -1,8 +1,6 @@
 <?php
 
-namespace Presidos\Presentation;
-
-use Texy;
+namespace Presidos\Presentation\Generator;
 
 /**
  * @author Jan Marek
@@ -11,11 +9,11 @@ class TexyFactory
 {
 
 	/**
-	 * @return Texy
+	 * @return GeneratorTexy
 	 */
 	public function createTexy()
 	{
-		$texy = new Texy();
+		$texy = new GeneratorTexy(new SlidesTexyHandler());
 
 		$texy->tabWidth = 4;
 		$texy->headingModule->balancing = 'fixed';

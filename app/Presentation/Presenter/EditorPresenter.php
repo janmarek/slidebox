@@ -3,7 +3,7 @@
 namespace Presidos\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
-use Presidos\Presentation\HtmlGenerator;
+use Presidos\Presentation\Generator\GeneratorTexy;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presentation\ThemeRepository;
 use Presidos\Presenter\BasePresenter;
@@ -11,8 +11,8 @@ use Presidos\Presenter\BasePresenter;
 class EditorPresenter extends BasePresenter
 {
 
-	/** @var HtmlGenerator */
-	private $htmlGenerator;
+	/** @var GeneratorTexy */
+	private $generatorTexy;
 
 	/** @var PresentationRepository */
 	private $presentationRepository;
@@ -23,10 +23,10 @@ class EditorPresenter extends BasePresenter
 	/** @var ThemeRepository */
 	private $themeRepository;
 
-	public function __construct(HtmlGenerator $htmlGenerator, PresentationRepository $presentationRepository,
+	public function __construct(GeneratorTexy $generatorTexy, PresentationRepository $presentationRepository,
 		ThemeRepository $themeRepository, EntityManager $em)
 	{
-		$this->htmlGenerator = $htmlGenerator;
+		$this->generatorTexy = $generatorTexy;
 		$this->presentationRepository = $presentationRepository;
 		$this->themeRepository = $themeRepository;
 		$this->em = $em;
@@ -57,7 +57,8 @@ class EditorPresenter extends BasePresenter
 		$id = $request->getPost('id');
 		$texy = $request->getPost('text');
 
-		$result = $this->htmlGenerator->getPresentationHtml($texy);
+		$html = $this->generatorTexy->process($texy);
+		$name = $this->generatorTexy->getLastPresentation()->getName();
 
 		$presentation = $this->presentationRepository->findByUserAndId($this->getUser()->getIdentity(), $id);
 		$presentation->setTexy($texy);
@@ -65,8 +66,8 @@ class EditorPresenter extends BasePresenter
 
 		$this->sendJson([
 			'updated' => new \DateTime(),
-			'name' => $result->getName(),
-			'html' => $result->getHtml(),
+			'name' => $name,
+			'html' => $html,
 		]);
 	}
 

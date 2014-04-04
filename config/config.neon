@@ -59,9 +59,8 @@ services:
     class: Presidos\Presentation\ThemeRepository
     factory: @em::getRepository('Presidos\Presentation\Theme')
 
-  texyFactory: Presidos\Presentation\TexyFactory
+  texyFactory: Presidos\Presentation\Generator\TexyFactory
   texy: @texyFactory::createTexy()
-  htmlGenerator: Presidos\Presentation\HtmlGenerator
 
   #fixtures
   fixtures: Presidos\Fixtures\Fixtures
