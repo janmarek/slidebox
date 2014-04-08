@@ -1,0 +1,30 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../../../www/libs/bower/mocha/mocha.css">
+</head>
+<body>
+<div id="mocha"></div>
+<script src="../../../www/libs/bower/mocha/mocha.js"></script>
+<script src="../../../www/libs/bower/chai/chai.js"></script>
+<script>
+	mocha.ui('bdd');
+	mocha.reporter('html');
+	expect = chai.expect;
+</script>
+<div id="aceEditor" style="height: 200px"></div>
+<script src="../../../www/generated/web.js"></script>
+<script src="../../../www/libs/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+var editor = aceFactory("aceEditor");
+</script>
+<script src="../../../temp/tests.js"></script>
+<script>
+	if (window.mochaPhantomJS) {
+		mochaPhantomJS.run();
+	} else {
+		mocha.run();
+	}
+</script>
+</body>
+</html>

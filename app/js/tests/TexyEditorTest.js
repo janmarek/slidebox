@@ -1,239 +1,141 @@
-var expect = require('chai').expect;
-
 describe('TexyEditor', function () {
 	var document, ace, texyEditor;
 
-	function mockCursor(row, column) {
-		ace.getCursorPosition = function () {
-			return {row: row, column: column};
-		};
-	}
-
 	beforeEach(function () {
-		document = {};
-		ace = {
-			session: {
-				getDocument: function () {
-					return document;
-				}
-			},
-			commands: {
-				addCommand: function () {}
-			},
-			focus: function () {}
-		};
-		texyEditor = new TexyEditor(ace);
+		texyEditor = new TexyEditor(editor);
 	});
 
+	function setValue(value) {
+		editor.setValue(value);
+		editor.selection.clearSelection();
+		editor.selection.moveCursorTo(editor.session.getLength(), 0);
+		editor.selection.moveCursorLineEnd();
+	}
+
 	describe('list handler', function () {
-		var inserts;
-
-		beforeEach(function () {
-			inserts = [];
-			ace.insert = function (insert) {
-				inserts.push(insert);
-			};
-			mockCursor(0, 0);
-		});
-
 		it('inserts enter on empty line', function () {
-			document.getLine = function () {
-				return '';
-			};
+			setValue('asdf');
 			texyEditor.listHandler();
-			expect(inserts).to.eql(["\n"]);
+			expect(editor.getValue()).to.eql("asdf\n");
 		});
 
 		it('inserts -', function () {
-			document.getLine = function () {
-				return '- asdf';
-			};
+			setValue('- asdf');
 			texyEditor.listHandler();
-			expect(inserts).to.eql(["\n", '- ']);
+
+			expect(editor.getValue()).to.eql("- asdf\n- ");
 		});
 
 		it('inserts *', function () {
-			document.getLine = function () {
-				return '- asdf';
-			};
+			setValue('* asdf');
 			texyEditor.listHandler();
-			expect(inserts).to.eql(["\n", '- ']);
-		});
 
+			expect(editor.getValue()).to.eql("* asdf\n* ");
+		});
 		it('inserts next number', function () {
-			document.getLine = function () {
-				return '2) asdf';
-			};
+			setValue('2) asdf');
 			texyEditor.listHandler();
-			expect(inserts).to.eql(["\n", '3) ']);
+
+			expect(editor.getValue()).to.eql("2) asdf\n3) ");
 		});
 
 		it('inserts next small letter', function () {
-			document.getLine = function () {
-				return 'a) asdf';
-			};
+			setValue('a) asdf');
 			texyEditor.listHandler();
-			expect(inserts).to.eql(["\n", 'b) ']);
+
+			expect(editor.getValue()).to.eql("a) asdf\nb) ");
 		});
 
 		it('after z inserts z again', function () {
-			document.getLine = function () {
-				return 'z) asdf';
-			};
+			setValue('z) asdf');
 			texyEditor.listHandler();
-			expect(inserts).to.eql(["\n", 'z) ']);
+
+			expect(editor.getValue()).to.eql("z) asdf\nz) ");
 		});
 
 		it('inserts next upper letter', function () {
-			document.getLine = function () {
-				return 'B) asdf';
-			};
+			setValue('B) asdf');
 			texyEditor.listHandler();
-			expect(inserts).to.eql(["\n", 'C) ']);
+
+			expect(editor.getValue()).to.eql("B) asdf\nC) ");
 		});
 
 		it('after Z inserts Z again', function () {
-			document.getLine = function () {
-				return 'Z) asdf';
-			};
+			setValue('Z) asdf');
 			texyEditor.listHandler();
-			expect(inserts).to.eql(["\n", 'Z) ']);
+
+			expect(editor.getValue()).to.eql("Z) asdf\nZ) ");
 		});
 
 		it('works with indentation', function () {
-			document.getLine = function () {
-				return '- asdf';
-			};
+			setValue('  - asdf');
 			texyEditor.listHandler();
-			expect(inserts).to.eql(["\n", '- ']);
+
+			expect(editor.getValue()).to.eql("  - asdf\n  - ");
 		});
 	});
 
 	describe('headings', function () {
-		var selectionRange;
-
-		beforeEach(function () {
-			selectionRange = null;
-
-			texyEditor.select = function () {
-				selectionRange = arguments;
-			};
-		});
-
 		it('prompts for text on empty line', function () {
-			mockCursor(1, 0);
-			document.getLine = function () {
-				return '';
-			};
+			setValue("x\n\n\nx");
+			editor.selection.moveCursorTo(2, 0);
 			prompt = function () {
 				return 'asdf';
 			};
 
-			var line, lines;
-			document.insertLines = function (a, b) {
-				line = a;
-				lines = b;
-			};
-
 			texyEditor.heading('-');
 
-			expect(line).to.equal(1);
-			expect(lines).to.eql(['asdf', '----']);
+			expect(editor.getValue()).to.eql("x\n\nasdf\n----\n\nx");
 
-			expect(selectionRange[0]).to.eql(1);
-			expect(selectionRange[1]).to.eql(0);
-			expect(selectionRange[2]).to.eql(1);
-			expect(selectionRange[3]).to.eql(4);
+			var range = editor.getSelectionRange();
+			expect(range.start.row).to.eql(2);
+			expect(range.start.column).to.eql(0);
+			expect(range.end.row).to.eql(2);
+			expect(range.end.column).to.eql(4);
 		});
 
 		it('adds underline', function () {
-			mockCursor(1, 0);
-			document.getLine = function () {
-				return 'asdf';
-			};
-
-			var line, lines;
-			document.insertLines = function (a, b) {
-				line = a;
-				lines = b;
-			};
+			setValue("\nabcd");
 
 			texyEditor.heading('*');
 
-			expect(line).to.equal(2);
-			expect(lines).to.eql(['****']);
+			expect(editor.getValue()).to.eql("\nabcd\n****");
 
-			expect(selectionRange[0]).to.eql(1);
-			expect(selectionRange[1]).to.eql(0);
-			expect(selectionRange[2]).to.eql(1);
-			expect(selectionRange[3]).to.eql(4);
+			var range = editor.getSelectionRange();
+			expect(range.start.row).to.eql(1);
+			expect(range.start.column).to.eql(0);
+			expect(range.end.row).to.eql(1);
+			expect(range.end.column).to.eql(4);
 		});
 
 		it('changes underline to other type', function () {
-			mockCursor(1, 0);
-			document.getLine = function (line) {
-				if (line === 1) {
-					return 'asdf';
-				}
-				if (line === 2) {
-					return '===';
-				}
-				return '';
-			};
+			setValue("x\n\nasdf\n----\n\nx");
+			editor.selection.moveCursorTo(2, 0);
 
-			var line, lines;
-			document.insertLines = function (a, b) {
-				line = a;
-				lines = b;
-			};
+			texyEditor.heading('=');
 
-			var startLine, endLine;
-			document.removeLines = function (a, b) {
-				startLine = a;
-				endLine = b;
-			};
+			expect(editor.getValue()).to.eql("x\n\nasdf\n====\n\nx");
 
-			texyEditor.heading('*');
-
-			expect(startLine).to.equal(2);
-			expect(endLine).to.equal(2);
-			expect(line).to.equal(2);
-			expect(lines).to.eql(['****']);
-
-			expect(selectionRange[0]).to.eql(1);
-			expect(selectionRange[1]).to.eql(0);
-			expect(selectionRange[2]).to.eql(1);
-			expect(selectionRange[3]).to.eql(4);
+			var range = editor.getSelectionRange();
+			expect(range.start.row).to.eql(2);
+			expect(range.start.column).to.eql(0);
+			expect(range.end.row).to.eql(2);
+			expect(range.end.column).to.eql(4);
 		});
 
 		it('removes underline if text is heading', function () {
-			mockCursor(1, 0);
-			document.getLine = function (line) {
-				if (line === 1) {
-					return 'asdf';
-				}
-				if (line === 2) {
-					return '***';
-				}
-				return '';
-			};
+			setValue("x\n\nasdf\n----\n\nx");
+			editor.selection.moveCursorTo(2, 1);
 
-			var called = true;
-			document.insertLines = function (a, b) {
-				called = true;
-			};
+			texyEditor.heading('-');
 
-			var startLine, endLine;
-			document.removeLines = function (a, b) {
-				startLine = a;
-				endLine = b;
-			};
+			expect(editor.getValue()).to.eql("x\n\nasdf\n\nx");
 
-			texyEditor.heading('*');
-
-			expect(startLine).to.equal(2);
-			expect(endLine).to.equal(2);
-			expect(called).to.be.true;
+			var range = editor.getSelectionRange();
+			expect(range.start.row).to.eql(2);
+			expect(range.start.column).to.eql(1);
+			expect(range.end.row).to.eql(2);
+			expect(range.end.column).to.eql(1);
 		});
 	});
 });

@@ -7,6 +7,7 @@ module.exports = function (grunt) {
 		'www/libs/knockout.js',
 		'libs/nette/nette/client-side/netteForms.js'
 	].concat(sourceJsFiles);
+	var testFiles = ['app/js/tests/**/*.js'];
 	var lessFile = 'app/less/main.less';
 
 	grunt.initConfig({
@@ -19,8 +20,8 @@ module.exports = function (grunt) {
 				dest: 'www/generated/web.js'
 			},
 			test: {
-				src: [jsFiles, 'app/js/tests/**/*.js'],
-				dest: 'temp/mocha.js'
+				src: testFiles,
+				dest: 'temp/tests.js'
 			}
 		},
 		uglify: {
@@ -46,6 +47,10 @@ module.exports = function (grunt) {
 				files: ['<%= jshint.files %>'],
 				tasks: ['jshint', 'concat']
 			},
+			tests: {
+				files: testFiles,
+				tasks: ['jshint', 'concat']
+			},
 			less: {
 				files: ['app/less/**/*.less'],
 				tasks: ['less']
@@ -58,12 +63,12 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		mochaTest: {
+		mocha: {
 			test: {
+				src: ['app/js/tests/runner.html'],
 				options: {
-					reporter: 'spec'
-				},
-				src: 'temp/mocha.js'
+					run: true
+				}
 			}
 		}
 	});
@@ -73,9 +78,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-mocha-test');
+	grunt.loadNpmTasks('grunt-mocha');
 
-	grunt.registerTask('test', ['jshint', 'concat', 'mochaTest']);
+	grunt.registerTask('test', ['jshint', 'concat', 'mocha']);
 
 	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'less']);
 };
