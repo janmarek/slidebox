@@ -73,6 +73,27 @@ describe('TexyEditor', function () {
 
 			expect(editor.getValue()).to.eql("  - asdf\n  - ");
 		});
+
+		it('finishes lists after two enter pressed', function () {
+			setValue("- asdf\n- ");
+			texyEditor.listHandler();
+
+			expect(editor.getValue()).to.eql("- asdf\n\n");
+		});
+
+		it('finishes numbered lists after two enter pressed', function () {
+			setValue("1) asdf\n2) ");
+			texyEditor.listHandler();
+
+			expect(editor.getValue()).to.eql("1) asdf\n\n");
+		});
+
+		it('finishes letter lists after two enter pressed', function () {
+			setValue("A) asdf\nB) ");
+			texyEditor.listHandler();
+
+			expect(editor.getValue()).to.eql("A) asdf\n\n");
+		});
 	});
 
 	describe('headings', function () {

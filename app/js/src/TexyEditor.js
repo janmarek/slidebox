@@ -20,30 +20,47 @@ TexyEditor.prototype.listHandler = function () {
 
 	this.editor.insert("\n");
 
-	var ulMatches = lineContent.match(/^\s*([\-\*]) /);
+	var endList = function () {
+		this.document.removeLines(line, line);
+		this.editor.insert("\n");
+	}.bind(this);
+
+	var ulMatches = lineContent.match(/^\s*([\-\*]) (.*)/);
 	if (ulMatches) {
-		this.editor.insert(ulMatches[1] + ' ');
-		return;
-	}
-
-	var olMatches = lineContent.match(/^\s*([\d]+)\) /);
-	if (olMatches) {
-		var nextVal = parseInt(olMatches[1], 10) + 1;
-		this.editor.insert(nextVal + ') ');
-		return;
-	}
-
-	var letterOlMatches = lineContent.match(/^\s*([a-zA-Z]+)\) /);
-	if (letterOlMatches) {
-		var letter = letterOlMatches[1];
-		var nextLetter;
-		if (letter.toLowerCase() === 'z') {
-			nextLetter = letter;
+		if (ulMatches[2] === '') {
+			endList();
 		} else {
-			nextLetter = String.fromCharCode(letter.charCodeAt(0) + 1);
+			this.editor.insert(ulMatches[1] + ' ');
 		}
+		return;
+	}
 
-		this.editor.insert(nextLetter + ') ');
+	var olMatches = lineContent.match(/^\s*([\d]+)\) (.*)/);
+	if (olMatches) {
+		if (olMatches[2] === '') {
+			endList();
+		} else {
+			var nextVal = parseInt(olMatches[1], 10) + 1;
+			this.editor.insert(nextVal + ') ');
+		}
+		return;
+	}
+
+	var letterOlMatches = lineContent.match(/^\s*([a-zA-Z]+)\) (.*)/);
+	if (letterOlMatches) {
+		if (letterOlMatches[2] === '') {
+			endList();
+		} else {
+			var letter = letterOlMatches[1];
+			var nextLetter;
+			if (letter.toLowerCase() === 'z') {
+				nextLetter = letter;
+			} else {
+				nextLetter = String.fromCharCode(letter.charCodeAt(0) + 1);
+			}
+
+			this.editor.insert(nextLetter + ') ');
+		}
 	}
 };
 
