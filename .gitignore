@@ -1,5 +1,5 @@
-libs
+/libs
 composer.lock
-app/dev
-app/config.local.neon
+/config/dev
+/config/config.local.neon
 node_modules

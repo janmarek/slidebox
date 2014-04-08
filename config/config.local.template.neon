@@ -1,11 +1,18 @@
 parameters:
   database:
-    driver: mysql
+    driver: pdo_mysql
     host: localhost
-    dbname: skeleton
+    dbname: presidos
     user: root
-    password: xxx
+    password:
+
+services:
+  nette.mailer:
+    class: Nextras\MailPanel\SessionMailer
 
 nette:
   container:
     debugger: true
+  debugger:
+    bar:
+      - Nextras\MailPanel\MailPanel
