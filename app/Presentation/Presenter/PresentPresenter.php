@@ -2,7 +2,7 @@
 
 namespace Presidos\Presentation\Presenter;
 
-use Presidos\Presentation\HtmlGenerator;
+use Presidos\Presentation\Generator\GeneratorTexy;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presenter\BasePresenter;
 
@@ -12,13 +12,13 @@ class PresentPresenter extends BasePresenter
 	/** @var PresentationRepository */
 	private $presentationRepository;
 
-	/** @var HtmlGenerator */
-	private $htmlGenerator;
+	/** @var GeneratorTexy */
+	private $generatorTexy;
 
-	public function __construct(PresentationRepository $presentationRepository, HtmlGenerator $htmlGenerator)
+	public function __construct(PresentationRepository $presentationRepository, GeneratorTexy $generatorTexy)
 	{
 		$this->presentationRepository = $presentationRepository;
-		$this->htmlGenerator = $htmlGenerator;
+		$this->generatorTexy = $generatorTexy;
 	}
 
 	public function renderDefault($id)
@@ -31,7 +31,7 @@ class PresentPresenter extends BasePresenter
 		}
 
 		$this->template->presentation = $presentation;
-		$this->template->html = $this->htmlGenerator->getPresentationHtml($presentation->getTexy())->getHtml();
+		$this->template->html = $this->generatorTexy->process($presentation->getTexy());
 	}
 
 }
