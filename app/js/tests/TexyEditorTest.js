@@ -1,5 +1,5 @@
 describe('TexyEditor', function () {
-	var document, ace, texyEditor;
+	var texyEditor;
 
 	beforeEach(function () {
 		texyEditor = new TexyEditor(editor);
