@@ -12,6 +12,14 @@ describe('TexyEditor', function () {
 		editor.selection.moveCursorLineEnd();
 	}
 
+	function expectSelection(startRow, startColumn, endRow, endColumn) {
+		var range = editor.getSelectionRange();
+		expect(range.start.row).to.eql(startRow);
+		expect(range.start.column).to.eql(startColumn);
+		expect(range.end.row).to.eql(endRow);
+		expect(range.end.column).to.eql(endColumn);
+	}
+
 	describe('list handler', function () {
 		it('inserts enter on empty line', function () {
 			setValue('asdf');
@@ -107,12 +115,7 @@ describe('TexyEditor', function () {
 			texyEditor.heading('-');
 
 			expect(editor.getValue()).to.eql("x\n\nasdf\n----\n\nx");
-
-			var range = editor.getSelectionRange();
-			expect(range.start.row).to.eql(2);
-			expect(range.start.column).to.eql(0);
-			expect(range.end.row).to.eql(2);
-			expect(range.end.column).to.eql(4);
+			expectSelection(2, 0, 2, 4);
 		});
 
 		it('adds underline', function () {
@@ -121,12 +124,7 @@ describe('TexyEditor', function () {
 			texyEditor.heading('*');
 
 			expect(editor.getValue()).to.eql("\nabcd\n****");
-
-			var range = editor.getSelectionRange();
-			expect(range.start.row).to.eql(1);
-			expect(range.start.column).to.eql(0);
-			expect(range.end.row).to.eql(1);
-			expect(range.end.column).to.eql(4);
+			expectSelection(1, 0, 1, 4);
 		});
 
 		it('changes underline to other type', function () {
@@ -136,12 +134,7 @@ describe('TexyEditor', function () {
 			texyEditor.heading('=');
 
 			expect(editor.getValue()).to.eql("x\n\nasdf\n====\n\nx");
-
-			var range = editor.getSelectionRange();
-			expect(range.start.row).to.eql(2);
-			expect(range.start.column).to.eql(0);
-			expect(range.end.row).to.eql(2);
-			expect(range.end.column).to.eql(4);
+			expectSelection(2, 0, 2, 4);
 		});
 
 		it('removes underline if text is heading', function () {
@@ -151,12 +144,75 @@ describe('TexyEditor', function () {
 			texyEditor.heading('-');
 
 			expect(editor.getValue()).to.eql("x\n\nasdf\n\nx");
+			expectSelection(2, 1, 2, 1);
+		});
+	});
 
-			var range = editor.getSelectionRange();
-			expect(range.start.row).to.eql(2);
-			expect(range.start.column).to.eql(1);
-			expect(range.end.row).to.eql(2);
-			expect(range.end.column).to.eql(1);
+	describe('bold', function () {
+		it('adds stars', function () {
+			setValue('asdf');
+			texyEditor.select(0, 1, 0, 3);
+			texyEditor.bold();
+			expect(editor.getValue()).to.eql('a**sd**f');
+			expectSelection(0, 1, 0, 7);
+		});
+
+		it('removes stars', function () {
+			setValue('a**sd**f');
+			texyEditor.select(0, 1, 0, 7);
+			texyEditor.bold();
+			expect(editor.getValue()).to.eql('asdf');
+			expectSelection(0, 1, 0, 3);
+		});
+
+		it('adds stars with italics', function () {
+			setValue('a*sd*f');
+			texyEditor.select(0, 1, 0, 5);
+			texyEditor.bold();
+			expect(editor.getValue()).to.eql('a***sd***f');
+			expectSelection(0, 1, 0, 9);
+		});
+
+		it('removes stars with italics', function () {
+			setValue('a***sd***f');
+			texyEditor.select(0, 1, 0, 9);
+			texyEditor.bold();
+			expect(editor.getValue()).to.eql('a*sd*f');
+			expectSelection(0, 1, 0, 5);
+		});
+	});
+
+	describe('italics', function () {
+		it('adds stars', function () {
+			setValue('asdf');
+			texyEditor.select(0, 1, 0, 3);
+			texyEditor.italics();
+			expect(editor.getValue()).to.eql('a*sd*f');
+			expectSelection(0, 1, 0, 5);
+		});
+
+		it('removes stars', function () {
+			setValue('a*sd*f');
+			texyEditor.select(0, 1, 0, 5);
+			texyEditor.italics();
+			expect(editor.getValue()).to.eql('asdf');
+			expectSelection(0, 1, 0, 3);
+		});
+
+		it('adds stars with bold', function () {
+			setValue('a**sd**f');
+			texyEditor.select(0, 1, 0, 7);
+			texyEditor.italics();
+			expect(editor.getValue()).to.eql('a***sd***f');
+			expectSelection(0, 1, 0, 9);
+		});
+
+		it('removes stars with bold', function () {
+			setValue('a***sd***f');
+			texyEditor.select(0, 1, 0, 9);
+			texyEditor.italics();
+			expect(editor.getValue()).to.eql('a**sd**f');
+			expectSelection(0, 1, 0, 7);
 		});
 	});
 });
