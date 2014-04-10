@@ -21,6 +21,28 @@
 
 {block bodyTag}<body>{/block}
 	{block body}
+		{block header}
+			<div class="header">
+				<span class="pull-right">
+					{if $user->loggedIn}
+					<a n:href=":User:User:">{$user->identity->name}</a>
+					<span class="sep">|</span>
+					<a n:href=":User:Login:logout">log out</a>
+					{/if}
+				</span>
+
+				<a n:href=":Homepage:" class="logo">
+					<span class="triangle">▶</span>
+					<span class="label">Presidos</span>
+				</a>
+
+				{if $user->loggedIn}
+				<a href="">My presentations</a>
+				<span class="sep">|</span>
+				<a n:href="List:create">Create new</a>
+				{/if}
+			</div>
+		{/block}
 		<div class="container">
 		{include #content}
 		</div>

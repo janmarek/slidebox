@@ -1,3 +1,27 @@
 html {
 	height: 100%;
 }
+
+.header {
+	padding: 0 15px;
+	height: 50px;
+	line-height: 47px;
+	border-bottom: 3px solid @orange;
+
+	.logo {
+		font-size: 130%;
+		margin-right: 30px;
+		text-decoration: none;
+
+		.triangle {color: #CCC}
+		.label {color: @orange; font-weight: bold;}
+		&:hover {
+			opacity: 0.9;
+		}
+	}
+
+	.sep {
+		margin: 0 5px;
+		color: #BBB;
+	}
+}

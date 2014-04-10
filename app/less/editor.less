@@ -3,6 +3,19 @@ body.editor-body {
 	height: 100%;
 }
 
+.editor-page {
+	display: table; width: 100%; height: 100%;
+}
+
+.editor-page-header {
+	display: table-row;
+	height: 50px;
+}
+
+.editor-page-content {
+	display: table-row;
+}
+
 .editor {
 	display: table; width: 100%; height: 100%;
 
@@ -13,14 +26,16 @@ body.editor-body {
 		.header-cell {
 			display: table-cell;
 			padding: 15px;
-			background: #DDD;
-			border-bottom: 2px solid #BBB;
+			background: #EEE;
+			border-bottom: 1px solid #EEE;
+			color: #888;
 		}
 	}
 
 	.toolbar {
-		padding: 10px 0 !important;
-		color: #BBB;
+		padding: 10px 10px !important;
+		color: #BBB !important;
+		background: #FFF !important;
 		a {
 			cursor: pointer;
 			display: inline-block;
@@ -39,11 +54,12 @@ body.editor-body {
 
 	.body-cell {
 		display: table-cell;
-		padding: 15px;
+		padding: 5px 15px;
 		vertical-align: top;
 	}
 
 	.properties {
+		padding-top: 0;
 		width: 20%;
 		&.body-cell {
 			background: #EEE;
@@ -51,9 +67,8 @@ body.editor-body {
 
 		h3 {
 			color: #888;
-			font-size: 120%;
-			padding: 0 0 5px;
-			&:first-child {margin-top: 0}
+			font-size: 100%;
+			margin: 15px 0;
 		}
 
 		.theme-list {
