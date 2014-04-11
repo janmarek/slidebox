@@ -65,8 +65,8 @@
 					<p>
 						Name: <span data-bind="text: name"></span>
 						(<a data-bind="click: rename">edit</a>)<br>
-						Created: <span></span><br>
-						Last update: <span></span>
+						Created: <span data-bind="text: formatDateTime(created)"></span><br>
+						Last update: <span data-bind="text: formatDateTime(updated)"></span>
 					</p>
 
 					<p>

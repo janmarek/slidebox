@@ -6,6 +6,8 @@ function PresidosEditor(texyEditor, presentation, themes, config) {
 
 	this.name = ko.observable(presentation.name);
 	this.nameLocked = ko.observable(presentation.nameLocked);
+	this.updated = ko.observable(presentation.updated);
+	this.created = presentation.created;
 	this.editorContent = ko.observable(
 		this.texyEditor.document.getValue()
 	);
@@ -38,6 +40,7 @@ function PresidosEditor(texyEditor, presentation, themes, config) {
 				self.name(data.name);
 			}
 			self.previewHtml(data.html);
+			self.updated(data.updated);
 		});
 	}).extend({
 		rateLimit: 1500

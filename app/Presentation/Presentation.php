@@ -109,8 +109,8 @@ class Presentation extends Entity implements \JsonSerializable
 			'texy' => $this->texy,
 			'theme' => $this->theme,
 			'published' => $this->published,
-			'updated' => $this->getUpdated(),
-			'created' => $this->getCreated(),
+			'updated' => $this->getUpdated()->format('c'),
+			'created' => $this->getCreated()->format('c'),
 		];
 	}
 

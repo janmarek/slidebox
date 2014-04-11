@@ -68,9 +68,9 @@ class EditorPresenter extends BasePresenter
 		$this->em->flush();
 
 		$this->sendJson([
-			'updated' => new \DateTime(),
 			'name' => $name,
 			'html' => $html,
+			'updated' => $presentation->getUpdated()->format('c'),
 		]);
 	}
 
