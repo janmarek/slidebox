@@ -12,6 +12,17 @@ TexyEditor.REGEXP_LETTER_OL = /^\s*([a-zA-Z]+)\) (.*)/;
 
 TexyEditor.prototype.registerHandlers = function () {
 	this.editor.commands.addCommand({
+		name: 'Bold',
+		bindKey: {mac: 'Cmd-B', win: 'Ctrl-B'},
+		exec: this.bold.bind(this)
+	});
+	this.editor.commands.addCommand({
+		name: 'Italics',
+		bindKey: {mac: 'Cmd-I', win: 'Ctrl-I'},
+		exec: this.italics.bind(this)
+	});
+	this.editor.commands.addCommand({
+		name: 'List',
 		bindKey: 'Enter',
 		exec: this.listHandler.bind(this)
 	});
