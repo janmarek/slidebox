@@ -215,4 +215,44 @@ describe('TexyEditor', function () {
 			expectSelection(0, 1, 0, 7);
 		});
 	});
+
+	describe('unordered lists', function () {
+		it('can add list', function () {
+			setValue("lorem\nipsum\ndolor\nsit\named");
+			texyEditor.select(1, 3, 3, 2);
+			texyEditor.unorderedList();
+			expect(editor.getValue()).to.eql("lorem\n- ipsum\n- dolor\n- sit\named");
+			expectSelection(1, 5, 3, 4);
+		});
+
+		it('can add list which is already partially list', function () {
+			setValue("lorem\n- ipsum\n- dolor\nsit\named");
+			texyEditor.select(1, 5, 3, 2);
+			texyEditor.unorderedList();
+			expect(editor.getValue()).to.eql("lorem\n- ipsum\n- dolor\n- sit\named");
+			expectSelection(1, 5, 3, 4);
+		});
+
+		it('can remove list', function () {
+			setValue("lorem\n- ipsum\n- dolor\n- sit\named");
+			texyEditor.select(1, 0, 3, 4);
+			texyEditor.unorderedList();
+			expect(editor.getValue()).to.eql("lorem\nipsum\ndolor\nsit\named");
+			expectSelection(1, 0, 3, 2);
+		});
+
+		it('can switch list type', function () {
+			setValue("lorem\n123) ipsum\n- dolor\na) sit\named");
+			texyEditor.select(1, 7, 3, 3);
+			texyEditor.unorderedList();
+			expect(editor.getValue()).to.eql("lorem\n- ipsum\n- dolor\n- sit\named");
+			expectSelection(1, 4, 3, 2);
+		});
+
+		// TODO switch type with spaces at line beginning
+	});
+
+	// TODO ordered list
+	// TODO table
+	// TODO image
 });

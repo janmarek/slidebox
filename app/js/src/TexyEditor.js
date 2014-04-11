@@ -6,6 +6,9 @@ function TexyEditor(aceEditor) {
 
 TexyEditor.UNDERLINE_MIN = 3;
 TexyEditor.UNDERLINE_MAX = 20;
+TexyEditor.REGEXP_UL = /^\s*([\-\*]) (.*)/;
+TexyEditor.REGEXP_OL = /^\s*([\d]+)\) (.*)/;
+TexyEditor.REGEXP_LETTER_OL = /^\s*([a-zA-Z]+)\) (.*)/;
 
 TexyEditor.prototype.registerHandlers = function () {
 	this.editor.commands.addCommand({
@@ -25,7 +28,7 @@ TexyEditor.prototype.listHandler = function () {
 		this.editor.insert("\n");
 	}.bind(this);
 
-	var ulMatches = lineContent.match(/^\s*([\-\*]) (.*)/);
+	var ulMatches = lineContent.match(TexyEditor.REGEXP_UL);
 	if (ulMatches) {
 		if (ulMatches[2] === '') {
 			endList();
@@ -35,7 +38,7 @@ TexyEditor.prototype.listHandler = function () {
 		return;
 	}
 
-	var olMatches = lineContent.match(/^\s*([\d]+)\) (.*)/);
+	var olMatches = lineContent.match(TexyEditor.REGEXP_OL);
 	if (olMatches) {
 		if (olMatches[2] === '') {
 			endList();
@@ -46,7 +49,7 @@ TexyEditor.prototype.listHandler = function () {
 		return;
 	}
 
-	var letterOlMatches = lineContent.match(/^\s*([a-zA-Z]+)\) (.*)/);
+	var letterOlMatches = lineContent.match(TexyEditor.REGEXP_LETTER_OL);
 	if (letterOlMatches) {
 		if (letterOlMatches[2] === '') {
 			endList();
@@ -164,4 +167,74 @@ TexyEditor.prototype.select = function (startRow, startColumn, endRow, endColumn
 	var Range = ace.require("ace/range").Range;
 
 	this.editor.selection.setSelectionRange(new Range(startRow, startColumn, endRow, endColumn));
+};
+
+TexyEditor.prototype.unorderedList = function () {
+	var range = this.editor.getSelectionRange();
+	var lines = [];
+	var startRow = range.start.row;
+	var startColumn = range.start.column;
+	var endRow = range.end.row;
+	var endColumn = range.end.column;
+	var i, matches;
+
+	// remove list if every line is part of list
+	var removeMode = true;
+	for (i = startRow; i <= endRow; i++) {
+		if (!this.document.getLine(i).match(TexyEditor.REGEXP_UL)) {
+			removeMode = false;
+			break;
+		}
+	}
+
+	for (i = startRow; i <= endRow; i++) {
+		var line = this.document.getLine(i);
+
+		// remove list
+		if (removeMode) {
+			lines.push(line.substring(2));
+			continue;
+		}
+
+		// partial list - line ok
+		if (line.match(TexyEditor.REGEXP_UL)) {
+			lines.push(line);
+			continue;
+		}
+
+		// change list type
+		matches = line.match(TexyEditor.REGEXP_OL) || line.match(TexyEditor.REGEXP_LETTER_OL);
+		if (matches) {
+			lines.push('- ' + matches[2]);
+
+			// {123}) {text} -> - {text}
+			if (i === startRow) {
+				startColumn = startColumn - matches[1].length;
+			}
+			if (i === endRow) {
+				endColumn = endColumn - matches[1].length;
+			}
+			continue;
+		}
+
+		// add list or change partial list to complete list
+		lines.push('- ' + line);
+		if (i === startRow) {
+			startColumn += 2;
+		}
+		if (i === endRow) {
+			endColumn += 2;
+		}
+	}
+
+	// move selection left when removing list
+	if (removeMode) {
+		startColumn = Math.max(0, startColumn - 2);
+		endColumn = Math.max(0, endColumn - 2);
+	}
+
+	this.document.removeLines(startRow, endRow);
+	this.document.insertLines(startRow, lines);
+	this.select(startRow, startColumn, endRow, endColumn);
+	this.editor.focus();
 };
