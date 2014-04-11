@@ -22,6 +22,9 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="string", nullable=true) */
 	private $name;
 
+	/** @ORM\Column(type="boolean") */
+	private $nameLocked;
+
 	/** @ORM\Column(type="text", nullable=true) */
 	private $texy;
 
@@ -38,6 +41,7 @@ class Presentation extends Entity implements \JsonSerializable
 	{
 		$this->user = $user;
 		$this->published = FALSE;
+		$this->nameLocked = FALSE;
 		$this->initDateTimes();
 	}
 
@@ -86,11 +90,22 @@ class Presentation extends Entity implements \JsonSerializable
 		return $this->published;
 	}
 
+	public function isNameLocked()
+	{
+		return $this->nameLocked;
+	}
+
+	public function lockName()
+	{
+		$this->nameLocked = TRUE;
+	}
+
 	public function jsonSerialize()
 	{
 		return [
 			'id' => $this->getId(),
 			'name' => $this->name,
+			'nameLocked' => $this->nameLocked,
 			'texy' => $this->texy,
 			'theme' => $this->theme,
 			'published' => $this->published,

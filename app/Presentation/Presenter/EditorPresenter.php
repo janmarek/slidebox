@@ -61,6 +61,9 @@ class EditorPresenter extends BasePresenter
 		$name = $this->generatorTexy->getLastPresentation()->getName();
 
 		$presentation = $this->presentationRepository->findByUserAndId($this->getUser()->getIdentity(), $id);
+		if (!$presentation->isNameLocked()) {
+			$presentation->setName($name);
+		}
 		$presentation->setTexy($texy);
 		$this->em->flush();
 
@@ -85,6 +88,27 @@ class EditorPresenter extends BasePresenter
 		);
 
 		$presentation->setTheme($theme);
+		$this->em->flush();
+
+		$this->sendJson([
+			'ok' => TRUE,
+		]);
+	}
+
+	/**
+	 * @secured
+	 */
+	public function handleRename()
+	{
+		$request = $this->getHttpRequest();
+
+		$presentation = $this->presentationRepository->findByUserAndId(
+			$this->getUser()->getIdentity(),
+			$request->getPost('id')
+		);
+
+		$presentation->lockName();
+		$presentation->setName($request->getPost('name'));
 		$this->em->flush();
 
 		$this->sendJson([

@@ -64,7 +64,7 @@
 				<div class="body-cell properties">
 					<p>
 						Name: <span data-bind="text: name"></span>
-						(<a href="">edit</a>)<br>
+						(<a data-bind="click: rename">edit</a>)<br>
 						Created: <span></span><br>
 						Last update: <span></span>
 					</p>
@@ -124,7 +124,8 @@
 		{$themes},
 		{
 			previewUrl: {link preview!},
-			saveThemeUrl: {link saveTheme!}
+			saveThemeUrl: {link saveTheme!},
+			renameUrl: {link rename!}
 		}
 	);
 	ko.applyBindings(presidosEditor, document.getElementById('presidos-editor'));

@@ -5,6 +5,7 @@ function PresidosEditor(texyEditor, presentation, themes, config) {
 	this.texyEditor = texyEditor;
 
 	this.name = ko.observable(presentation.name);
+	this.nameLocked = ko.observable(presentation.nameLocked);
 	this.editorContent = ko.observable(
 		this.texyEditor.document.getValue()
 	);
@@ -33,7 +34,9 @@ function PresidosEditor(texyEditor, presentation, themes, config) {
 			id: self.id,
 			text: self.editorContent()
 		}, function (data) {
-			self.name(data.name);
+			if (!self.nameLocked()) {
+				self.name(data.name);
+			}
 			self.previewHtml(data.html);
 		});
 	}).extend({
@@ -56,4 +59,20 @@ PresidosEditor.prototype.showPreviewTheme = function (theme) {
 
 PresidosEditor.prototype.resetPreviewTheme = function () {
 	this.previewTheme(this.selectedTheme());
+};
+
+PresidosEditor.prototype.rename = function () {
+	var newName = prompt('New presentation name:', this.name());
+
+	if (!newName) {
+		return;
+	}
+
+	this.nameLocked(true);
+	this.name(newName);
+
+	$.post(this.config.renameUrl, {
+		id: this.id,
+		name: newName
+	});
 };
