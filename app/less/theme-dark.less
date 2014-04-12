@@ -1,21 +1,32 @@
 .theme-dark {
-	@heading: #0f353c;
-	@heading-text: white;
+	@heading: #2c576f;
+	@heading-text: #84d1fb;
 	@body: black;
-	@body-text: #f6fbd0;
+	@body-text: white;
 
 	&.theme-preview {
-		background: @body; color: @body-text;
-		.heading {background: @heading; color: @heading-text;}
+		background-color: @body; #gradient > .vertical(@heading, @body); color: @body-text;
+		.heading {color: @heading-text; font-weight: bold; text-align: center;}
 	}
 
 	.slide {
-		background: @body;
+		background-color: @body; #gradient > .vertical(@heading, @body);
 		color: @body-text;
 
 		h1, h2 {
-			background: @heading;
 			color: @heading-text;
+			text-shadow: black 1px 1px 5px;
+			padding: 0.5em 0.25em;
+		}
+
+
+		table {
+			th, td {
+				border: 0.1em solid #AAA;
+			}
+			th {
+				background: @heading;
+			}
 		}
 	}
 }

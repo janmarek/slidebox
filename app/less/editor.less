@@ -1,41 +1,51 @@
-body.editor-body {
-	margin: 0;
-	height: 100%;
-}
+.editor-properties {
+	position: fixed;
+	top: 63px;
+	left: 0;
+	bottom: 0;
+	padding: 0 15px 15px;
+	width: 20%;
+	background: #EEE;
+	overflow: auto;
 
-.editor-page {
-	display: table; width: 100%; height: 100%;
-}
-
-.editor-page-header {
-	display: table-row;
-	height: 50px;
-}
-
-.editor-page-content {
-	display: table-row;
-}
-
-.editor {
-	display: table; width: 100%; height: 100%;
-
-	.editor-header {
-		display: table-row;
-		height: 52px;
-
-		.header-cell {
-			display: table-cell;
-			padding: 15px;
-			background: #EEE;
-			border-bottom: 1px solid #EEE;
-			color: @darkBlue;
-		}
+	h3 {
+		color: @darkBlue;
+		font-size: 120%;
+		margin: 15px 0;
 	}
 
+	.theme-list {
+		.make-row(14px);
+		.theme-wrapper {
+			padding: 4px; background: #DDD;
+			&:hover {
+				background: #AAA;
+			}
+			&.active {
+				background: #ff6f1d;
+			}
+		}
+		.theme-column {
+			.make-sm-column(6);
+			padding: 0 7px;
+		}
+	}
+}
+
+.editor-content {
+	position: fixed;
+	top: 63px;
+	left: 20%;
+	bottom: 0;
+	width: 50%;
+	padding: 56px 5px 5px;
+
 	.toolbar {
-		padding: 10px 10px !important;
-		color: #BBB !important;
-		background: #FFF !important;
+		position: absolute; left: 0; top: 0;
+		padding: 10px 10px;
+		width: 100%;
+		color: #BBB;
+		border-bottom: 1px solid #EEE;
 		a {
 			cursor: pointer;
 			display: inline-block;
@@ -48,75 +58,43 @@ body.editor-body {
 		}
 	}
 
-	.editor-body {
-		display: table-row;
-	}
+	#editor {height: 100%}
+}
 
-	.body-cell {
-		display: table-cell;
-		padding: 5px 15px;
-		vertical-align: top;
-	}
+.editor-preview {
+	position: fixed;
+	top: 63px;
+	right: 0;
+	bottom: 0;
+	width: 30%;
+	background: #EEE;
+	padding-top: 50px;
 
-	.properties {
-		padding-top: 0;
-		width: 20%;
-		&.body-cell {
-			background: #EEE;
-		}
+	.preview-header {
+		position: absolute; left: 0; top: 0;
+		width: 100%;
+		padding: 15px;
+
+		.btn {padding: 2px 12px}
 
 		h3 {
 			color: @darkBlue;
-			font-size: 100%;
-			margin: 15px 0;
-		}
-
-		.theme-list {
-			.make-row(14px);
-			.theme-wrapper {
-				padding: 4px; background: #DDD;
-				&:hover {
-					background: #AAA;
-				}
-				&.active {
-					 background: #ff6f1d;
-				 }
-			}
-			.theme-column {
-				.make-sm-column(6);
-				padding: 0 7px;
-			}
+			font-size: 120%;
+			margin: 0;
 		}
 	}
 
-	.preview {
-		width: 30%;
-		&.body-cell {
-			background: #EEE;
-		}
+	.preview-content {
+		padding: 5px 15px;
+		overflow: auto;
+		height: 100%;
 	}
 
-	.main-content {
-		padding: 5px !important;
-		#editor {height: 100%}
+	.slide {
+		min-height: 150px;
+		margin-bottom: 15px;
+		border: 1px solid #BBB;
+		box-shadow: #BBB 0 0 5px;
 	}
-
-	.body-cell.preview {
-		padding: 0;
-
-		.preview-content {
-			padding: 15px;
-			overflow: auto;
-			height: 100%;
-		}
-
-		.slide {
-			min-height: 150px;
-			margin-bottom: 15px;
-			border: 1px solid #BBB;
-			box-shadow: #BBB 0 0 5px;
-		}
-	}
-
 
 }

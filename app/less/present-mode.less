@@ -1,0 +1,37 @@
+.present-mode {
+	font-size: 180%;
+	.slide {
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		overflow: auto;
+	}
+}
+
+.present-bar {
+	position: fixed; bottom: 2px; left: 2px;
+	z-index: 9999;
+
+	background: #DDD;
+	border: 1px solid #BBB;
+	padding: 3px 5px;
+
+	.sep {color: #BBB}
+	input {
+		width: 50px;
+	}
+	a {
+		cursor: pointer;
+		text-decoration: none;
+		padding: 0 5px;
+	}
+	a.bar-close {
+		color: #ba191e;
+		&:hover {color: #97191e}
+	}
+	a.disabled {
+		color: #AAA; cursor: default;
+	}
+}
