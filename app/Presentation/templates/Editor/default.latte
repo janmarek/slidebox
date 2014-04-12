@@ -30,13 +30,13 @@
 			<div class="theme-list" data-bind="foreach: themes">
 				<div class="theme-column">
 					<div class="theme-wrapper" data-bind="
-									css: { active: $data === $parent.selectedTheme() },
-									click: $parent.selectTheme.bind($parent),
-									event: {
-										mouseover: $parent.showPreviewTheme.bind($parent),
-										mouseout: $parent.resetPreviewTheme.bind($parent)
-									}
-								">
+						css: { active: $data === $parent.selectedTheme() },
+						click: $parent.selectTheme.bind($parent),
+						event: {
+							mouseover: $parent.showPreviewTheme.bind($parent),
+							mouseout: $parent.resetPreviewTheme.bind($parent)
+						}
+					">
 						<div data-bind="attr: { 'class': 'theme-preview ' + className }">
 							<div class="heading" data-bind="text: name"></div>
 							<div class="body">text</div>
@@ -47,67 +47,8 @@
 		</div>
 
 		<div class="editor-content">
-			<div class="toolbar">
-				<a data-bind="click: texyEditor.heading.bind(texyEditor, '*')">
-					<img src="{$basePath}/images/silk-icons/text_heading_1.png" width="16" height="16">
-				</a>
-				<a data-bind="click: texyEditor.heading.bind(texyEditor, '=')">
-					<img src="{$basePath}/images/silk-icons/text_heading_2.png" width="16" height="16">
-				</a>
-				<a data-bind="click: texyEditor.heading.bind(texyEditor, '-')">
-					<img src="{$basePath}/images/silk-icons/text_heading_3.png" width="16" height="16">
-				</a>
-				|
-				<a data-bind="click: texyEditor.bold.bind(texyEditor)">
-					<img src="{$basePath}/images/silk-icons/text_bold.png" width="16" height="16">
-				</a>
-				<a data-bind="click: texyEditor.italics.bind(texyEditor)">
-					<img src="{$basePath}/images/silk-icons/text_italic.png" width="16" height="16">
-				</a>
-				|
-				<a data-bind="click: texyEditor.unorderedList.bind(texyEditor)">
-					<img src="{$basePath}/images/silk-icons/text_list_bullets.png" width="16" height="16">
-				</a>
-				<a>
-					<img src="{$basePath}/images/silk-icons/text_list_numbers.png" width="16" height="16">
-				</a>
-				|
-				<a>
-					<img src="{$basePath}/images/silk-icons/world_link.png" width="16" height="16">
-				</a>
-				|
-				<a>
-					<img src="{$basePath}/images/silk-icons/picture.png" width="16" height="16">
-				</a>
-				<a>
-					<img src="{$basePath}/images/youtube-icon.png" width="16" height="16">
-				</a>
-				<a>
-					<img src="{$basePath}/images/silk-icons/table.png" width="16" height="16">
-				</a>
-				|
-				<a href="http://texy.info/en/syntax" target="_blank">
-					<img src="{$basePath}/images/silk-icons/help.png" width="16" height="16">
-				</a>
-			</div>
+			{include @toolbar.latte}
 
-			<div class="modal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<a class="close">&times;</a>
-							<h4 class="modal-title">Modal title</h4>
-						</div>
-						<div class="modal-body">
-							...
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div id="editor">{$presentation->texy}</div>
 		</div>
 
@@ -120,6 +61,8 @@
 				<div data-bind="html: previewHtml, attr: { 'class': previewTheme().className }"></div>
 			</div>
 		</div>
+
+		{include @insertLinkWindow.latte}
 	</div>
 {/block}
 

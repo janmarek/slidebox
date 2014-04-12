@@ -1,0 +1,25 @@
+<!-- ko with: insertLinkWindow -->
+<div class="modal" data-bind="css: { 'modal-visible': opened }">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-bind="click: opened.bind($data, false)">&times;</a>
+				<h4 class="modal-title">Insert link</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="link-text">Link text:</label>
+					<input id="link-text" type="text" class="form-control" data-bind="value: text, hasFocus: textFocused">
+				</div>
+				<div class="form-group">
+					<label for="link-text">Link URL:</label>
+					<input id="link-text" type="text" class="form-control" data-bind="value: url, hasFocus: urlFocused">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bind="click: insert">Insert</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /ko -->

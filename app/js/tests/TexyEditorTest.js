@@ -252,6 +252,32 @@ describe('TexyEditor', function () {
 		// TODO switch type with spaces at line beginning
 	});
 
+	describe('insert link', function () {
+		it('replaces text', function () {
+			setValue('lorem ipsum dolor');
+			texyEditor.select(0, 6, 0, 11);
+			texyEditor.insertLink('sit', 'www.amed.com');
+			expect(editor.getValue()).to.eql('lorem "sit":www.amed.com dolor');
+			expectSelection(0, 6, 0, 24);
+		});
+
+		it('does not select link when text is empty', function () {
+			setValue('lorem ipsum dolor');
+			texyEditor.select(0, 6, 0, 11);
+			texyEditor.insertLink('', 'www.amed.com');
+			expect(editor.getValue()).to.eql('lorem "":www.amed.com dolor');
+			expectSelection(0, 7, 0, 7);
+		});
+
+		it('does not do anything when url is not set', function () {
+			setValue('lorem ipsum dolor');
+			texyEditor.select(0, 6, 0, 11);
+			texyEditor.insertLink('amed', '');
+			expect(editor.getValue()).to.eql('lorem ipsum dolor');
+			expectSelection(0, 6, 0, 11);
+		});
+	});
+
 	// TODO ordered list
 	// TODO table
 	// TODO image

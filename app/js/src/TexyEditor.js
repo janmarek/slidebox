@@ -78,6 +78,10 @@ TexyEditor.prototype.listHandler = function () {
 	}
 };
 
+TexyEditor.prototype.getSelectedText = function () {
+	return this.editor.getSelectedText();
+};
+
 TexyEditor.prototype.tag = function (startText, endText) {
 	// todo check if start row == end row
 
@@ -134,6 +138,30 @@ TexyEditor.prototype.italics = function () {
 	} else {
 		this.phrase('*');
 	}
+};
+
+TexyEditor.prototype.insertLink = function (text, url) {
+	if (!url) {
+		return;
+	}
+
+	var selection = this.editor.getSelectionRange();
+	var linkText = '"' + text + '":' + url;
+	this.document.replace(selection, linkText);
+
+	if (text) {
+		this.select(
+			selection.start.row,
+			selection.start.column,
+			selection.start.row,
+			selection.start.column + linkText.length
+		);
+	} else {
+		this.editor.moveCursorTo(selection.start.row, selection.start.column + 1);
+		this.editor.clearSelection();
+	}
+
+	this.editor.focus();
 };
 
 TexyEditor.prototype.heading = function (level) {
