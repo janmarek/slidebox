@@ -1,0 +1,38 @@
+<!-- ko with: insertTableWindow -->
+<div class="modal" data-bind="css: { 'modal-visible': opened }">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-bind="click: opened.bind($data, false)">&times;</a>
+				<h4 class="modal-title">Insert table</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="table-rows">Rows:</label>
+							<input id="table-rows" type="number" class="form-control" data-bind="value: rows">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="table-cols">Cols:</label>
+							<input id="table-cols" type="number" class="form-control" data-bind="value: cols">
+						</div>
+					</div>
+				</div>
+
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-bind="checked: header">
+						Add table header
+					</label>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bind="click: insert">Insert</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /ko -->

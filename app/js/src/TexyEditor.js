@@ -277,3 +277,30 @@ TexyEditor.prototype.unorderedList = function () {
 	this.select(startRow, startColumn, endRow, endColumn);
 	this.editor.focus();
 };
+
+TexyEditor.prototype.table = function (cols, rows, header) {
+	var texy = "\n";
+	var i, j;
+
+	for (i = 0; i < rows; i++) {
+		// header
+		if (header && i < 2) {
+			texy += '|';
+			for (j = 0; j < cols; ++j) {
+				texy += '--------';
+			}
+			texy += "\n";
+		}
+
+		// cells
+		for (j = 0; j < cols; j++) {
+			texy += "|       ";
+		}
+		texy += "|\n";
+	}
+	texy += "\n";
+
+	var selection = this.editor.getSelectionRange();
+	this.document.replace(selection, texy);
+	this.editor.focus();
+};
