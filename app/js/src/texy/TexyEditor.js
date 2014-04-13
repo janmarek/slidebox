@@ -316,4 +316,5 @@ TexyEditor.prototype.image = function (src, alt, align) {
 		selection.start.row,
 		selection.start.column + texy.length
 	);
+	this.editor.focus();
 };

@@ -6,9 +6,9 @@ function InsertImageWindow(texyEditor) {
 	this.align = ko.observable();
 }
 
-InsertImageWindow.prototype.open = function () {
+InsertImageWindow.prototype.open = function (url) {
 	this.opened(true);
-	this.url('');
+	this.url(url);
 	this.alt('');
 	this.align('center');
 };

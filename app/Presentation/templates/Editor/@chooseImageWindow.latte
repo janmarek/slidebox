@@ -1,0 +1,21 @@
+<!-- ko with: chooseImageWindow -->
+<div class="modal" data-bind="css: { 'modal-visible': opened }">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-bind="click: opened.bind($data, false)">&times;</a>
+				<h4 class="modal-title">Choose image</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="image-url">URL:</label>
+					<input id="image-url" type="text" class="form-control" data-bind="value: url, hasFocus: urlFocused">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bind="click: choose">Choose</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /ko -->
