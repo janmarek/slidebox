@@ -6,6 +6,7 @@ function PresidosEditor(texyEditor, presentation, themes, config) {
 
 	this.insertLinkWindow = new InsertLinkWindow(texyEditor);
 	this.insertTableWindow = new InsertTableWindow(texyEditor);
+	this.insertImageWindow = new InsertImageWindow(texyEditor);
 
 	this.name = ko.observable(presentation.name);
 	this.nameLocked = ko.observable(presentation.nameLocked);

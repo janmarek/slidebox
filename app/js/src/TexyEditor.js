@@ -304,3 +304,16 @@ TexyEditor.prototype.table = function (cols, rows, header) {
 	this.document.replace(selection, texy);
 	this.editor.focus();
 };
+
+TexyEditor.prototype.image = function (src, alt, align) {
+	var texy = '[* ' + src + ' ' + (alt ? '.(' + alt + ') ' : '') + (align ? align : '*') + ']';
+
+	var selection = this.editor.getSelectionRange();
+	this.document.replace(selection, texy);
+	this.select(
+		selection.start.row,
+		selection.start.column,
+		selection.start.row,
+		selection.start.column + texy.length
+	);
+};

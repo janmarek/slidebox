@@ -1,0 +1,38 @@
+<!-- ko with: insertImageWindow -->
+<div class="modal" data-bind="css: { 'modal-visible': opened }">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-bind="click: opened.bind($data, false)">&times;</a>
+				<h4 class="modal-title">Insert image</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="image-url">URL:</label>
+					<input id="image-url" type="text" class="form-control" data-bind="value: url">
+				</div>
+				<div class="form-group">
+					<label>Align:</label><br>
+
+					<label class="inline-radio">
+						<input type="radio" value="center" data-bind="checked: align"> center
+					</label>
+					<label class="inline-radio">
+						<input type="radio" value="left" data-bind="checked: align"> left
+					</label>
+					<label class="inline-radio">
+						<input type="radio" value="right" data-bind="checked: align"> right
+					</label>
+				</div>
+				<div class="form-group">
+					<label for="image-alt">Text description (optional):</label>
+					<input id="image-alt" type="text" class="form-control" data-bind="value: alt">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bind="click: insert">Insert</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /ko -->
