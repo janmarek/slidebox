@@ -97,9 +97,9 @@ class Presentation extends Entity implements \JsonSerializable
 		return $this->theme;
 	}
 
-	public function setPublished($published)
+	public function publish()
 	{
-		$this->published = $published;
+		$this->published = TRUE;
 	}
 
 	public function isPublished()

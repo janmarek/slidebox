@@ -33,14 +33,16 @@
 			</p>
 
 			<h3>Share</h3>
-			<p>Presentation is not published yet. Publish to make it publicly visible.</p>
+			<p data-bind="visible: !published()">Presentation is not published yet. Publish to make it publicly visible.</p>
+			<p data-bind="visible: published">Presentation is published.</p>
 
-			{*<p>*}
-				{*<a href="">Get link to presentation</a><br>*}
+			<p data-bind="visible: published">
+				<a data-bind="click: presentationLinkWindow.opened.bind($data, true)">Get link to presentation</a>
+				{*<br>*}
 				{*<a href="">Embed</a>*}
-			{*</p>*}
+			</p>
 			<p>
-				<a class="btn btn-primary">
+				<a class="btn btn-primary" data-bind="click: publish, visible: !published()">
 					<i class="fa fa-thumbs-up"></i> Publish
 				</a>
 				<a class="btn btn-default" title="Edit collaborators">
@@ -89,6 +91,7 @@
 		{include @chooseImageWindow.latte}
 		{include @insertImageWindow.latte}
 		{include @editDetailsWindow.latte}
+		{include @presentationLinkWindow.latte}
 	</div>
 {/block}
 
@@ -105,7 +108,8 @@
 		{
 			previewUrl: {link preview!},
 			saveThemeUrl: {link saveTheme!},
-			detailsUrl: {link saveDetails!}
+			detailsUrl: {link saveDetails!},
+			publishUrl: {link publish!}
 		}
 	);
 	ko.applyBindings(presidosEditor, document.getElementById('presidos-editor'));

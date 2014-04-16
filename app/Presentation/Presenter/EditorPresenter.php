@@ -127,4 +127,24 @@ class EditorPresenter extends BasePresenter
 		]);
 	}
 
+	/**
+	 * @secured
+	 */
+	public function handlePublish()
+	{
+		$request = $this->getHttpRequest();
+
+		$presentation = $this->presentationRepository->findByUserAndId(
+			$this->getUser()->getIdentity(),
+			$request->getPost('id')
+		);
+
+		$presentation->publish();
+		$this->em->flush();
+
+		$this->sendJson([
+			'ok' => TRUE,
+		]);
+	}
+
 }
