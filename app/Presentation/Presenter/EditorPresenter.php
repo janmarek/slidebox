@@ -101,7 +101,7 @@ class EditorPresenter extends BasePresenter
 	/**
 	 * @secured
 	 */
-	public function handleRename()
+	public function handleSaveDetails()
 	{
 		$request = $this->getHttpRequest();
 
@@ -110,12 +110,20 @@ class EditorPresenter extends BasePresenter
 			$request->getPost('id')
 		);
 
-		$presentation->lockName();
-		$presentation->setName($request->getPost('name'));
+		$name = $request->getPost('name');
+		$description = $request->getPost('description');
+
+		if (!$presentation->isNameLocked() && $name !== $presentation->getName()) {
+			$presentation->lockName();
+		}
+
+		$presentation->setName($name);
+		$presentation->setDescription($description);
 		$this->em->flush();
 
 		$this->sendJson([
 			'ok' => TRUE,
+			'presentation' => $presentation,
 		]);
 	}
 

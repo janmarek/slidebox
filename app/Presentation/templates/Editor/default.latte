@@ -8,14 +8,22 @@
 	<div id="presidos-editor">
 		<div class="editor-properties">
 			<h3>Details</h3>
+
 			<p>
-				Name: <span data-bind="text: name"></span>
-				(<a data-bind="click: rename">edit</a>)<br>
+				Name: <span data-bind="text: name"></span><br>
+				Description:
+				<span data-bind="text: description, visible: description"></span>
+				<i data-bind="visible: !description()">not set</i>
+				<br>
+
 				Created: <span data-bind="text: formatDateTime(created)"></span><br>
 				Last update: <span data-bind="text: formatDateTime(updated)"></span>
 			</p>
 
 			<p>
+				<a data-bind="click: editDetailsWindow.open.bind(editDetailsWindow)" class="btn btn-default">
+					<i class="fa fa-pencil"></i> Edit
+				</a>
 				<a n:href="Pdf: id => $presentation->id" class="btn btn-default" title="Download PDF">
 					<i class="fa fa-download"></i> PDF
 				</a>
@@ -25,11 +33,19 @@
 			</p>
 
 			<h3>Share</h3>
+			<p>Presentation is not published yet. Publish to make it publicly visible.</p>
+
+			{*<p>*}
+				{*<a href="">Get link to presentation</a><br>*}
+				{*<a href="">Embed</a>*}
+			{*</p>*}
 			<p>
-				<a href="">Add collaborator</a>
-			</p>
-			<p>
-				<a>Publish</a>
+				<a class="btn btn-primary">
+					<i class="fa fa-thumbs-up"></i> Publish
+				</a>
+				<a class="btn btn-default" title="Edit collaborators">
+					<i class="fa fa-users"></i> Collaborators (0)
+				</a>
 			</p>
 
 			<h3>Themes</h3>
@@ -72,6 +88,7 @@
 		{include @insertTableWindow.latte}
 		{include @chooseImageWindow.latte}
 		{include @insertImageWindow.latte}
+		{include @editDetailsWindow.latte}
 	</div>
 {/block}
 
@@ -88,7 +105,7 @@
 		{
 			previewUrl: {link preview!},
 			saveThemeUrl: {link saveTheme!},
-			renameUrl: {link rename!}
+			detailsUrl: {link saveDetails!}
 		}
 	);
 	ko.applyBindings(presidosEditor, document.getElementById('presidos-editor'));

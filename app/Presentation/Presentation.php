@@ -22,6 +22,9 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="string", nullable=true) */
 	private $name;
 
+	/** @ORM\Column(type="text", nullable=true) */
+	private $description;
+
 	/** @ORM\Column(type="boolean") */
 	private $nameLocked;
 
@@ -57,6 +60,16 @@ class Presentation extends Entity implements \JsonSerializable
 	public function getName()
 	{
 		return $this->name;
+	}
+
+	public function setDescription($description)
+	{
+		$this->description = $description ?: NULL;
+	}
+
+	public function getDescription()
+	{
+		return $this->description;
 	}
 
 	public function setTexy($texy)
@@ -120,6 +133,7 @@ class Presentation extends Entity implements \JsonSerializable
 			'id' => $this->getId(),
 			'name' => $this->name,
 			'nameLocked' => $this->nameLocked,
+			'description' => $this->description,
 			'texy' => $this->texy,
 			'theme' => $this->theme,
 			'published' => $this->published,

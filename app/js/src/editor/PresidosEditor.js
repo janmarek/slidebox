@@ -8,9 +8,11 @@ function PresidosEditor(texyEditor, presentation, themes, config) {
 	this.insertTableWindow = new InsertTableWindow(texyEditor);
 	this.insertImageWindow = new InsertImageWindow(texyEditor);
 	this.chooseImageWindow = new ChooseImageWindow(this.insertImageWindow);
+	this.editDetailsWindow = new EditDetailsWindow(config, this);
 
 	this.name = ko.observable(presentation.name);
 	this.nameLocked = ko.observable(presentation.nameLocked);
+	this.description = ko.observable(presentation.description);
 	this.updated = ko.observable(presentation.updated);
 	this.created = presentation.created;
 	this.editorContent = ko.observable(
@@ -67,20 +69,4 @@ PresidosEditor.prototype.showPreviewTheme = function (theme) {
 
 PresidosEditor.prototype.resetPreviewTheme = function () {
 	this.previewTheme(this.selectedTheme());
-};
-
-PresidosEditor.prototype.rename = function () {
-	var newName = prompt('New presentation name:', this.name());
-
-	if (!newName) {
-		return;
-	}
-
-	this.nameLocked(true);
-	this.name(newName);
-
-	$.post(this.config.renameUrl, {
-		id: this.id,
-		name: newName
-	});
 };
