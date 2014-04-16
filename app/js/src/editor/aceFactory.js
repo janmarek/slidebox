@@ -1,6 +1,6 @@
 function aceFactory(id) {
 	var editor = ace.edit(id);
-	editor.setTheme('ace/theme/tomorrow');
+	editor.setTheme('ace/theme/chrome');
 	editor.session.setMode('ace/mode/texy');
 	editor.session.setUseWrapMode(true);
 	editor.session.setUseSoftTabs(true);
