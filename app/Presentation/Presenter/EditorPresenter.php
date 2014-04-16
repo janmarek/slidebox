@@ -11,6 +11,8 @@ use Presidos\Presenter\BasePresenter;
 class EditorPresenter extends BasePresenter
 {
 
+	use DeletePresentationTrait;
+
 	/** @var GeneratorTexy */
 	private $generatorTexy;
 
@@ -42,6 +44,7 @@ class EditorPresenter extends BasePresenter
 	{
 		$user = $this->getUser()->getIdentity();
 		$presentation = $this->presentationRepository->findByUserAndId($user, $id);
+		$this->checkExistence($presentation);
 		$themes = $this->themeRepository->getThemesForUser($user);
 
 		$this->template->presentation = $presentation;

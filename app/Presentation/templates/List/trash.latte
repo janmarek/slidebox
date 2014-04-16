@@ -1,0 +1,32 @@
+{var $title = 'My deleted presentations'}
+
+{block content}
+
+<p class="page-toolbar">
+	<a class="btn btn-primary" n:href="default">All presentations</a>
+</p>
+
+<table class="table-list">
+	<tr>
+		<th>Name</th>
+		<th>Created at</th>
+		<th>Modified at</th>
+		<th></th>
+	</tr>
+	<tr n:foreach="$presentations as $presentation">
+		<td>
+			<a n:href="Editor: id => $presentation->id">{$presentation->name}</a>
+		</td>
+		<td>
+			{$presentation->created|date}
+		</td>
+		<td>
+			{$presentation->updated|date}
+		</td>
+		<td class="buttons">
+			<a n:href="recover! id => $presentation->id" class="btn btn-primary">
+				Recover
+			</a>
+		</td>
+	</tr>
+</table>

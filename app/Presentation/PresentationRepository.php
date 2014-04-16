@@ -13,15 +13,22 @@ class PresentationRepository extends Repository
 
 	/**
 	 * @param User $user
-	 * @param $id
+	 * @param int $id
+	 * @param bool $includeDeleted
 	 * @return Presentation|NULL
 	 */
-	public function findByUserAndId(User $user, $id)
+	public function findByUserAndId(User $user, $id, $includeDeleted = FALSE)
 	{
-		return $this->findOneBy([
+		$params = [
 			'user' => $user,
 			'id' => $id,
-		]);
+		];
+
+		if (!$includeDeleted) {
+			$params['deleted'] = FALSE;
+		}
+
+		return $this->findOneBy($params);
 	}
 
 	/**
@@ -32,7 +39,22 @@ class PresentationRepository extends Repository
 	{
 		$qb = $this->createQueryBuilder('p');
 		$qb->andWhere('p.user = :user')->setParameter('user', $user);
-		$qb->orderBy('p.created', 'desc');
+		$qb->andWhere('p.deleted = FALSE');
+		$qb->orderBy('p.updated', 'desc');
+
+		return $qb->getQuery()->getResult();
+	}
+
+	/**
+	 * @param User $user
+	 * @return Presentation[]
+	 */
+	public function findDeletedByUser(User $user)
+	{
+		$qb = $this->createQueryBuilder('p');
+		$qb->andWhere('p.user = :user')->setParameter('user', $user);
+		$qb->andWhere('p.deleted = TRUE');
+		$qb->orderBy('p.updated', 'desc');
 
 		return $qb->getQuery()->getResult();
 	}

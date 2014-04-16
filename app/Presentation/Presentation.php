@@ -31,6 +31,9 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="boolean") */
 	private $published;
 
+	/** @ORM\Column(type="boolean") */
+	private $deleted;
+
 	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
 	private $user;
 
@@ -42,6 +45,7 @@ class Presentation extends Entity implements \JsonSerializable
 		$this->user = $user;
 		$this->published = FALSE;
 		$this->nameLocked = FALSE;
+		$this->deleted = FALSE;
 		$this->initDateTimes();
 	}
 
@@ -88,6 +92,16 @@ class Presentation extends Entity implements \JsonSerializable
 	public function isPublished()
 	{
 		return $this->published;
+	}
+
+	public function isDeleted()
+	{
+		return $this->deleted;
+	}
+
+	public function setDeleted($deleted)
+	{
+		$this->deleted = (bool) $deleted;
 	}
 
 	public function isNameLocked()

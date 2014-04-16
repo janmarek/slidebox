@@ -17,34 +17,42 @@
 
 	<link rel="shortcut icon" href="{$basePath}/favicon.png" type="image/png">
 	<link rel="stylesheet" href="{$basePath}/generated/presidos.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
 
 {block bodyTag}<body>{/block}
 	{block body}
-		{block header}
-			<div class="header">
-				<span class="pull-right">
-					{if $user->loggedIn}
-					<a n:href=":User:User:">{$user->identity->name}</a>
-					<span class="sep">|</span>
-					<a n:href=":User:Login:logout">log out</a>
-					{/if}
-				</span>
-
-				<a n:href=":Homepage:" class="logo">
-					<span class="triangle">▶</span>
-					<span class="label">Presidos</span>
-				</a>
-
+		<div class="header">
+			<div class="container">
+			{block headerContent}
+			<span class="pull-right">
 				{if $user->loggedIn}
-				<a href="">My presentations</a>
+				<a n:href=":User:User:">
+					<i class="fa fa-user"></i> {$user->identity->name}
+				</a>
 				<span class="sep">|</span>
-				<a n:href=":Presentation:List:create">Create new</a>
+				<a n:href=":User:Login:logout">log out</a>
 				{/if}
+			</span>
+
+			<a n:href=":Homepage:" class="logo">
+				<span class="label">Presidos</span>
+			</a>
+
+			{if $user->loggedIn}
+			<a n:href=":Presentation:List:default">My presentations</a>
+			<span class="sep">|</span>
+			<a n:href=":Presentation:List:create"><i class="fa fa-plus"></i> Create new</a>
+			{/if}
+			{/block}
 			</div>
-		{/block}
-		<div class="container">
-		{include #content}
+		</div>
+		<div class="container content">
+			<h1 n:ifset="$title">{$title}</h1>
+
+			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">{$flash->message}</div>
+
+			{include #content}
 		</div>
 	{/block}
 	{block js}

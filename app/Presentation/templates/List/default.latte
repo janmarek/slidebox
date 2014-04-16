@@ -1,9 +1,43 @@
+{var $title = 'My presentations'}
+
 {block content}
 
-<p>
-	<a n:href="create" class="btn btn-primary">Create presentation</a>
+<p class="page-toolbar">
+	<a class="link pull-right" n:href="trash">Deleted presentations</a>
+	<a n:href="create" class="btn btn-primary">
+		<i class="fa fa-plus"></i> Create new presentation
+	</a>
 </p>
 
-<div n:foreach="$presentations as $presentation">
-	{$presentation->name} - <a n:href="Editor: id => $presentation->id">Edit</a>
-</div>
+<table class="table-list">
+	<tr>
+		<th>Name</th>
+		<th>Created at</th>
+		<th>Modified at</th>
+		<th></th>
+	</tr>
+	<tr n:foreach="$presentations as $presentation">
+		<td>
+			<a n:href="Editor: id => $presentation->id">{$presentation->name}</a>
+		</td>
+		<td>
+			{$presentation->created|date}
+		</td>
+		<td>
+			{$presentation->updated|date}
+		</td>
+		<td class="buttons">
+			<a n:href="Editor: id => $presentation->id" class="btn btn-default">
+				<i class="fa fa-pencil"></i>
+				Edit
+			</a>
+			<a n:href="Present: id => $presentation->id" class="btn btn-default">
+				<i class="fa fa-play"></i>
+				Present
+			</a>
+			<a n:href="delete! id => $presentation->id" class="btn btn-danger">
+				<i class="fa fa-trash-o"></i>
+			</a>
+		</td>
+	</tr>
+</table>

@@ -1,7 +1,9 @@
 {block bodyTag}<body class="editor-body">{/block}
 
 {block body}
-	{include #header}
+	<div class="header">
+	{include #headerContent}
+	</div>
 
 	<div id="presidos-editor">
 		<div class="editor-properties">
@@ -14,8 +16,12 @@
 			</p>
 
 			<p>
-				<a n:href="Pdf: id => $presentation->id">Download PDF</a> |
-				<a href="">Delete</a>
+				<a n:href="Pdf: id => $presentation->id" class="btn btn-default" title="Download PDF">
+					<i class="fa fa-download"></i> PDF
+				</a>
+				<a n:href="delete! id => $presentation->id" class="btn btn-danger" title="Delete presentation">
+					<i class="fa fa-trash-o"></i>
+				</a>
 			</p>
 
 			<h3>Share</h3>
