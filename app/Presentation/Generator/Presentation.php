@@ -62,7 +62,10 @@ class Presentation
 		}
 	}
 
-	public function addContent(TexyHtml $html)
+	/**
+	 * @param TexyHtml|string $html
+	 */
+	public function addContent($html)
 	{
 		$this->newSlideIsEmpty = FALSE;
 		$this->newSlideContent->add($html);

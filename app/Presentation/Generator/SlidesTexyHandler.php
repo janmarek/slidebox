@@ -18,10 +18,10 @@ class SlidesTexyHandler
 		$this->presentation = new Presentation();
 
 		foreach ($dom->getChildren() as $child) {
-			if ($child->getName() === 'h1' || $child->getName() === 'h2') {
+			if ($child instanceof TexyHtml && ($child->getName() === 'h1' || $child->getName() === 'h2')) {
 				$this->presentation->newSlide();
 				$this->presentation->addHeading($child);
-			} elseif ($child->getName() === 'hr') {
+			} elseif ($child instanceof TexyHtml && $child->getName() === 'hr') {
 				$this->presentation->newSlide();
 			} else {
 				$this->presentation->addContent($child);

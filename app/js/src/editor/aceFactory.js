@@ -1,7 +1,7 @@
 function aceFactory(id) {
 	var editor = ace.edit(id);
 	editor.setTheme('ace/theme/tomorrow');
-	editor.session.setMode('ace/mode/text');
+	editor.session.setMode('ace/mode/texy');
 	editor.session.setUseWrapMode(true);
 	editor.session.setUseSoftTabs(true);
 	editor.session.setTabSize(2);

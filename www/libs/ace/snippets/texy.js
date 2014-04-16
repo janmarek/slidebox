@@ -1,0 +1,1 @@
+define("ace/snippets/texy",["require","exports","module"],function(e,t,n){t.snippetText="",t.scope="texy"})
