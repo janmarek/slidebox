@@ -40,11 +40,19 @@ describe('TexyEditor', function () {
 
 			expect(editor.getValue()).to.eql("* asdf\n* ");
 		});
+
 		it('inserts next number', function () {
 			setValue('2) asdf');
 			texyEditor.listHandler();
 
 			expect(editor.getValue()).to.eql("2) asdf\n3) ");
+		});
+
+		it('inserts next number (dot syntax)', function () {
+			setValue('2. asdf');
+			texyEditor.listHandler();
+
+			expect(editor.getValue()).to.eql("2. asdf\n3. ");
 		});
 
 		it('inserts next small letter', function () {

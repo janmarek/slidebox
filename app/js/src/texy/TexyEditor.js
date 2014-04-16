@@ -7,7 +7,7 @@ function TexyEditor(aceEditor) {
 TexyEditor.UNDERLINE_MIN = 3;
 TexyEditor.UNDERLINE_MAX = 20;
 TexyEditor.REGEXP_UL = /^\s*([\-\*]) (.*)/;
-TexyEditor.REGEXP_OL = /^\s*([\d]+)\) (.*)/;
+TexyEditor.REGEXP_OL = /^\s*([\d]+)([\)\.]) (.*)/;
 TexyEditor.REGEXP_LETTER_OL = /^\s*([a-zA-Z]+)\) (.*)/;
 
 TexyEditor.prototype.registerHandlers = function () {
@@ -51,11 +51,11 @@ TexyEditor.prototype.listHandler = function () {
 
 	var olMatches = lineContent.match(TexyEditor.REGEXP_OL);
 	if (olMatches) {
-		if (olMatches[2] === '') {
+		if (olMatches[3] === '') {
 			endList();
 		} else {
 			var nextVal = parseInt(olMatches[1], 10) + 1;
-			this.editor.insert(nextVal + ') ');
+			this.editor.insert(nextVal + olMatches[2] + ' ');
 		}
 		return;
 	}
@@ -242,9 +242,18 @@ TexyEditor.prototype.unorderedList = function () {
 		}
 
 		// change list type
-		matches = line.match(TexyEditor.REGEXP_OL) || line.match(TexyEditor.REGEXP_LETTER_OL);
+		var lineContent = null;
+
+		matches = line.match(TexyEditor.REGEXP_OL);
 		if (matches) {
-			lines.push('- ' + matches[2]);
+			lineContent = matches[3];
+		} else {
+			matches = line.match(TexyEditor.REGEXP_LETTER_OL);
+			lineContent = matches ? matches[2] : null;
+		}
+
+		if (matches) {
+			lines.push('- ' + lineContent);
 
 			// {123}) {text} -> - {text}
 			if (i === startRow) {
