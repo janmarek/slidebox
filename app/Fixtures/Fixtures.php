@@ -2,8 +2,10 @@
 
 namespace Presidos\Fixtures;
 
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
-use Presidos\Presentation\Theme;
 
 /**
  * @author Jan Marek
@@ -11,28 +13,32 @@ use Presidos\Presentation\Theme;
 class Fixtures
 {
 
-	private $em;
+	private $purger;
+
+	private $executor;
+
+	private $loader;
 
 	public function __construct(EntityManager $em)
 	{
-		$this->em = $em;
+		$this->purger = new ORMPurger();
+		$this->executor = new ORMExecutor($em, $this->purger);
+		$this->loader = new Loader();
 	}
 
-	public function install()
+	public function addFixtures()
 	{
-		$defaultTheme = new Theme();
-		$defaultTheme->setName('Default');
-		$defaultTheme->setClassName('theme-default');
-		$defaultTheme->setPublic(TRUE);
+		$this->loader->loadFromDirectory(__DIR__ . '/Fixtures');
+	}
 
-		$darkTheme = new Theme();
-		$darkTheme->setName('Dark');
-		$darkTheme->setClassName('theme-dark');
-		$darkTheme->setPublic(TRUE);
+	public function addTestData()
+	{
+		$this->loader->loadFromDirectory(__DIR__ . '/TestData');
+	}
 
-		$this->em->persist($defaultTheme);
-		$this->em->persist($darkTheme);
-		$this->em->flush();
+	public function execute()
+	{
+		$this->executor->execute($this->loader->getFixtures());
 	}
 
 } 

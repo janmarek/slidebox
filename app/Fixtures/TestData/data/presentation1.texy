@@ -1,0 +1,50 @@
+Presentation 1 .[main]
+**************
+
+Short presentation description.
+
+Example Slide
+*************
+
+Unordered
+---------
+
+- You can use lists
+- Item two text
+- Item three text
+
+Ordered
+-------
+
+1) lorem
+2) ipsum
+
+Quote
+*****
+
+What?
+
+> Nothing
+
+And *add* **some** ***basic*** **formatting** and "link":www.seznam.cz to www.seznam.cz.
+
+Table
+*****
+
+|--------------
+| lorem | ipsum | dolor | sit | amed
+|--------------
+| 1 | 2 | 3 | 4 | 5
+| quintulusete |  | telekom | presto | capuccino
+
+Image
+*****
+
+[* http://babka.unas.cz/Obrazky/Priroda/priroda65_1024x768.jpg .(sdfdsf) <]
+
+- Some
+- list
+
+---------------
+
+Any questions? Thank for your attention!

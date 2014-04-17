@@ -20,7 +20,8 @@
 		"nextras/mail-panel": "dev-master",
 		"majkl578/nette-identity-doctrine": "~2.0",
 		"nextras/secured-links": "~1.0",
-		"mikehaertl/phpwkhtmltopdf": "~1.2"
+		"mikehaertl/phpwkhtmltopdf": "~1.2",
+		"doctrine/data-fixtures": "~1.0"
 	},
 	"require-dev": {
 		"nette/tester": "dev-master",

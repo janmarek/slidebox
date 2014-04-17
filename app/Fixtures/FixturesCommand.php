@@ -4,6 +4,7 @@ namespace Presidos\Fixtures;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -25,14 +26,21 @@ class FixturesCommand extends Command
 
 	protected function configure()
 	{
-		$this
-			->setDescription('Fixtures import');
+		$this->setDescription('Fixtures import');
+		$this->addOption('test', 't', InputOption::VALUE_NONE, 'Import test data');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
+		$this->fixtures->addFixtures();
 		$output->writeln('Importing fixtures...');
-		$this->fixtures->install();
+
+		if ($input->getOption('test')) {
+			$this->fixtures->addTestData();
+			$output->writeln('Importing test data...');
+		}
+
+		$this->fixtures->execute();
 
 		$output->writeln('OK');
 	}
