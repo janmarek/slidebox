@@ -10,8 +10,14 @@
 		<input type="number" data-bind="value: page, attr: { max: maxPage}" min="1"> / <span data-bind="text: maxPage"></span>
 		<a data-bind="click: next, css: { disabled: page() === maxPage }" title="Next slide">&#x25B6;</a>
 		<span class="sep">|</span>
-		<a data-bind="click: toggleFullscreen, visible: fullscreenSupported">fullscreen</a>
-		<a n:href="Editor: id => $presentation->id">exit</a>
+		<a data-bind="click: toggleFullscreen, visible: fullscreenSupported" title="Toggle fullscreen mode">
+			<i class="fa fa-expand" data-bind="visible: !fullscreenActive()"></i>
+			<i class="fa fa-compress" data-bind="visible: fullscreenActive"></i>
+			fullscreen
+		</a>
+		<a n:href="Editor: id => $presentation->id">
+			<i class="fa fa-sign-out"></i> exit
+		</a>
 		<span class="sep">|</span>
 		<a data-bind="click: barOpened.bind($data, false)" class="bar-close" title="Close bar">×</a>
 	</div>
