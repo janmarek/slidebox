@@ -29,6 +29,12 @@ class ListPresenter extends BasePresenter
 		$this->em = $em;
 	}
 
+	public function startup()
+	{
+		parent::startup();
+		$this->checkLoggedIn();
+	}
+
 	public function renderDefault()
 	{
 		$presentations = $this->presentationRepository->findByUser($this->getUser()->getIdentity());

@@ -30,19 +30,4 @@ abstract class BaseTestCase extends TestCase
 		return $GLOBALS['container'];
 	}
 
-	/**
-	 * @param string $name
-	 * @return Presenter
-	 */
-	public function getPresenter($name)
-	{
-		$presenter = $this->getContainer()
-			->getByType('Nette\Application\IPresenterFactory')
-			->createPresenter($name);
-
-		$presenter->autoCanonicalize = FALSE;
-
-		return $presenter;
-	}
-
 }

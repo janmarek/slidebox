@@ -3,6 +3,7 @@
 namespace Presidos\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
+use Nette\Utils\Arrays;
 use Presidos\Presentation\Generator\GeneratorTexy;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presentation\ThemeRepository;
@@ -56,9 +57,8 @@ class EditorPresenter extends BasePresenter
 	 */
 	public function handlePreview()
 	{
-		$request = $this->getHttpRequest();
-		$id = $request->getPost('id');
-		$texy = $request->getPost('text');
+		$id = $this->getPostParameter('id');
+		$texy = $this->getPostParameter('text');
 
 		$html = $this->generatorTexy->process($texy);
 		$name = $this->generatorTexy->getLastPresentation()->getName();
@@ -82,12 +82,10 @@ class EditorPresenter extends BasePresenter
 	 */
 	public function handleSaveTheme()
 	{
-		$request = $this->getHttpRequest();
-
-		$theme = $this->themeRepository->find($request->getPost('theme'));
+		$theme = $this->themeRepository->find($this->getPostParameter('theme'));
 		$presentation = $this->presentationRepository->findByUserAndId(
 			$this->getUser()->getIdentity(),
-			$request->getPost('id')
+			$this->getPostParameter('id')
 		);
 
 		$presentation->setTheme($theme);
@@ -103,22 +101,17 @@ class EditorPresenter extends BasePresenter
 	 */
 	public function handleSaveDetails()
 	{
-		$request = $this->getHttpRequest();
-
 		$presentation = $this->presentationRepository->findByUserAndId(
 			$this->getUser()->getIdentity(),
-			$request->getPost('id')
+			$this->getPostParameter('id')
 		);
 
-		$name = $request->getPost('name');
-		$description = $request->getPost('description');
-
-		if (!$presentation->isNameLocked() && $name !== $presentation->getName()) {
+		if (!$presentation->isNameLocked() && $this->getPostParameter('name') !== $presentation->getName()) {
 			$presentation->lockName();
 		}
 
-		$presentation->setName($name);
-		$presentation->setDescription($description);
+		$presentation->setName($this->getPostParameter('name'));
+		$presentation->setDescription($this->getPostParameter('description'));
 		$this->em->flush();
 
 		$this->sendJson([
@@ -132,11 +125,9 @@ class EditorPresenter extends BasePresenter
 	 */
 	public function handlePublish()
 	{
-		$request = $this->getHttpRequest();
-
 		$presentation = $this->presentationRepository->findByUserAndId(
 			$this->getUser()->getIdentity(),
-			$request->getPost('id')
+			$this->getPostParameter('id')
 		);
 
 		$presentation->publish();

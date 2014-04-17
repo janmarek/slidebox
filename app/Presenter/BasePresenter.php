@@ -2,13 +2,22 @@
 
 namespace Presidos\Presenter;
 
+use Nette\Application\Request;
 use Nette\Application\UI\Presenter;
+use Nette\Utils\Arrays;
 use Nextras\Application\UI\SecuredLinksPresenterTrait;
 
 abstract class BasePresenter extends Presenter
 {
 
-	use SecuredLinksPresenterTrait;
+	use SecuredLinksPresenterTrait
+	{
+		getCsrfToken as traitGetCsrfToken;
+	}
+
+	public $testMode = FALSE;
+
+	public $testPresenterName = NULL;
 
 	public function createTemplate($class = NULL)
 	{
@@ -38,6 +47,34 @@ abstract class BasePresenter extends Presenter
 			$backlink = $this->storeRequest();
 			$this->redirect(':User:Login:', ['backlink' => $backlink]);
 		}
+	}
+
+	protected function getPostParameter($name)
+	{
+		return Arrays::get($this->getRequest()->getPost(), $name);
+	}
+
+	public function getCsrfToken($control, $method, $params)
+	{
+		if ($this->testMode) {
+			return 'csrf';
+		} else {
+			return $this->traitGetCsrfToken($control, $method, $params);
+		}
+	}
+
+	// test helper methods
+
+	public function runPost($action, $get = [], $post = [])
+	{
+		$get['action'] = $action;
+		return $this->run(new Request($this->testPresenterName, 'POST', $get, $post));
+	}
+
+	public function runGet($action, $get = [])
+	{
+		$get['action'] = $action;
+		return $this->run(new Request($this->testPresenterName, 'GET', $get));
 	}
 
 }

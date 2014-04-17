@@ -10,6 +10,7 @@ trait DeletePresentationTrait
 	 */
 	public function handleDelete($id)
 	{
+		$this->checkLoggedIn();
 		$presentation = $this->presentationRepository->findByUserAndId($this->getUser()->getIdentity(), $id);
 		$this->checkExistence($presentation);
 

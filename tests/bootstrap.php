@@ -7,6 +7,7 @@ define('TEST_MODE', TRUE);
 
 require __DIR__ . '/../www/index.php';
 require __DIR__ . '/BaseTestCase.php';
+require __DIR__ . '/PresenterTestCase.php';
 
 Tester\Environment::setup();
 

@@ -34,7 +34,7 @@ class Presentations extends AbstractFixture implements DependentFixtureInterface
 
 		$presentation3 = new Presentation($user2);
 		$presentation3->setTheme($theme);
-		$presentation3->setTexy(file_get_contents(__DIR__ . '/data/presentation2.texy'));
+		$presentation3->setTexy(file_get_contents(__DIR__ . '/data/presentation3.texy'));
 		$presentation3->setName('Presentation 3');
 
 		$em->persist($presentation1);
