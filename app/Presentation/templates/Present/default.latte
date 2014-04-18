@@ -1,26 +1,35 @@
 {var $title = $presentation->name}
 
-{block bodyTag}<body class="present-mode {$presentation->theme->className}">{/block}
+{block bodyTag}<body class="{if $isEmbed}embed-mode{else}present-mode{/if} {$presentation->theme->className}">{/block}
 
 {block body}
 <div data-bind="showNth: page() - 1" id="presentation-content">
 {!$html}
 </div>
-<div class="present-bar" data-bind="visible: barOpened">
-	<a data-bind="click: prev, css: { disabled: page() === 1 }" title="Previous slide">&#x25C0;</a>
-	<input type="number" data-bind="value: page, attr: { max: maxPage}" min="1"> / <span data-bind="text: maxPage"></span>
-	<a data-bind="click: next, css: { disabled: page() === maxPage }" title="Next slide">&#x25B6;</a>
-	<span class="sep">|</span>
-	<a data-bind="click: toggleFullscreen, visible: fullscreenSupported" title="Toggle fullscreen mode">
-		<i class="fa fa-expand" data-bind="visible: !fullscreenActive()"></i>
-		<i class="fa fa-compress" data-bind="visible: fullscreenActive"></i>
-		fullscreen
-	</a>
-	<a n:href="Editor: id => $presentation->id">
-		<i class="fa fa-sign-out"></i> exit
-	</a>
-	<span class="sep">|</span>
-	<a data-bind="click: barOpened.bind($data, false)" class="bar-close" title="Close bar">×</a>
+<div class="present-bar-wrapper">
+	<div class="present-bar" data-bind="visible: barOpened">
+		<a data-bind="click: prev, css: { disabled: page() === 1 }" title="Previous slide">&#x25C0;</a>
+		<input type="number" data-bind="value: page, attr: { max: maxPage}" min="1"> / <span data-bind="text: maxPage"></span>
+		<a data-bind="click: next, css: { disabled: page() === maxPage }" title="Next slide">&#x25B6;</a>
+		<span class="sep">|</span>
+		{if !$isEmbed}
+			<a data-bind="click: toggleFullscreen, visible: fullscreenSupported" title="Toggle fullscreen mode">
+				<i class="fa fa-expand" data-bind="visible: !fullscreenActive()"></i>
+				<i class="fa fa-compress" data-bind="visible: fullscreenActive"></i>
+				fullscreen
+			</a>
+			<a n:href="Editor: id => $presentation->id">
+				<i class="fa fa-sign-out"></i> exit
+			</a>
+			<span class="sep">|</span>
+			<a data-bind="click: barOpened.bind($data, false)" class="bar-close" title="Close bar">×</a>
+		{else}
+			<a target="_blank" title="Fullscreen mode" n:href="default id => $presentation->id">
+				<i class="fa fa-expand"></i>
+				fullscreen
+			</a>
+		{/if}
+	</div>
 </div>
 {/block}
 

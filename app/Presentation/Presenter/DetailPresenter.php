@@ -6,7 +6,7 @@ use Presidos\Presentation\Generator\GeneratorTexy;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presenter\BasePresenter;
 
-class PresentPresenter extends BasePresenter
+class DetailPresenter extends BasePresenter
 {
 
 	/** @var PresentationRepository */
@@ -31,23 +31,6 @@ class PresentPresenter extends BasePresenter
 		}
 
 		$this->template->presentation = $presentation;
-		$this->template->isEmbed = FALSE;
-		$this->template->html = $this->generatorTexy->process($presentation->getTexy());
-	}
-
-	public function renderEmbed($id)
-	{
-		$presentation = $this->presentationRepository->find($id);
-		$this->checkExistence($presentation);
-
-		if (!$presentation->isPublished()) {
-			$this->error();
-		}
-
-		$this->template->presentation = $presentation;
-		$this->template->isEmbed = TRUE;
-		$this->template->html = $this->generatorTexy->process($presentation->getTexy());
-		$this->setView('default');
 	}
 
 }

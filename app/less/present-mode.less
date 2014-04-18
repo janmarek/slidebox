@@ -11,13 +11,23 @@
 	}
 }
 
-.present-mode #presentation-content {
+.embed-mode {
+	margin: 0; padding: 0;
+}
+
+.present-mode #presentation-content, .embed-mode #presentation-content {
 	height: 100%;
 	.slide {min-height: 100%}
 }
 
+.present-bar-wrapper {
+	position: fixed; bottom: 2px; left: 2px; right: 2px;
+}
+.embed-mode .present-bar-wrapper {
+	text-align: center;
+}
 .present-bar {
-	position: fixed; bottom: 2px; left: 2px;
+	display: inline-block;
 	z-index: 9999;
 	font-size: 14px;
 

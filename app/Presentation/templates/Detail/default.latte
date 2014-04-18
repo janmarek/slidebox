@@ -1,0 +1,10 @@
+{var $title = $presentation->name}
+
+{block content}
+
+<div class="detail-presentation">
+	<iframe src="{link Present:embed id => $presentation->id}"></iframe>
+</div>
+
+{$presentation->created|date}
+{$presentation->updated|date}
