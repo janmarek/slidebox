@@ -4,21 +4,17 @@
 	@body: black;
 	@body-text: white;
 
-	&.theme-preview {
-		background-color: @body; #gradient > .vertical(@heading, @body); color: @body-text;
-		.heading {color: @heading-text; font-weight: bold; text-align: center;}
+	.slide, &.theme-preview {
+		background-color: @body;
+		color: @body-text;
+
+		.heading, h1, h2 {
+			#gradient > .vertical(@heading, @body);
+			color: @heading-text;
+		}
 	}
 
 	.slide {
-		background-color: @body; #gradient > .vertical(@heading, @body);
-		color: @body-text;
-
-		h1, h2 {
-			color: @heading-text;
-			text-shadow: black 1px 1px 5px;
-			padding: 0.5em 0.25em;
-		}
-
 		table {
 			th, td {
 				border: 0.1em solid #AAA;

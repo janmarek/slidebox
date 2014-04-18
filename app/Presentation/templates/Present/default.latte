@@ -1,26 +1,26 @@
 {var $title = $presentation->name}
 
+{block bodyTag}<body class="present-mode {$presentation->theme->className}">{/block}
+
 {block body}
-<div id="presentation">
-	<div class="present-mode {$presentation->theme->className}" data-bind="showNth: page() - 1" id="presentation-content">
-	{!$html}
-	</div>
-	<div class="present-bar" data-bind="visible: barOpened">
-		<a data-bind="click: prev, css: { disabled: page() === 1 }" title="Previous slide">&#x25C0;</a>
-		<input type="number" data-bind="value: page, attr: { max: maxPage}" min="1"> / <span data-bind="text: maxPage"></span>
-		<a data-bind="click: next, css: { disabled: page() === maxPage }" title="Next slide">&#x25B6;</a>
-		<span class="sep">|</span>
-		<a data-bind="click: toggleFullscreen, visible: fullscreenSupported" title="Toggle fullscreen mode">
-			<i class="fa fa-expand" data-bind="visible: !fullscreenActive()"></i>
-			<i class="fa fa-compress" data-bind="visible: fullscreenActive"></i>
-			fullscreen
-		</a>
-		<a n:href="Editor: id => $presentation->id">
-			<i class="fa fa-sign-out"></i> exit
-		</a>
-		<span class="sep">|</span>
-		<a data-bind="click: barOpened.bind($data, false)" class="bar-close" title="Close bar">×</a>
-	</div>
+<div data-bind="showNth: page() - 1" id="presentation-content">
+{!$html}
+</div>
+<div class="present-bar" data-bind="visible: barOpened">
+	<a data-bind="click: prev, css: { disabled: page() === 1 }" title="Previous slide">&#x25C0;</a>
+	<input type="number" data-bind="value: page, attr: { max: maxPage}" min="1"> / <span data-bind="text: maxPage"></span>
+	<a data-bind="click: next, css: { disabled: page() === maxPage }" title="Next slide">&#x25B6;</a>
+	<span class="sep">|</span>
+	<a data-bind="click: toggleFullscreen, visible: fullscreenSupported" title="Toggle fullscreen mode">
+		<i class="fa fa-expand" data-bind="visible: !fullscreenActive()"></i>
+		<i class="fa fa-compress" data-bind="visible: fullscreenActive"></i>
+		fullscreen
+	</a>
+	<a n:href="Editor: id => $presentation->id">
+		<i class="fa fa-sign-out"></i> exit
+	</a>
+	<span class="sep">|</span>
+	<a data-bind="click: barOpened.bind($data, false)" class="bar-close" title="Close bar">×</a>
 </div>
 {/block}
 
@@ -31,6 +31,6 @@ var maxPage = $('#presentation-content > *').size();
 var presentView = new PresentView(maxPage);
 presentView.registerHashHandling(window.location);
 presentView.registerKeys(window);
-ko.applyBindings(presentView, document.getElementById('presentation'));
+ko.applyBindings(presentView);
 </script>
 {/block}

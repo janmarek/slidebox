@@ -5,16 +5,9 @@
 	@body-text: black;
 	@th: #DDD;
 
-	&.theme-preview {
+	&.theme-preview, .slide {
 		background: @body; color: @body-text;
-		.heading {background: @heading; color: @heading-text; font-weight: bold; text-align: center;}
-	}
-
-	.slide {
-		background: @body;
-		color: @body-text;
-
-		h1, h2 {
+		.heading, h1, h2 {
 			background: @heading;
 			color: @heading-text;
 		}

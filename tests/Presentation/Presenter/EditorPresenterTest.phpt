@@ -3,7 +3,6 @@
 namespace Presidos\Test\Presentation\Presenter;
 
 use Nette\Application\BadRequestException;
-use Nette\Application\Request;
 use Nette\Application\Responses\JsonResponse;
 use Nette\Application\Responses\RedirectResponse;
 use Presidos\Presentation\Presenter\EditorPresenter;

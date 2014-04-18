@@ -1,18 +1,25 @@
-.present-mode {
-	font-size: 180%;
+.present-mode, .pdf-mode {
+	font-size: 250%;
+	margin: 0;
+	padding: 0;
+}
+
+.pdf-mode {
 	.slide {
-		position: fixed;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		overflow: auto;
+		page-break-after: always;
+		min-height: 219.5mm;
 	}
+}
+
+.present-mode #presentation-content {
+	height: 100%;
+	.slide {min-height: 100%}
 }
 
 .present-bar {
 	position: fixed; bottom: 2px; left: 2px;
 	z-index: 9999;
+	font-size: 14px;
 
 	background: #DDD;
 	border: 1px solid #BBB;

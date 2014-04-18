@@ -38,7 +38,13 @@ class PdfPresenter extends BasePresenter
 
 		if ($format === 'pdf') {
 			$pdf = new \WkHtmlToPdf([
-				'binPath' => '/usr/local/bin/wkhtmltopdf'
+				'binPath' => '/usr/local/bin/wkhtmltopdf',
+				'margin-bottom' => 0,
+				'margin-top' => 0,
+				'margin-left' => 0,
+				'margin-right' => 0,
+				'page-width' => '300',
+				'page-height' => '225',
 			]);
 			$pdf->addPage((string) $template);
 
