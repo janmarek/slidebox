@@ -15,7 +15,7 @@
 	</tr>
 	<tr n:foreach="$presentations as $presentation">
 		<td>
-			<a n:href="Editor: id => $presentation->id">{$presentation->name}</a>
+			{$presentation->name}
 		</td>
 		<td>
 			{$presentation->created|date}

@@ -41,6 +41,13 @@ describe('TexyEditor', function () {
 			expect(editor.getValue()).to.eql("* asdf\n* ");
 		});
 
+		it('inserts >', function () {
+			setValue('> asdf');
+			texyEditor.listHandler();
+
+			expect(editor.getValue()).to.eql("> asdf\n> ");
+		});
+
 		it('inserts next number', function () {
 			setValue('2) asdf');
 			texyEditor.listHandler();
@@ -95,6 +102,13 @@ describe('TexyEditor', function () {
 			texyEditor.listHandler();
 
 			expect(editor.getValue()).to.eql("- asdf\n\n");
+		});
+
+		it('finishes blockquote after two enter pressed', function () {
+			setValue("> asdf\n> ");
+			texyEditor.listHandler();
+
+			expect(editor.getValue()).to.eql("> asdf\n\n");
 		});
 
 		it('finishes numbered lists after two enter pressed', function () {

@@ -9,6 +9,7 @@ TexyEditor.UNDERLINE_MAX = 20;
 TexyEditor.REGEXP_UL = /^\s*([\-\*]) (.*)/;
 TexyEditor.REGEXP_OL = /^\s*([\d]+)([\)\.]) (.*)/;
 TexyEditor.REGEXP_LETTER_OL = /^\s*([a-zA-Z]+)\) (.*)/;
+TexyEditor.REGEXP_BLOCKQUOTE = /^> (.*)/;
 
 TexyEditor.prototype.registerHandlers = function () {
 	this.editor.commands.addCommand({
@@ -74,6 +75,16 @@ TexyEditor.prototype.listHandler = function () {
 			}
 
 			this.editor.insert(nextLetter + ') ');
+		}
+		return;
+	}
+
+	var bqMatches = lineContent.match(TexyEditor.REGEXP_BLOCKQUOTE);
+	if (bqMatches) {
+		if (bqMatches[1] === '') {
+			endList();
+		} else {
+			this.editor.insert('> ');
 		}
 	}
 };
