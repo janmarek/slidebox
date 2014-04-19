@@ -14,27 +14,35 @@ class Users extends AbstractFixture
 
 	public function load(ObjectManager $em)
 	{
-		$user = new User();
-		$user->setName('Honza');
-		$user->setEmail('honza@presidos.com');
-		$user->changePassword('xxx');
-		$user->allow();
-		$this->addReference('user-honza', $user);
-		$em->persist($user);
+		$honza = new User();
+		$honza->setName('Honza');
+		$honza->setEmail('honza@presidos.com');
+		$honza->changePassword('xxx');
+		$honza->allow();
+		$this->addReference('user-honza', $honza);
+		$em->persist($honza);
 
-		$user2 = new User();
-		$user2->setName('Pepa');
-		$user2->setEmail('pepa@presidos.com');
-		$user2->changePassword('xxx');
-		$user2->allow();
-		$this->addReference('user-pepa', $user2);
-		$em->persist($user2);
+		$pepa = new User();
+		$pepa->setName('Pepa');
+		$pepa->setEmail('pepa@presidos.com');
+		$pepa->changePassword('xxx');
+		$pepa->allow();
+		$this->addReference('user-pepa', $pepa);
+		$em->persist($pepa);
 
-		$user3 = new User();
-		$user3->setName('Franta');
-		$user3->setEmail('not@allowed.com');
-		$user3->changePassword('xxx');
-		$em->persist($user3);
+		$franta = new User();
+		$franta->setName('Franta');
+		$franta->setEmail('not@allowed.com');
+		$franta->changePassword('xxx');
+		$em->persist($franta);
+
+		$petr = new User();
+		$petr->setName('Petr');
+		$petr->setEmail('petr@presidos.com');
+		$petr->changePassword('xxx');
+		$petr->allow();
+		$this->addReference('user-petr', $petr);
+		$em->persist($petr);
 
 		$em->flush();
 	}

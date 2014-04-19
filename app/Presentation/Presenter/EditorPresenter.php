@@ -5,9 +5,11 @@ namespace Presidos\Presentation\Presenter;
 use Doctrine\ORM\EntityManager;
 use Nette\Utils\Arrays;
 use Presidos\Presentation\Generator\GeneratorTexy;
+use Presidos\Presentation\Presentation;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presentation\ThemeRepository;
 use Presidos\Presenter\BasePresenter;
+use Presidos\User\UserRepository;
 
 class EditorPresenter extends BasePresenter
 {
@@ -26,29 +28,47 @@ class EditorPresenter extends BasePresenter
 	/** @var ThemeRepository */
 	private $themeRepository;
 
+	/** @var UserRepository */
+	private $userRepository;
+
+	/** @var Presentation */
+	private $presentation;
+
 	public function __construct(GeneratorTexy $generatorTexy, PresentationRepository $presentationRepository,
-		ThemeRepository $themeRepository, EntityManager $em)
+		ThemeRepository $themeRepository, UserRepository $userRepository, EntityManager $em)
 	{
 		$this->generatorTexy = $generatorTexy;
 		$this->presentationRepository = $presentationRepository;
 		$this->themeRepository = $themeRepository;
 		$this->em = $em;
+		$this->userRepository = $userRepository;
 	}
 
 	protected function startup()
 	{
 		parent::startup();
 		$this->checkLoggedIn();
+
+		$presentation = $this->presentationRepository->find($this->getParameter('id'));
+		$this->checkExistence($presentation);
+
+		if ($presentation->isDeleted()) {
+			$this->error('Presentation is deleted');
+		}
+
+		if ($presentation->canEditPresentation($this->getUser()->getIdentity())) {
+			$this->presentation = $presentation;
+		} else {
+			$this->error('You cannot edit this presentation', 403);
+		}
 	}
 
 	public function renderDefault($id)
 	{
 		$user = $this->getUser()->getIdentity();
-		$presentation = $this->presentationRepository->findByUserAndId($user, $id);
-		$this->checkExistence($presentation);
 		$themes = $this->themeRepository->getThemesForUser($user);
 
-		$this->template->presentation = $presentation;
+		$this->template->presentation = $this->presentation;
 		$this->template->themes = $themes;
 	}
 
@@ -57,23 +77,21 @@ class EditorPresenter extends BasePresenter
 	 */
 	public function handlePreview()
 	{
-		$id = $this->getPostParameter('id');
 		$texy = $this->getPostParameter('text');
 
 		$html = $this->generatorTexy->process($texy);
 		$name = $this->generatorTexy->getLastPresentation()->getName();
 
-		$presentation = $this->presentationRepository->findByUserAndId($this->getUser()->getIdentity(), $id);
-		if (!$presentation->isNameLocked()) {
-			$presentation->setName($name);
+		if (!$this->presentation->isNameLocked()) {
+			$this->presentation->setName($name);
 		}
-		$presentation->setTexy($texy);
+		$this->presentation->setTexy($texy);
 		$this->em->flush();
 
 		$this->sendJson([
 			'name' => $name,
 			'html' => $html,
-			'updated' => $presentation->getUpdated()->format('c'),
+			'updated' => $this->presentation->getUpdated()->format('c'),
 		]);
 	}
 
@@ -83,12 +101,8 @@ class EditorPresenter extends BasePresenter
 	public function handleSaveTheme()
 	{
 		$theme = $this->themeRepository->find($this->getPostParameter('theme'));
-		$presentation = $this->presentationRepository->findByUserAndId(
-			$this->getUser()->getIdentity(),
-			$this->getPostParameter('id')
-		);
 
-		$presentation->setTheme($theme);
+		$this->presentation->setTheme($theme);
 		$this->em->flush();
 
 		$this->sendJson([
@@ -101,22 +115,17 @@ class EditorPresenter extends BasePresenter
 	 */
 	public function handleSaveDetails()
 	{
-		$presentation = $this->presentationRepository->findByUserAndId(
-			$this->getUser()->getIdentity(),
-			$this->getPostParameter('id')
-		);
-
-		if (!$presentation->isNameLocked() && $this->getPostParameter('name') !== $presentation->getName()) {
-			$presentation->lockName();
+		if (!$this->presentation->isNameLocked() && $this->getPostParameter('name') !== $this->presentation->getName()) {
+			$this->presentation->lockName();
 		}
 
-		$presentation->setName($this->getPostParameter('name'));
-		$presentation->setDescription($this->getPostParameter('description'));
+		$this->presentation->setName($this->getPostParameter('name'));
+		$this->presentation->setDescription($this->getPostParameter('description'));
 		$this->em->flush();
 
 		$this->sendJson([
 			'ok' => TRUE,
-			'presentation' => $presentation,
+			'presentation' => $this->presentation,
 		]);
 	}
 
@@ -125,12 +134,26 @@ class EditorPresenter extends BasePresenter
 	 */
 	public function handlePublish()
 	{
-		$presentation = $this->presentationRepository->findByUserAndId(
-			$this->getUser()->getIdentity(),
-			$this->getPostParameter('id')
-		);
+		$this->presentation->publish();
+		$this->em->flush();
 
-		$presentation->publish();
+		$this->sendJson([
+			'ok' => TRUE,
+		]);
+	}
+
+	/**
+	 * @secured
+	 */
+	public function handleSaveCollaborators()
+	{
+		if (!$this->presentation->isOwner($this->getUser()->getIdentity())) {
+			$this->error('User is not owner.', 403);
+		}
+
+		$collaboratorIds = $this->getPostParameter('collaborators') ?: [];
+		$collaborators = $this->userRepository->findAllowedByIds($collaboratorIds);
+		$this->presentation->setCollaborators($collaborators);
 		$this->em->flush();
 
 		$this->sendJson([

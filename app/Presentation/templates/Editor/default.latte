@@ -45,8 +45,8 @@
 				<a class="btn btn-primary" data-bind="click: publish, visible: !published()">
 					<i class="fa fa-thumbs-up"></i> Publish
 				</a>
-				<a class="btn btn-default" title="Edit collaborators">
-					<i class="fa fa-users"></i> Collaborators (0)
+				<a class="btn btn-default" title="Edit collaborators" data-bind="click: collaboratorsWindow.open.bind(collaboratorsWindow)">
+					<i class="fa fa-users"></i> Collaborators (<span data-bind="text: collaborators().length"></span>)
 				</a>
 			</p>
 
@@ -91,6 +91,7 @@
 		{include @chooseImageWindow.latte}
 		{include @insertImageWindow.latte}
 		{include @editDetailsWindow.latte}
+		{include @collaboratorsWindow.latte}
 		{include @presentationLinkWindow.latte}
 	</div>
 {/block}
@@ -109,7 +110,9 @@
 			previewUrl: {link preview!},
 			saveThemeUrl: {link saveTheme!},
 			detailsUrl: {link saveDetails!},
-			publishUrl: {link publish!}
+			publishUrl: {link publish!},
+			autocompleteCollaboratorsUrl: {link Autocomplete:collaborators},
+			saveCollaboratorsUrl: {link saveCollaborators!}
 		}
 	);
 	ko.applyBindings(presidosEditor, document.getElementById('presidos-editor'));

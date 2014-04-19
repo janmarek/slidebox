@@ -16,23 +16,25 @@ class Presentations extends AbstractFixture implements DependentFixtureInterface
 
 	public function load(ObjectManager $em)
 	{
-		$user = $this->getReference('user-honza');
-		$user2 = $this->getReference('user-pepa');
+		$honza = $this->getReference('user-honza');
+		$pepa = $this->getReference('user-pepa');
+		$petr = $this->getReference('user-petr');
 		$theme = $this->getReference('theme-default');
 
-		$presentation1 = new Presentation($user);
+		$presentation1 = new Presentation($honza);
 		$presentation1->setTheme($theme);
 		$presentation1->setTexy(file_get_contents(__DIR__ . '/data/presentation1.texy'));
 		$presentation1->setName('Presentation 1');
+		$presentation1->setCollaborators([$petr]);
 		$presentation1->publish();
 
-		$presentation2 = new Presentation($user);
+		$presentation2 = new Presentation($honza);
 		$presentation2->setTheme($theme);
 		$presentation2->setTexy(file_get_contents(__DIR__ . '/data/presentation2.texy'));
 		$presentation2->setName('Presentation 2');
 		$presentation2->setDeleted(TRUE);
 
-		$presentation3 = new Presentation($user2);
+		$presentation3 = new Presentation($pepa);
 		$presentation3->setTheme($theme);
 		$presentation3->setTexy(file_get_contents(__DIR__ . '/data/presentation3.texy'));
 		$presentation3->setName('Presentation 3');

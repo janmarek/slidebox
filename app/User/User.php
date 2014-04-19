@@ -12,7 +12,7 @@ use Presidos\Doctrine\Timestampable;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Presidos\User\UserRepository")
  */
-class User extends Entity implements IIdentity
+class User extends Entity implements IIdentity, \JsonSerializable
 {
 
 	use Timestampable;
@@ -150,6 +150,17 @@ class User extends Entity implements IIdentity
 	public function isAllowed()
 	{
 		return $this->allowed;
+	}
+
+	public function jsonSerialize()
+	{
+		return [
+			'id' => $this->getId(),
+			'name' => $this->name,
+			'email' => $this->email,
+			'allowed' => $this->allowed,
+			'facebookUid' => $this->facebookUid,
+		];
 	}
 
 }

@@ -1,0 +1,42 @@
+<!-- ko with: collaboratorsWindow -->
+<div class="modal" data-bind="css: { 'modal-visible': opened }">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-bind="click: opened.bind($data, false)">&times;</a>
+				<h4 class="modal-title">Collaborators</h4>
+			</div>
+			<div class="modal-body">
+				<p>Users who can edit this presentation:</p>
+				<ul>
+					<li>
+						owner: <span data-bind="text: owner.name"></span>
+						(<span data-bind="text: owner.email"></span>)
+					</li>
+					<!-- ko foreach: collaborators -->
+					<li>
+						<span data-bind="text: name"></span>
+						(<span data-bind="text: email"></span>)
+						<a class="btn btn-danger" data-bind="click: $parent.remove.bind($parent, $data)">
+							<i class="fa fa-times"></i>
+						</a>
+					</li>
+					<!-- /ko -->
+				</ul>
+				<p><label for="add-collaborator">Add collaborators:</label></p>
+				<p><input type="text" class="form-control" id="add-collaborator" data-bind="value: autocompleteString"></p>
+				<p data-bind="foreach: autocompletedUsers">
+					<a class="btn btn-default" data-bind="click: $parent.add.bind($parent, $data)">
+						<i class="fa fa-plus"></i>
+						<span data-bind="text: name"></span>
+						(<span data-bind="text: email"></span>)
+					</a>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-primary" data-bind="click: save">OK</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /ko -->

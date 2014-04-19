@@ -4,23 +4,26 @@ function PresidosEditor(texyEditor, presentation, themes, config) {
 
 	this.texyEditor = texyEditor;
 
+	this.name = ko.observable(presentation.name);
+	this.nameLocked = ko.observable(presentation.nameLocked);
+	this.description = ko.observable(presentation.description);
+	this.published = ko.observable(presentation.published);
+	this.collaborators = ko.observableArray(presentation.collaborators);
+	this.updated = ko.observable(presentation.updated);
+	this.created = presentation.created;
+	this.user = presentation.user;
+	this.editorContent = ko.observable(
+		this.texyEditor.document.getValue()
+	);
+	this.previewHtml = ko.observable();
+
 	this.insertLinkWindow = new InsertLinkWindow(texyEditor);
 	this.insertTableWindow = new InsertTableWindow(texyEditor);
 	this.insertImageWindow = new InsertImageWindow(texyEditor);
 	this.chooseImageWindow = new ChooseImageWindow(this.insertImageWindow);
 	this.editDetailsWindow = new EditDetailsWindow(config, this);
 	this.presentationLinkWindow = new PresentationLinkWindow();
-
-	this.name = ko.observable(presentation.name);
-	this.nameLocked = ko.observable(presentation.nameLocked);
-	this.description = ko.observable(presentation.description);
-	this.published = ko.observable(presentation.published);
-	this.updated = ko.observable(presentation.updated);
-	this.created = presentation.created;
-	this.editorContent = ko.observable(
-		this.texyEditor.document.getValue()
-	);
-	this.previewHtml = ko.observable();
+	this.collaboratorsWindow = new CollaboratorsWindow(config, this);
 
 	this.texyEditor.editor.on('change', function (e) {
 		this.editorContent(this.texyEditor.document.getValue());

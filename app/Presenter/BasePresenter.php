@@ -51,7 +51,7 @@ abstract class BasePresenter extends Presenter
 
 	protected function getPostParameter($name)
 	{
-		return Arrays::get($this->getRequest()->getPost(), $name);
+		return Arrays::get($this->getRequest()->getPost(), $name, NULL);
 	}
 
 	public function getCsrfToken($control, $method, $params)

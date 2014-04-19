@@ -2,13 +2,44 @@
 
 namespace Presidos\User;
 
+use Nette\Utils\Strings;
 use Presidos\Doctrine\Repository;
+use Presidos\Presentation\Presentation;
 
 /**
  * @author Jan Marek
  */
 class UserRepository extends Repository
 {
+
+	public function autocompleteUsers($string, $forbiddenIds)
+	{
+		$qb = $this->createQueryBuilder('u');
+
+		if (!empty($forbiddenIds)) {
+			$qb->andWhere('u.id not in (:collaborators)')->setParameter('collaborators', $forbiddenIds);
+		}
+
+		$qb->andWhere('u.allowed = true');
+		$qb->andWhere('lower(u.name) like :name or lower(u.email) like :name')
+			->setParameter('name', Strings::lower($string) . '%');
+		$qb->setMaxResults(10);
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findAllowedByIds($ids)
+	{
+		if (empty($ids)) {
+			return [];
+		}
+
+		$qb = $this->createQueryBuilder('u');
+		$qb->andWhere('u.id in (:ids)')->setParameter('ids', $ids);
+		$qb->andWhere('u.allowed = TRUE');
+
+		return $qb->getQuery()->getResult();
+	}
 
 	public function findAllowedByEmail($mail)
 	{

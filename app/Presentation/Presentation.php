@@ -2,6 +2,7 @@
 
 namespace Presidos\Presentation;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Presidos\Doctrine\Entity;
 use Presidos\Doctrine\Timestampable;
@@ -40,6 +41,9 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
 	private $user;
 
+	/** @ORM\ManyToMany(targetEntity="Presidos\User\User") */
+	private $collaborators;
+
 	/** @ORM\ManyToOne(targetEntity="Presidos\Presentation\Theme") */
 	private $theme;
 
@@ -49,6 +53,7 @@ class Presentation extends Entity implements \JsonSerializable
 		$this->published = FALSE;
 		$this->nameLocked = FALSE;
 		$this->deleted = FALSE;
+		$this->collaborators = new ArrayCollection();
 		$this->initDateTimes();
 	}
 
@@ -127,6 +132,34 @@ class Presentation extends Entity implements \JsonSerializable
 		$this->nameLocked = TRUE;
 	}
 
+	public function getCollaborators()
+	{
+		return $this->collaborators->toArray();
+	}
+
+	public function setCollaborators(array $users)
+	{
+		$this->collaborators->clear();
+		foreach ($users as $user) {
+			$this->collaborators->add($user);
+		}
+	}
+
+	public function removeCollaborator(User $user)
+	{
+		$this->collaborators->removeElement($user);
+	}
+
+	public function canEditPresentation(User $user)
+	{
+		return $this->isOwner($user) || $this->collaborators->contains($user);
+	}
+
+	public function isOwner(User $user)
+	{
+		return $this->user === $user;
+	}
+
 	public function jsonSerialize()
 	{
 		return [
@@ -136,6 +169,8 @@ class Presentation extends Entity implements \JsonSerializable
 			'description' => $this->description,
 			'texy' => $this->texy,
 			'theme' => $this->theme,
+			'user' => $this->user,
+			'collaborators' => $this->getCollaborators(),
 			'published' => $this->published,
 			'updated' => $this->getUpdated()->format('c'),
 			'created' => $this->getCreated()->format('c'),

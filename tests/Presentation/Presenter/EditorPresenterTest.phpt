@@ -5,6 +5,7 @@ namespace Presidos\Test\Presentation\Presenter;
 use Nette\Application\BadRequestException;
 use Nette\Application\Responses\JsonResponse;
 use Nette\Application\Responses\RedirectResponse;
+use Nette\Application\Responses\TextResponse;
 use Presidos\Presentation\Presenter\EditorPresenter;
 use Presidos\Test\PresenterTestCase;
 use Tester\Assert;
@@ -47,7 +48,7 @@ class EditorPresenterTest extends PresenterTestCase
 
 		$response = $this->presenter->runGet('default', ['id' => $presentation->getId()]);
 
-		// presentation is sent to template
+		Assert::type(TextResponse::class, $response);
 		Assert::same($presentation, $response->getSource()->presentation);
 	}
 
@@ -68,7 +69,16 @@ class EditorPresenterTest extends PresenterTestCase
 
 		Assert::throws(function () use ($presentation) {
 			$this->presenter->runGet('default', ['id' => $presentation->getId()]);
-		}, BadRequestException::class, NULL, 404);
+		}, BadRequestException::class, NULL, 403);
+	}
+
+	public function testEditAsCollaborator()
+	{
+		$this->login('Petr');
+		$presentation = $this->presentationByName('Presentation 1');
+
+		$response = $this->presenter->runGet('default', ['id' => $presentation->getId()]);
+		Assert::type(TextResponse::class, $response);
 	}
 
 	public function testDelete()
@@ -162,6 +172,44 @@ class EditorPresenterTest extends PresenterTestCase
 
 		Assert::type(JsonResponse::class, $response);
 		Assert::same('Dark', $presentation->getTheme()->getName());
+	}
+
+	public function testSaveCollaborators()
+	{
+		$this->login('Honza');
+		$pepa = $this->getContainer()->userRepository->findOneBy(['name' => 'Pepa']);
+		$franta = $this->getContainer()->userRepository->findOneBy(['name' => 'Franta']); // not allowed
+		$presentation = $this->presentationByName('Presentation 1');
+
+		$response = $this->presenter->runPost('default', [
+			'do' => 'saveCollaborators',
+			'id' => $presentation->getId(),
+			'_sec' => 'csrf',
+		], [
+			'id' => $presentation->getId(),
+			'collaborators' => [$pepa->getId(), $franta->getId()],
+		]);
+
+		Assert::type(JsonResponse::class, $response);
+		Assert::equal([$pepa], $presentation->getCollaborators());
+	}
+
+	public function testSaveCollaboratorsIsNotAllowedForCollaborators()
+	{
+		$this->login('Petr');
+		$pepa = $this->getContainer()->userRepository->findOneBy(['name' => 'Pepa']);
+		$presentation = $this->presentationByName('Presentation 1');
+
+		Assert::exception(function () use ($presentation, $pepa) {
+			$this->presenter->runPost('default', [
+				'do' => 'saveCollaborators',
+				'id' => $presentation->getId(),
+				'_sec' => 'csrf',
+			], [
+				'id' => $presentation->getId(),
+				'collaborators' => [$pepa->getId()],
+			]);
+		}, BadRequestException::class, NULL, 403);
 	}
 
 }
