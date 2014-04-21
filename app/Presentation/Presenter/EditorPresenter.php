@@ -49,17 +49,25 @@ class EditorPresenter extends BasePresenter
 		parent::startup();
 		$this->checkLoggedIn();
 
-		$presentation = $this->presentationRepository->find($this->getParameter('id'));
-		$this->checkExistence($presentation);
+		$this->presentation = $this->presentationRepository->find($this->getParameter('id'));
+		$this->checkExistence($this->presentation);
 
-		if ($presentation->isDeleted()) {
+		$user = $this->getUser()->getIdentity();
+
+		if (!$this->presentation->canEditPresentation($user)) {
+			$this->error('You cannot edit this presentation', 403);
+		}
+
+		if ($this->presentation->isDeleted()) {
 			$this->error('Presentation is deleted');
 		}
 
-		if ($presentation->canEditPresentation($this->getUser()->getIdentity())) {
-			$this->presentation = $presentation;
+		if ($this->presentation->isLockedForEdit($user)) {
+			$this->flashMessage('Presentation is being edited by user ' . $this->presentation->getLastUser()->getName() . '.');
+			$this->redirect('List:');
 		} else {
-			$this->error('You cannot edit this presentation', 403);
+			$this->presentation->lockForEdit($user);
+			$this->em->flush();
 		}
 	}
 

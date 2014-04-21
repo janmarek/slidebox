@@ -81,6 +81,28 @@ class EditorPresenterTest extends PresenterTestCase
 		Assert::type(TextResponse::class, $response);
 	}
 
+	public function testEditLocks()
+	{
+		$this->login('Petr');
+		$petr = $this->getContainer()->userRepository->findOneBy(['name' => 'Petr']);
+		$presentation = $this->presentationByName('Presentation 1');
+
+		$response = $this->presenter->runGet('default', ['id' => $presentation->getId()]);
+		Assert::same($petr, $presentation->getLastUser());
+	}
+
+	public function testEditLocked()
+	{
+		$this->login('Petr');
+		$honza = $this->getContainer()->userRepository->findOneBy(['name' => 'Honza']);
+		$presentation = $this->presentationByName('Presentation 1');
+		$presentation->lockForEdit($honza);
+
+		$response = $this->presenter->runGet('default', ['id' => $presentation->getId()]);
+		Assert::type(RedirectResponse::class, $response);
+		Assert::contains('/presentation.list/', $response->getUrl());
+	}
+
 	public function testDelete()
 	{
 		$this->login('Honza');

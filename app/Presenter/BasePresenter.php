@@ -63,6 +63,13 @@ abstract class BasePresenter extends Presenter
 		}
 	}
 
+	public function flashMessage($message, $type = 'info')
+	{
+		if (!$this->testMode) {
+			parent::flashMessage($message, $type);
+		}
+	}
+
 	// test helper methods
 
 	public function runPost($action, $get = [], $post = [])

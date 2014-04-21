@@ -14,6 +14,7 @@
 		<th>Name</th>
 		<th>Created at</th>
 		<th>Modified at</th>
+		<th>Owner</th>
 		<th></th>
 	</tr>
 	<tr n:foreach="$presentations as $presentation">
@@ -25,6 +26,9 @@
 		</td>
 		<td>
 			{$presentation->updated|date}
+		</td>
+		<td>
+			{$presentation->user->name}
 		</td>
 		<td class="buttons">
 			<a n:href="Editor: id => $presentation->id" class="btn btn-default">

@@ -47,6 +47,9 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\ManyToOne(targetEntity="Presidos\Presentation\Theme") */
 	private $theme;
 
+	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
+	private $lastUser;
+
 	public function __construct(User $user)
 	{
 		$this->user = $user;
@@ -158,6 +161,29 @@ class Presentation extends Entity implements \JsonSerializable
 	public function isOwner(User $user)
 	{
 		return $this->user === $user;
+	}
+
+	public function getLastUser()
+	{
+		return $this->lastUser;
+	}
+
+	public function lockForEdit(User $user)
+	{
+		$this->lastUser = $user;
+	}
+
+	public function isLockedForEdit(User $user)
+	{
+		if ($this->lastUser === NULL || $this->lastUser === $user) {
+			return FALSE;
+		}
+
+		// todo hodina a 1 minuta?
+		$date = new \DateTime();
+		$diff = $date->diff($this->getUpdated());
+
+		return $diff->m < 15;
 	}
 
 	public function jsonSerialize()
