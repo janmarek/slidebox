@@ -38,6 +38,9 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="boolean") */
 	private $deleted;
 
+	/** @ORM\Column(type="integer") */
+	private $visits;
+
 	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
 	private $user;
 
@@ -57,6 +60,7 @@ class Presentation extends Entity implements \JsonSerializable
 		$this->nameLocked = FALSE;
 		$this->deleted = FALSE;
 		$this->collaborators = new ArrayCollection();
+		$this->visits = 0;
 		$this->initDateTimes();
 	}
 
@@ -153,9 +157,21 @@ class Presentation extends Entity implements \JsonSerializable
 		$this->collaborators->removeElement($user);
 	}
 
-	public function canEditPresentation(User $user)
+	public function increaseVisits(User $user = NULL)
 	{
-		return $this->isOwner($user) || $this->collaborators->contains($user);
+		if (!$this->canEditPresentation($user)) {
+			$this->visits++;
+		}
+	}
+
+	public function getVisits()
+	{
+		return $this->visits;
+	}
+
+	public function canEditPresentation(User $user = NULL)
+	{
+		return $user !== NULL && ($this->isOwner($user) || $this->collaborators->contains($user));
 	}
 
 	public function isOwner(User $user)
