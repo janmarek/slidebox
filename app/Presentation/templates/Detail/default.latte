@@ -1,10 +1,18 @@
 {var $title = $presentation->name}
 
+{block h1}
+<h1>{$presentation->name} by <a n:href="Profile: id => $presentation->user->id">{$presentation->user->name}</a></h1>
+{/block}
+
 {block content}
+<p class="description" n:if="$presentation->description">
+	{$presentation->description}
+</p>
 
 <div class="detail-presentation">
 	<iframe src="{link Present:embed id => $presentation->id}"></iframe>
 </div>
 
-{$presentation->created|datetime}
-{$presentation->updated|datetime}
+<p class="description" n:if="$presentation->published">
+	Published at {$presentation->publishedAt|datetime}.
+</p>

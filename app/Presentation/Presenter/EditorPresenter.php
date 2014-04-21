@@ -3,7 +3,6 @@
 namespace Presidos\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
-use Nette\Utils\Arrays;
 use Presidos\Presentation\Generator\GeneratorTexy;
 use Presidos\Presentation\Presentation;
 use Presidos\Presentation\PresentationRepository;

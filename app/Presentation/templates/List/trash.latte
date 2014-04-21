@@ -10,23 +10,13 @@
 	<tr>
 		<th>Name</th>
 		<th>Created at</th>
+		<th>Published at</th>
 		<th>Modified at</th>
 		<th>Owner</th>
 		<th></th>
 	</tr>
 	<tr n:foreach="$presentations as $presentation">
-		<td>
-			{$presentation->name}
-		</td>
-		<td>
-			{$presentation->created|datetime}
-		</td>
-		<td>
-			{$presentation->updated|datetime}
-		</td>
-		<td>
-			{$presentation->user->name}
-		</td>
+		{include @rowContent.latte presentation => $presentation}
 		<td class="buttons">
 			<a n:href="recover! id => $presentation->id" class="btn btn-primary">
 				Recover

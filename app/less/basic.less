@@ -10,6 +10,7 @@ a {cursor: pointer}
 	left: 0;
 	top: 0;
 	width: 100%;
+	z-index: 2;
 
 	padding: 0 15px;
 	height: 63px;
@@ -47,7 +48,10 @@ a {cursor: pointer}
 
 .table-list {
 	.table;
-	border-bottom: 1px solid @table-border-color;
+	border: 1px solid @table-border-color;
+	th {
+		background: #EEE;
+	}
 	td {
 		vertical-align: middle !important;
 	}
@@ -56,15 +60,45 @@ a {cursor: pointer}
 	}
 }
 
+.preview-list {
+	.row; .clearfix;
+
+	.presentation {
+		h3 {font-size: 150%}
+		.presentation-preview {min-height: 10em;}
+
+		padding: 10px;
+		background: #EEE;
+	}
+
+	.toolbar {
+		margin: 10px 0 0;
+	}
+}
+
 .content {
+	padding-bottom: 30px;
+
 	h1 {
 		color: #888;
 		font-size: 200%;
 		margin: 1em 0;
 	}
 
+	h2 {
+		color: #888;
+		font-size: 180%;
+		margin: 1em 0;
+	}
+
 	.page-toolbar {
 		margin: 0 0 2em;
 		a.link {line-height: 32px}
+	}
+
+	p.description {
+		color: #888;
+		margin: 2em 0 2em;
+		font-size: 120%;
 	}
 }

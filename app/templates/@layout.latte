@@ -51,7 +51,7 @@
 			</div>
 		</div>
 		<div class="container content">
-			<h1 n:ifset="$title">{$title}</h1>
+			{block h1}<h1 n:ifset="$title">{$title}</h1>{/block}
 
 			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">{$flash->message}</div>
 

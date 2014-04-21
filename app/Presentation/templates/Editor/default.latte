@@ -1,3 +1,5 @@
+{var $title = 'Edit presentation'}
+
 {block bodyTag}<body class="editor-body">{/block}
 
 {block body}
@@ -59,9 +61,9 @@
 							mouseout: $parent.resetPreviewTheme.bind($parent)
 						}
 					">
-						<div data-bind="attr: { 'class': 'theme-preview ' + className }">
-							<div class="heading" data-bind="text: name"></div>
-							<div class="body">text</div>
+						<div data-bind="attr: { 'class': 'presentation-preview ' + className }">
+							<div class="slide-header" data-bind="text: name"></div>
+							<div class="slide-content">text</div>
 						</div>
 					</div>
 				</div>
@@ -76,7 +78,7 @@
 
 		<div class="editor-preview">
 			<div class="preview-header">
-				<a class="btn btn-primary pull-right" n:href="Present: id => $presentation->id">▶ Present</a>
+				<a class="btn btn-primary pull-right" n:href="Present: id => $presentation->id, edit => TRUE">▶ Present</a>
 				<h3>Preview</h3>
 			</div>
 			<div class="preview-content">

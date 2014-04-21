@@ -24,7 +24,7 @@ abstract class BasePresenter extends Presenter
 		$template = parent::createTemplate();
 		$template->registerHelper('datetime', function ($datetime) {
 			if ($datetime instanceof \DateTime) {
-				return $datetime->format('Y-m-d H:i:s');
+				return $datetime->format('Y-m-d H:i');
 			}
 		});
 		return $template;

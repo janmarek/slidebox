@@ -37,6 +37,11 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="boolean") */
 	private $published;
 
+	/**
+	 * @ORM\Column(type="datetimetz", name="published_at", nullable=true)
+	 */
+	private $publishedAt;
+
 	/** @ORM\Column(type="boolean") */
 	private $deleted;
 
@@ -117,11 +122,17 @@ class Presentation extends Entity implements \JsonSerializable
 	public function publish()
 	{
 		$this->published = TRUE;
+		$this->publishedAt = new \DateTime();
 	}
 
 	public function isPublished()
 	{
 		return $this->published;
+	}
+
+	public function getPublishedAt()
+	{
+		return $this->publishedAt;
 	}
 
 	public function isDeleted()

@@ -1,0 +1,22 @@
+<div class="presentation">
+	<div class="presentation-preview {$presentation->theme->className}">
+		<div class="slide-header">
+			<h3><a n:href=":Presentation:Detail: id => $presentation->id">{$presentation->name}</a></h3>
+		</div>
+		<div class="slide-content">
+			<p>
+				at {$presentation->created|datetime} by
+				<a n:href=":Presentation:Profile:default id => $presentation->user->id">{$presentation->user->name}</a>
+			</p>
+			<p n:if="$presentation->description">
+				{$presentation->description|truncate:30}
+			</p>
+		</div>
+	</div>
+
+	<p class="toolbar">
+		<a n:href=":Presentation:Detail: id => $presentation->id" class="btn btn-default">
+			Detail
+		</a>
+	</p>
+</div>

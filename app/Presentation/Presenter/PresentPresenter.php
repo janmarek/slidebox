@@ -50,9 +50,10 @@ class PresentPresenter extends BasePresenter
 		$this->template->html = $this->generatorTexy->process($this->presentation->getTexy());
 	}
 
-	public function renderDefault($id)
+	public function renderDefault($id, $edit = FALSE)
 	{
 		$this->template->isEmbed = FALSE;
+		$this->template->edit = $edit;
 	}
 
 	public function renderEmbed($id)

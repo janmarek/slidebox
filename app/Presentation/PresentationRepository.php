@@ -61,4 +61,42 @@ class PresentationRepository extends Repository
 		return $qb->getQuery()->getResult();
 	}
 
+	/**
+	 * @param User $user
+	 * @return Presentation[]
+	 */
+	public function findPublishedByUser(User $user)
+	{
+		$qb = $this->createPublishedQb();
+		$qb->andWhere('p.user = :user')->setParameter('user', $user);
+		$qb->orderBy('p.updated', 'desc');
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findPublishedByVisits($limit)
+	{
+		$qb = $this->createPublishedQb();
+		$qb->orderBy('p.visits', 'desc');
+		$qb->setMaxResults($limit);
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findNewestByVisits($limit)
+	{
+		$qb = $this->createPublishedQb();
+		$qb->orderBy('p.publishedAt', 'desc');
+		$qb->setMaxResults($limit);
+
+		return $qb->getQuery()->getResult();
+	}
+
+	private function createPublishedQb()
+	{
+		$qb = $this->createQueryBuilder('p');
+		$qb->andWhere('p.published = TRUE');
+		return $qb;
+	}
+
 }

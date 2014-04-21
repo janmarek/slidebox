@@ -1,19 +1,17 @@
-.theme-preview, .slide {
-	.heading, h1, h2 {
-		text-align: center; font-weight: bold;
-		margin: 0;
-		padding: 0.5em 0.25em;
-	}
+.slide-header {
+	text-align: center; font-weight: bold;
+	padding: 0.5em 0.25em;
+
+	h1, h2, h3 {margin: 0;}
 }
 
-.theme-preview {
-	height: 5em;
+.presentation-preview {
+	min-height: 5em;
 	text-align: center;
-	.body {padding: 0.25em;}
 }
 
 .slide {
-	h1, h2 {
+	.slide-header {
 		font-size: 200%;
 	}
 
@@ -51,6 +49,7 @@
 }
 
 .slide-content {
+	padding: 1em;
 	div, ul, ol, table, p, blockquote, pre {
 		margin: 0 0 1em;
 	}

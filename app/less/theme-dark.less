@@ -4,14 +4,16 @@
 	@body: black;
 	@body-text: white;
 
-	.slide, &.theme-preview {
+	.slide a, &.presentation-preview a {color: @heading-text;}
+
+	.slide, &.presentation-preview {
 		background-color: @body;
 		color: @body-text;
+	}
 
-		.heading, h1, h2 {
-			#gradient > .vertical(@heading, @body);
-			color: @heading-text;
-		}
+	.slide-header {
+		#gradient > .vertical(@heading, @body);
+		color: @heading-text;
 	}
 
 	.slide {

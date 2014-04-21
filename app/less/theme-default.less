@@ -5,12 +5,14 @@
 	@body-text: black;
 	@th: #DDD;
 
-	&.theme-preview, .slide {
+	&.presentation-preview, .slide {
 		background: @body; color: @body-text;
-		.heading, h1, h2 {
-			background: @heading;
-			color: @heading-text;
-		}
+	}
+
+	.slide-header {
+		background: @heading;
+		color: @heading-text;
+		a {color: @heading-text;}
 	}
 
 	.slide-content {

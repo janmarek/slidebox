@@ -1,0 +1,9 @@
+{var $title = 'Published presentations by ' . $user->identity->name}
+
+{block content}
+
+<div class="row preview-list">
+	<div n:foreach="$presentations as $presentation" class="col-md-3 col-sm-4 col-xs-6">
+		{control presentationPreview $presentation}
+	</div>
+</div>

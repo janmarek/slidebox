@@ -1,0 +1,17 @@
+<td>
+	{if !$presentation->deleted}<a n:href="Detail: id => $presentation->id">{/if}
+	{$presentation->name}
+	{if !$presentation->deleted}</a>{/if}
+</td>
+<td>
+	{$presentation->created|datetime}
+</td>
+<td>
+	{if $presentation->published}{$presentation->publishedAt|datetime}{else}not yet{/if}
+</td>
+<td>
+	{$presentation->updated|datetime}
+</td>
+<td>
+	{$presentation->user->name}
+</td>
