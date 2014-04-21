@@ -5,5 +5,5 @@ function formatDateTime(dateString) {
 		return null;
 	}
 
-	return new Date(dateString).toLocaleString();
+	return moment(dateString).format('YYYY-M-D H:m:s');
 }

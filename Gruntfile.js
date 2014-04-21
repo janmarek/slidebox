@@ -5,6 +5,7 @@ module.exports = function (grunt) {
 	var jsFiles = [
 		'www/libs/jquery.js',
 		'www/libs/knockout.js',
+		'www/libs/moment.js',
 		'libs/nette/nette/client-side/netteForms.js'
 	].concat(sourceJsFiles);
 	var testFiles = ['app/js/tests/**/*.js'];
