@@ -27,7 +27,7 @@
 				<a n:href="Pdf: id => $presentation->id" class="btn btn-default" title="Download PDF">
 					<i class="fa fa-download"></i> PDF
 				</a>
-				<a n:href="delete! id => $presentation->id" class="btn btn-danger" title="Delete presentation">
+				<a n:href="delete! id => $presentation->id" data-bind="visible: isOwner" class="btn btn-danger" title="Delete presentation">
 					<i class="fa fa-trash-o"></i>
 				</a>
 			</p>
@@ -38,8 +38,6 @@
 
 			<p data-bind="visible: published">
 				<a data-bind="click: presentationLinkWindow.opened.bind($data, true)">Get link to presentation</a>
-				{*<br>*}
-				{*<a href="">Embed</a>*}
 			</p>
 			<p>
 				<a class="btn btn-primary" data-bind="click: publish, visible: !published()">
@@ -105,6 +103,7 @@
 	var presidosEditor = new PresidosEditor(
 		texyEditor,
 		{$presentation},
+		{$isOwner},
 		{$themes},
 		{
 			previewUrl: {link preview!},

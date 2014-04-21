@@ -1,8 +1,9 @@
-function PresidosEditor(texyEditor, presentation, themes, config) {
+function PresidosEditor(texyEditor, presentation, isOwner, themes, config) {
 	this.id = presentation.id;
 	this.config = config;
 
 	this.texyEditor = texyEditor;
+	this.isOwner = isOwner;
 
 	this.name = ko.observable(presentation.name);
 	this.nameLocked = ko.observable(presentation.nameLocked);

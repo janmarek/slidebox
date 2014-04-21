@@ -38,7 +38,9 @@ class PresentationRepository extends Repository
 	public function findByUser(User $user)
 	{
 		$qb = $this->createQueryBuilder('p');
-		$qb->andWhere('p.user = :user')->setParameter('user', $user);
+		$qb->leftJoin('p.collaborators', 'c');
+		$qb->andWhere('p.user = :user or c.id = :user')->setParameter('user', $user->getId());
+
 		$qb->andWhere('p.deleted = FALSE');
 		$qb->orderBy('p.updated', 'desc');
 

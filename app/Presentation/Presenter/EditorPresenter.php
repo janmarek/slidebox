@@ -78,6 +78,7 @@ class EditorPresenter extends BasePresenter
 
 		$this->template->presentation = $this->presentation;
 		$this->template->themes = $themes;
+		$this->template->isOwner = $this->presentation->isOwner($user);
 	}
 
 	/**

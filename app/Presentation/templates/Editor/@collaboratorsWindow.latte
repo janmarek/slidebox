@@ -17,23 +17,25 @@
 					<li>
 						<span data-bind="text: name"></span>
 						(<span data-bind="text: email"></span>)
-						<a class="btn btn-danger" data-bind="click: $parent.remove.bind($parent, $data)">
+						<a class="btn btn-danger" data-bind="click: $parent.remove.bind($parent, $data), visible: $parent.isOwner">
 							<i class="fa fa-times"></i>
 						</a>
 					</li>
 					<!-- /ko -->
 				</ul>
-				<p><label for="add-collaborator">Add collaborators:</label></p>
-				<p><input type="text" class="form-control" id="add-collaborator" data-bind="value: autocompleteString"></p>
-				<p data-bind="foreach: autocompletedUsers">
-					<a class="btn btn-default" data-bind="click: $parent.add.bind($parent, $data)">
-						<i class="fa fa-plus"></i>
-						<span data-bind="text: name"></span>
-						(<span data-bind="text: email"></span>)
-					</a>
-				</p>
+				<div data-bind="visible: $parent.isOwner">
+					<p><label for="add-collaborator">Add collaborators:</label></p>
+					<p><input type="text" class="form-control" id="add-collaborator" data-bind="value: autocompleteString"></p>
+					<p data-bind="foreach: autocompletedUsers">
+						<a class="btn btn-default" data-bind="click: $parent.add.bind($parent, $data)">
+							<i class="fa fa-plus"></i>
+							<span data-bind="text: name"></span>
+							(<span data-bind="text: email"></span>)
+						</a>
+					</p>
+				</div>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-footer" data-bind="visible: $parent.isOwner">
 				<a class="btn btn-primary" data-bind="click: save">OK</a>
 			</div>
 		</div>

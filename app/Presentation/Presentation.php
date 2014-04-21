@@ -18,6 +18,8 @@ use Presidos\User\User;
 class Presentation extends Entity implements \JsonSerializable
 {
 
+	const LOCKED_MINUTES = 15;
+
 	use Timestampable;
 
 	/** @ORM\Column(type="string", nullable=true) */
@@ -50,7 +52,10 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\ManyToOne(targetEntity="Presidos\Presentation\Theme") */
 	private $theme;
 
-	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
+	/**
+	 * @ORM\ManyToOne(targetEntity="Presidos\User\User")
+	 * @ORM\JoinColumn(name="last_user_id")
+	 */
 	private $lastUser;
 
 	public function __construct(User $user)
@@ -195,11 +200,10 @@ class Presentation extends Entity implements \JsonSerializable
 			return FALSE;
 		}
 
-		// todo hodina a 1 minuta?
 		$date = new \DateTime();
 		$diff = $date->diff($this->getUpdated());
 
-		return $diff->m < 15;
+		return $diff->days === 0 && $diff->h === 0 && $diff->i < self::LOCKED_MINUTES;
 	}
 
 	public function jsonSerialize()
