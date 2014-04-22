@@ -1,6 +1,6 @@
-html, body {height: 100%}
+html, body {height: 100%; background: #EEE}
 
-body {padding: 63px 15px 15px;}
+body {padding: 60px 0 0;}
 
 label {font-weight: normal}
 a {cursor: pointer}
@@ -13,9 +13,8 @@ a {cursor: pointer}
 	z-index: 2;
 
 	padding: 0 15px;
-	height: 63px;
+	height: 60px;
 	line-height: 60px;
-	border-bottom: 3px solid @orange;
 	background: @dark-blue;
 	font-size: 115%;
 
@@ -47,10 +46,11 @@ a {cursor: pointer}
 }
 
 .table-list {
+	background: white;
 	.table;
 	border: 1px solid @table-border-color;
 	th {
-		background: #EEE;
+		background: #DDD;
 	}
 	td {
 		vertical-align: middle !important;
@@ -65,28 +65,28 @@ a {cursor: pointer}
 
 	.presentation {
 		h3 {font-size: 150%}
-		.presentation-preview {min-height: 10em;}
-
-		padding: 10px;
-		background: #EEE;
+		.presentation-preview {
+			min-height: 10em;
+			box-shadow: #BBB 0 0 5px;
+		}
 	}
 
 	.toolbar {
-		margin: 10px 0 0;
+		margin: 10px 0 0; text-align: center;
 	}
 }
 
 .content {
-	padding-bottom: 30px;
+	padding: 30px 0;
 
 	h1 {
-		color: #888;
+		color: @dark-blue;
 		font-size: 200%;
-		margin: 1em 0;
+		margin: 0 0 30px;
 	}
 
 	h2 {
-		color: #888;
+		color: @dark-blue;
 		font-size: 180%;
 		margin: 1em 0;
 	}
@@ -94,11 +94,5 @@ a {cursor: pointer}
 	.page-toolbar {
 		margin: 0 0 2em;
 		a.link {line-height: 32px}
-	}
-
-	p.description {
-		color: #888;
-		margin: 2em 0 2em;
-		font-size: 120%;
 	}
 }

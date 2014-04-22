@@ -20,8 +20,8 @@ class HomepagePresenter extends BasePresenter
 
 	public function renderDefault()
 	{
-		$this->template->newestPresentations = $this->presentationRepository->findNewestByVisits(4);
-		$this->template->mostVisitedPresentations = $this->presentationRepository->findNewestByVisits(4);
+		$this->template->newestPresentations = $this->presentationRepository->findNewestPublished(4);
+		$this->template->mostVisitedPresentations = $this->presentationRepository->findPublishedByVisits(4);
 	}
 
 }

@@ -20,6 +20,16 @@
 </head>
 
 {block bodyTag}<body>{/block}
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=" + {$facebookAppId};
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
 	{block body}
 		<div class="header">
 			<div class="container">
@@ -34,7 +44,7 @@
 				{else}
 				<a n:href=":User:Login:">log in</a>
 				<span class="sep">|</span>
-				<a n:href=":User:Register">register</a>
+				<a n:href=":User:Register:">register</a>
 				{/if}
 			</span>
 
@@ -50,6 +60,7 @@
 			{/block}
 			</div>
 		</div>
+		{block contentContainer}
 		<div class="container content">
 			{block h1}<h1 n:ifset="$title">{$title}</h1>{/block}
 
@@ -57,6 +68,7 @@
 
 			{include #content}
 		</div>
+		{/block}
 	{/block}
 	{block js}
 		<script src="{$basePath}/generated/web.js"></script>

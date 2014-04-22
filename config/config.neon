@@ -2,10 +2,6 @@ parameters:
   email: presidos@presidos.com
   emailName: Presidos
 
-  facebook:
-    appId: "166170593540317"
-    secret: "62cc584dc96346422b71fc95d45842f8"
-
 php:
   date.timezone: Europe/Prague
 
@@ -45,7 +41,7 @@ services:
     class: Presidos\User\UserRepository
     factory: @em::getRepository('Presidos\User\User')
   passwordAuthenticator: Presidos\User\PasswordAuthenticator
-  facebook: Facebook( {appId: %facebook.appId%, secret: %facebook.secret%} )
+  facebook: Facebook( {appId: %facebook.appId%, secret: %facebook.appSecret%} )
   facebookAuthenticator: Presidos\User\FacebookAuthenticator
   registerEmailFactory: Presidos\User\Email\RegisterEmailFactory(%email%, %emailName%)
   forgottenEmailFactory: Presidos\User\Email\ForgottenEmailFactory(%email%, %emailName%)

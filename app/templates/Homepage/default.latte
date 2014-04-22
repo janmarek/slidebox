@@ -1,17 +1,53 @@
-{block content}
+{block contentContainer}
 
-<h2>Newest presentations</h2>
 
-<div class="row preview-list">
-	<div n:foreach="$newestPresentations as $presentation" class="col-md-3 col-sm-4 col-xs-6">
-		{control presentationPreview $presentation}
+<div class="container content">
+	<div class="row hp-top">
+		<div class="col-md-6 hp-image">
+			<img src="{$basePath}/images/hp-photo.png" alt="">
+		</div>
+		<div class="col-md-6 hp-description">
+			<h1>Create presentations easily!</h1>
+
+			<p>
+				<strong>Create</strong>, <strong>present</strong> and <strong>share</strong> presentations
+				<strong>online</strong> in your browser.
+			</p>
+
+			<p>
+				Creating presentations is <strong>effective</strong>, you just type content in
+				<a href="http://texy.info" target="_blank">Texy</a> syntax and Presidos converts it into slides.
+			</p>
+
+			<p class="hp-btn">
+				<a class="btn btn-lg btn-primary"
+				   href="{if $user->loggedIn}{link :Presentation:List:}{else}{link :User:Register:}{/if}">Start now</a>
+			</p>
+		</div>
 	</div>
 </div>
 
-<h2>Most visited presentations</h2>
+<div class="hp-presentations">
+	<div class="content container">
+		<h2>Newest presentations</h2>
 
-<div class="row preview-list">
-	<div n:foreach="$mostVisitedPresentations as $presentation" class="col-md-3 col-sm-4 col-xs-6">
-		{control presentationPreview $presentation}
+		<div class="row preview-list">
+			<div n:foreach="$newestPresentations as $presentation" class="col-md-3 col-sm-4 col-xs-6">
+				{control presentationPreview $presentation}
+			</div>
+		</div>
+
+		<h2>Most visited presentations</h2>
+
+		<div class="row preview-list">
+			<div n:foreach="$mostVisitedPresentations as $presentation" class="col-md-3 col-sm-4 col-xs-6">
+				{control presentationPreview $presentation}
+			</div>
+		</div>
 	</div>
+</div>
+
+<div class="content container">
+	<span class="pull-right">Presidos is developed by <a href="http://www.janmarek.net/">Jan Marek</a></span>
+	&copy; {=date('Y')}
 </div>

@@ -26,10 +26,14 @@ class ProfilePresenter extends BasePresenter
 		$this->userRepository = $userRepository;
 	}
 
-	public function renderDefault()
+	public function renderDefault($id)
 	{
-		$presentations = $this->presentationRepository->findPublishedByUser($this->getUser()->getIdentity());
+		$user = $this->userRepository->findAllowedById($id);
+		$this->checkExistence($user);
+
+		$presentations = $this->presentationRepository->findPublishedByUser($user);
 		$this->template->presentations = $presentations;
+		$this->template->currentUser = $user;
 	}
 
 }

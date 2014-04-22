@@ -45,6 +45,7 @@ class PresentPresenter extends BasePresenter
 		}
 
 		$this->presentation->increaseVisits($user);
+		$this->em->flush();
 
 		$this->template->presentation = $this->presentation;
 		$this->template->html = $this->generatorTexy->process($this->presentation->getTexy());

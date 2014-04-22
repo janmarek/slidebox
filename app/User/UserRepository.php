@@ -41,6 +41,14 @@ class UserRepository extends Repository
 		return $qb->getQuery()->getResult();
 	}
 
+	public function findAllowedById($id)
+	{
+		return $this->findOneBy(array(
+			'id' => $id,
+			'allowed' => TRUE,
+		));
+	}
+
 	public function findAllowedByEmail($mail)
 	{
 		return $this->findOneBy(array(

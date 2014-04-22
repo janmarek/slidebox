@@ -83,7 +83,7 @@ class PresentationRepository extends Repository
 		return $qb->getQuery()->getResult();
 	}
 
-	public function findNewestByVisits($limit)
+	public function findNewestPublished($limit)
 	{
 		$qb = $this->createPublishedQb();
 		$qb->orderBy('p.publishedAt', 'desc');

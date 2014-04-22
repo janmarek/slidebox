@@ -33,6 +33,7 @@ abstract class BasePresenter extends Presenter
 	protected function afterRender()
 	{
 		parent::afterRender();
+		$this->template->facebookAppId = $this->context->parameters['facebook']['appId'];
 	}
 
 	/**
