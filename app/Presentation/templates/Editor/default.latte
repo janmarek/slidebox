@@ -38,10 +38,10 @@
 			<p data-bind="visible: !published()">Presentation is not published yet. Publish to make it publicly visible.</p>
 			<p data-bind="visible: published">Presentation is published.</p>
 
-			<p data-bind="visible: published">
-				<a data-bind="click: presentationLinkWindow.opened.bind($data, true)">Get link to presentation</a>
-			</p>
 			<p>
+				<a class="btn btn-default" data-bind="click: shareWindow.open.bind(shareWindow); visible: published">
+					<i class="fa fa-share"></i> Share
+				</a>
 				<a class="btn btn-primary" data-bind="click: publish, visible: !published()">
 					<i class="fa fa-thumbs-up"></i> Publish
 				</a>
@@ -92,7 +92,7 @@
 		{include @insertImageWindow.latte}
 		{include @editDetailsWindow.latte}
 		{include @collaboratorsWindow.latte}
-		{include @presentationLinkWindow.latte}
+		{include ../@shareWindow.latte}
 	</div>
 {/block}
 

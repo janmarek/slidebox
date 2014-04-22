@@ -4,6 +4,7 @@
 
 {block content}
 
+<div id="detail">
 <div class="detail-presentation">
 	<iframe src="{link Present:embed id => $presentation->id}"></iframe>
 </div>
@@ -17,7 +18,7 @@
 	<i class="fa fa-eye"></i> {$presentation->visits} views
 	<span class="sep">|</span>
 	<i class="fa fa-share"></i>
-	<strong><a href="">Share</a></strong>
+	<strong><a data-bind="click: shareWindow.open.bind(shareWindow)">Share</a></strong>
 	<span class="sep">|</span>
 	<div class="fb-like" data-href="{link //this}" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div>
 </div>
@@ -25,3 +26,16 @@
 <p n:if="$presentation->description">
 	{$presentation->description}
 </p>
+
+{include ../@shareWindow.latte}
+</div>
+{/block}
+
+{block js}
+{include #parent}
+<script>
+ko.applyBindings({
+	shareWindow: new ShareWindow()
+}, document.getElementById('detail'));
+</script>
+{/block}

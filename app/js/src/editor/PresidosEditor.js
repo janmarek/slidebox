@@ -23,7 +23,7 @@ function PresidosEditor(texyEditor, presentation, isOwner, themes, config) {
 	this.insertImageWindow = new InsertImageWindow(texyEditor);
 	this.chooseImageWindow = new ChooseImageWindow(this.insertImageWindow);
 	this.editDetailsWindow = new EditDetailsWindow(config, this);
-	this.presentationLinkWindow = new PresentationLinkWindow();
+	this.shareWindow = new ShareWindow();
 	this.collaboratorsWindow = new CollaboratorsWindow(config, this);
 
 	this.texyEditor.editor.on('change', function (e) {

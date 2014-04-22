@@ -1,0 +1,28 @@
+<!-- ko with: shareWindow -->
+<div class="modal" data-bind="css: { 'modal-visible': opened }">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-bind="click: opened.bind($data, false)">&times;</a>
+				<h4 class="modal-title">Share presentation</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="presentation-link">Presentation URL:</label>
+					<input id="presentation-link" type="text" class="form-control"
+						value="{link //Detail: id => $presentation->id}" onclick="this.select()">
+				</div>
+				<div class="form-group">
+					<label for="presentation-embed">Embed to website (HTML code):</label>
+					<textarea id="presentation-embed" class="form-control" rows="3" onclick="this.select()">{*
+					*}&lt;iframe src="{link //Present:embed id => $presentation->id}" {*
+					*}style="border: none; width: 600px; height: 450px;"&gt;&lt;/iframe&gt;{*
+					*}</textarea>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /ko -->
