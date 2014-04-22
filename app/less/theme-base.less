@@ -1,3 +1,8 @@
+.presentation-preview {
+	min-height: 5em;
+	text-align: center;
+}
+
 .slide-header {
 	text-align: center; font-weight: bold;
 	padding: 0.5em 0.25em;
@@ -5,14 +10,30 @@
 	h1, h2, h3 {margin: 0;}
 }
 
-.presentation-preview {
-	min-height: 5em;
-	text-align: center;
+.slide .slide-header {
+	font-size: 200%;
 }
 
-.slide {
-	.slide-header {
-		font-size: 200%;
+.slide-content {
+	.clearfix;
+
+	padding: 1em;
+	overflow: auto;
+
+	div, ul, ol, table, p, blockquote, pre {
+		margin: 0 0 1em;
+	}
+
+	div.left-column {
+		width: 50%;
+		padding-right: 1em;
+		float: left;
+	}
+
+	div.right-column {
+		width: 50%;
+		padding-left: 1em;
+		float: right;
 	}
 
 	h3 {
@@ -23,11 +44,6 @@
 	h4 {
 		font-size: 130%;
 		margin: 1em 0;
-	}
-
-	div.slide-content {
-		padding: 1em;
-		overflow: auto;
 	}
 
 	img {
@@ -46,11 +62,4 @@
 
 	pre {font-size: 100%; background: none; border: none; padding: 0;}
 	blockquote {font-size: 100%; padding: 0.5em 1em; border-width: 0.25em}
-}
-
-.slide-content {
-	padding: 1em;
-	div, ul, ol, table, p, blockquote, pre {
-		margin: 0 0 1em;
-	}
 }
