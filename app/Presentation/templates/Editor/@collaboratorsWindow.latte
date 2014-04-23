@@ -25,7 +25,8 @@
 				</ul>
 				<div data-bind="visible: $parent.isOwner">
 					<p><label for="add-collaborator">Add collaborators:</label></p>
-					<p><input type="text" class="form-control" id="add-collaborator" data-bind="value: autocompleteString"></p>
+					<p><input type="text" class="form-control" id="add-collaborator"
+						data-bind="value: autocompleteString, valueUpdate: 'keyup'"></p>
 					<p data-bind="foreach: autocompletedUsers">
 						<a class="btn btn-default" data-bind="click: $parent.add.bind($parent, $data)">
 							<i class="fa fa-plus"></i>

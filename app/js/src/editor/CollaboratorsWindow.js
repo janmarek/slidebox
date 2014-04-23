@@ -14,6 +14,10 @@ function CollaboratorsWindow(config, presidosEditor) {
 			self.autocompletedUsers([]);
 		}
 
+		if (val.length < 3) {
+			return;
+		}
+
 		var params = {
 			name: val,
 			collaboratorIds: self.getIds()
