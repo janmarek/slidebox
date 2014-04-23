@@ -3,7 +3,7 @@
 namespace Presidos\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
-use Presidos\Presentation\Generator\GeneratorTexy;
+use Presidos\Presentation\Generator\Generator;
 use Presidos\Presentation\Presentation;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presentation\ThemeRepository;
@@ -15,8 +15,8 @@ class EditorPresenter extends BasePresenter
 
 	use DeletePresentationTrait;
 
-	/** @var GeneratorTexy */
-	private $generatorTexy;
+	/** @var Generator */
+	private $generator;
 
 	/** @var PresentationRepository */
 	private $presentationRepository;
@@ -33,10 +33,10 @@ class EditorPresenter extends BasePresenter
 	/** @var Presentation */
 	private $presentation;
 
-	public function __construct(GeneratorTexy $generatorTexy, PresentationRepository $presentationRepository,
+	public function __construct(Generator $generator, PresentationRepository $presentationRepository,
 		ThemeRepository $themeRepository, UserRepository $userRepository, EntityManager $em)
 	{
-		$this->generatorTexy = $generatorTexy;
+		$this->generator = $generator;
 		$this->presentationRepository = $presentationRepository;
 		$this->themeRepository = $themeRepository;
 		$this->em = $em;
@@ -68,6 +68,8 @@ class EditorPresenter extends BasePresenter
 			$this->presentation->lockForEdit($user);
 			$this->em->flush();
 		}
+
+		$this->context->texy->process($this->presentation->getTexy());
 	}
 
 	public function renderDefault($id)
@@ -87,8 +89,9 @@ class EditorPresenter extends BasePresenter
 	{
 		$texy = $this->getPostParameter('text');
 
-		$html = $this->generatorTexy->process($texy);
-		$name = $this->generatorTexy->getLastPresentation()->getName();
+		$presentation = $this->generator->getPresentation($texy);
+		$html = $presentation->getHtml();
+		$name = $presentation->getName();
 
 		if (!$this->presentation->isNameLocked()) {
 			$this->presentation->setName($name);

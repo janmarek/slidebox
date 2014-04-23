@@ -2,7 +2,7 @@
 
 namespace Presidos\Presentation\Presenter;
 
-use Presidos\Presentation\Generator\GeneratorTexy;
+use Presidos\Presentation\Generator\Generator;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presenter\BasePresenter;
 
@@ -12,13 +12,9 @@ class DetailPresenter extends BasePresenter
 	/** @var PresentationRepository */
 	private $presentationRepository;
 
-	/** @var GeneratorTexy */
-	private $generatorTexy;
-
-	public function __construct(PresentationRepository $presentationRepository, GeneratorTexy $generatorTexy)
+	public function __construct(PresentationRepository $presentationRepository)
 	{
 		$this->presentationRepository = $presentationRepository;
-		$this->generatorTexy = $generatorTexy;
 	}
 
 	public function renderDefault($id)

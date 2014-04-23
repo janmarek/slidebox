@@ -3,8 +3,7 @@
 namespace Presidos\Presentation\Presenter;
 
 use Nette\InvalidStateException;
-use Presidos\Presentation\Generator\GeneratorTexy;
-use Presidos\Presentation\HtmlGenerator;
+use Presidos\Presentation\Generator\Generator;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presenter\BasePresenter;
 
@@ -14,13 +13,13 @@ class PdfPresenter extends BasePresenter
 	/** @var PresentationRepository */
 	private $presentationRepository;
 
-	/** @var GeneratorTexy */
-	private $generatorTexy;
+	/** @var Generator */
+	private $generator;
 
-	public function __construct(PresentationRepository $presentationRepository, GeneratorTexy $generatorTexy)
+	public function __construct(PresentationRepository $presentationRepository, Generator $generator)
 	{
 		$this->presentationRepository = $presentationRepository;
-		$this->generatorTexy = $generatorTexy;
+		$this->generator = $generator;
 	}
 
 	public function renderDefault($id, $format = 'pdf')
@@ -34,7 +33,7 @@ class PdfPresenter extends BasePresenter
 
 		$template = $this->createTemplate()->setFile(__DIR__ . '/../templates/Pdf/default.latte');
 		$template->presentation = $presentation;
-		$template->html = $this->generatorTexy->process($presentation->getTexy());
+		$template->html = $this->generator->getPresentation($presentation->getTexy())->getHtml();
 
 		if ($format === 'pdf') {
 			$pdf = new \WkHtmlToPdf([

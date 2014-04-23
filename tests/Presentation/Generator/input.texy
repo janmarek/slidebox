@@ -1,0 +1,36 @@
+Presentation title .[main]
+***********
+
+by Honza Marek
+
+Figure
+*****
+
+Some content above two columns.
+
+[* http://babka.unas.cz/Obrazky/Priroda/priroda65_1024x768.jpg >] *** figure
+
+Short presentation description.
+
+- lorem
+- ipsum dolor
+
+Example Slide
+*************
+
+[* http://babka.unas.cz/Obrazky/Priroda/priroda65_1024x768.jpg .(sdfdsf) <]
+
+1) You can use lists
+2) Item two text
+3) Item three text
+
+Two images
+**********
+
+[* http://babka.unas.cz/Obrazky/Priroda/priroda65_1024x768.jpg .(sdfdsf) <]
+
+[* http://babka.unas.cz/Obrazky/Priroda/priroda65_1024x768.jpg .(sdfdsf) >]
+
+--------------- .[last]
+
+Any questions? Thank for your attention!

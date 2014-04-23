@@ -57,6 +57,7 @@ services:
 
   texyFactory: Presidos\Presentation\Generator\TexyFactory
   texy: @texyFactory::createTexy()
+  generator: Presidos\Presentation\Generator\Generator
 
   #fixtures
   fixtures: Presidos\Fixtures\Fixtures

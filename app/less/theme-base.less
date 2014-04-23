@@ -5,13 +5,37 @@
 
 .slide-header {
 	text-align: center; font-weight: bold;
-	padding: 0.5em 0.25em;
 
-	h1, h2, h3 {margin: 0;}
+	h1, h2, h3 {
+		font-size: 100%;
+		margin: 0;
+		padding: 0.5em 0.25em;
+	}
 }
 
 .slide .slide-header {
 	font-size: 200%;
+}
+
+.slide.main {
+	text-align: center;
+
+	.slide-header {
+		padding: 2em 1em;
+	}
+
+	.slide-content {
+		font-size: 120%;
+	}
+}
+
+.slide.last {
+	text-align: center;
+
+	.slide-content {
+		padding: 2em 1em;
+		font-size: 120%;
+	}
 }
 
 .slide-content {
@@ -22,6 +46,10 @@
 
 	div, ul, ol, table, p, blockquote, pre {
 		margin: 0 0 1em;
+	}
+
+	.figure-left, .figure-right {
+		p {text-align: center}
 	}
 
 	div.left-column {
