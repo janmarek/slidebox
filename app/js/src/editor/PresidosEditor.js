@@ -21,7 +21,7 @@ function PresidosEditor(texyEditor, presentation, isOwner, themes, config) {
 	this.insertLinkWindow = new InsertLinkWindow(texyEditor);
 	this.insertTableWindow = new InsertTableWindow(texyEditor);
 	this.insertImageWindow = new InsertImageWindow(texyEditor);
-	this.chooseImageWindow = new ChooseImageWindow(this.insertImageWindow);
+	this.chooseImageWindow = new ChooseImageWindow(this.insertImageWindow, config);
 	this.editDetailsWindow = new EditDetailsWindow(config, this);
 	this.shareWindow = new ShareWindow();
 	this.collaboratorsWindow = new CollaboratorsWindow(config, this);

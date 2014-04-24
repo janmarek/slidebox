@@ -17,13 +17,11 @@ class Themes extends AbstractFixture
 		$defaultTheme = new Theme();
 		$defaultTheme->setName('Default');
 		$defaultTheme->setClassName('theme-default');
-		$defaultTheme->setPublic(TRUE);
 		$this->addReference('theme-default', $defaultTheme);
 
 		$darkTheme = new Theme();
 		$darkTheme->setName('Dark');
 		$darkTheme->setClassName('theme-dark');
-		$darkTheme->setPublic(TRUE);
 
 		$em->persist($defaultTheme);
 		$em->persist($darkTheme);

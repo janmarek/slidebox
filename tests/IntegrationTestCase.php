@@ -5,7 +5,7 @@ namespace Presidos\Test;
 use Nette\Application\UI\Presenter;
 use Tester\Environment;
 
-abstract class PresenterTestCase extends BaseTestCase
+abstract class IntegrationTestCase extends BaseTestCase
 {
 
 	public function setUp()

@@ -7,6 +7,8 @@ use Presidos\Presentation\Generator\Generator;
 use Presidos\Presentation\Presentation;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presentation\ThemeRepository;
+use Presidos\Presentation\UploadedImageFileRepository;
+use Presidos\Presentation\UploadedImageRepository;
 use Presidos\Presenter\BasePresenter;
 use Presidos\User\UserRepository;
 
@@ -33,14 +35,23 @@ class EditorPresenter extends BasePresenter
 	/** @var Presentation */
 	private $presentation;
 
+	/** @var UploadedImageFileRepository */
+	private $uploadedImageFileRepository;
+
+	/** @var UploadedImageRepository */
+	private $uploadedImageRepository;
+
 	public function __construct(Generator $generator, PresentationRepository $presentationRepository,
-		ThemeRepository $themeRepository, UserRepository $userRepository, EntityManager $em)
+		ThemeRepository $themeRepository, UserRepository $userRepository, EntityManager $em,
+		UploadedImageFileRepository $uploadedImageFileRepository, UploadedImageRepository $uploadedImageRepository)
 	{
 		$this->generator = $generator;
 		$this->presentationRepository = $presentationRepository;
 		$this->themeRepository = $themeRepository;
 		$this->em = $em;
 		$this->userRepository = $userRepository;
+		$this->uploadedImageFileRepository = $uploadedImageFileRepository;
+		$this->uploadedImageRepository = $uploadedImageRepository;
 	}
 
 	protected function startup()
@@ -75,7 +86,7 @@ class EditorPresenter extends BasePresenter
 	public function renderDefault($id)
 	{
 		$user = $this->getUser()->getIdentity();
-		$themes = $this->themeRepository->getThemesForUser($user);
+		$themes = $this->themeRepository->findAll();
 
 		$this->template->presentation = $this->presentation;
 		$this->template->themes = $themes;
@@ -169,6 +180,44 @@ class EditorPresenter extends BasePresenter
 
 		$this->sendJson([
 			'ok' => TRUE,
+		]);
+	}
+
+	/**
+	 * @secured
+	 */
+	public function handleUploadImage()
+	{
+		$files = $this->getRequest()->getFiles();
+
+		if (!isset($files['image'])) {
+			$this->error();
+		}
+
+		$result = $this->uploadedImageFileRepository->upload($this->presentation, $files['image']);
+
+		$this->sendJson([
+			'errors' => $result->getErrors(),
+			'url' => $result->getUrl(),
+		]);
+	}
+
+	/**
+	 * @secured
+	 */
+	public function handleUploadedImagesList()
+	{
+		$images = [];
+
+		foreach ($this->uploadedImageRepository->findByPresentation($this->presentation) as $image) {
+			$images[] = [
+				'name' => $image->getName(),
+				'url' => $this->uploadedImageFileRepository->getUrl($image),
+			];
+		}
+
+		$this->sendJson([
+			'images' => $images,
 		]);
 	}
 

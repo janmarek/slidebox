@@ -7,13 +7,52 @@
 				<h4 class="modal-title">Choose image</h4>
 			</div>
 			<div class="modal-body">
-				<div class="form-group">
-					<label for="image-url">URL:</label>
-					<input id="image-url" type="text" class="form-control" data-bind="value: url, hasFocus: urlFocused">
+				<ul class="nav nav-tabs" data-bind="foreach: tabs">
+					<li data-bind="css: { active: $parent.selectedTab() === $data}">
+						<a data-bind="click: $parent.selectTab.bind($parent), text: name"></a>
+					</li>
+				</ul>
+
+				<!-- ko with: selectedTab -->
+				<div data-bind="if: key === 'url'">
+					<div class="form-group">
+						<label for="image-url">URL:</label>
+						<input id="image-url" type="text" class="form-control" data-bind="value: url, hasFocus: urlFocused">
+					</div>
+					<div>
+						<a class="btn btn-primary" data-bind="click: choose">Choose</a>
+					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-bind="click: choose">Choose</button>
+
+				<div data-bind="if: key === 'upload'">
+					<!-- ko foreach: errors -->
+					<div class="alert alert-danger" data-bind="text: $data"></div>
+					<!-- /ko -->
+
+					<div class="form-group" style="background: #EEE; padding: 10px;">
+						<label for="image-upload">New file:</label>
+						<input id="image-upload" type="file" style="display: inline-block" data-bind="files: files">
+						<a class="btn btn-primary" data-bind="click: upload, visible: !uploading()">Upload</a>
+						<span data-bind="visible: uploading">
+							<i class="fa fa-spinner fa-spin"></i> Uploading…
+						</span>
+					</div>
+
+					<p data-bind="visible: loading">
+						<i class="fa fa-spinner fa-spin"></i> Uploading…
+					</p>
+
+					<div data-bind="visible: loaded">
+						<h3>Insert uploaded image</h3>
+						<ul class="list-unstyled" data-bind="foreach: uploadedFiles">
+							<li>
+								<i class="fa fa-picture-o"></i>
+								<a data-bind="click: $parent.insert.bind($parent), text: name"></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- /ko -->
 			</div>
 		</div>
 	</div>

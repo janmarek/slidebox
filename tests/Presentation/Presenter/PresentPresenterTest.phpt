@@ -5,7 +5,7 @@ namespace Presidos\Test\Presentation\Presenter;
 use Nette\Application\BadRequestException;
 use Nette\Application\Responses\TextResponse;
 use Presidos\Presentation\Presenter\EditorPresenter;
-use Presidos\Test\PresenterTestCase;
+use Presidos\Test\IntegrationTestCase;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -14,7 +14,7 @@ require __DIR__ . '/../../bootstrap.php';
  * @author Jan Marek
  * @testCase
  */
-class PresentPresenterTest extends PresenterTestCase
+class PresentPresenterTest extends IntegrationTestCase
 {
 
 	/** @var EditorPresenter */

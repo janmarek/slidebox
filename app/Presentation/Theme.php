@@ -20,16 +20,8 @@ class Theme extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="string", name="class_name") */
 	private $className;
 
-	/** @ORM\Column(type="boolean") */
-	private $public;
-
 	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
 	private $user;
-
-	public function __construct()
-	{
-		$this->public = FALSE;
-	}
 
 	public function setClassName($className)
 	{
@@ -51,16 +43,6 @@ class Theme extends Entity implements \JsonSerializable
 		return $this->name;
 	}
 
-	public function setPublic($public)
-	{
-		$this->public = $public;
-	}
-
-	public function getPublic()
-	{
-		return $this->public;
-	}
-
 	public function setUser($user)
 	{
 		$this->user = $user;
@@ -76,7 +58,6 @@ class Theme extends Entity implements \JsonSerializable
 		return [
 			'id' => $this->getId(),
 			'name' => $this->name,
-			'public' => $this->public,
 			'className' => $this->className,
 		];
 	}

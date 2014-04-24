@@ -55,6 +55,11 @@ services:
     class: Presidos\Presentation\ThemeRepository
     factory: @em::getRepository('Presidos\Presentation\Theme')
 
+  uploadFileRepository: Presidos\Presentation\UploadedImageFileRepository(@em, %appDir%/../upload, %upload.urlPrefix%)
+  uploadedImageRepository:
+    class: Presidos\Presentation\UploadedImageRepository
+    factory: @em::getRepository('Presidos\Presentation\UploadedImage')
+
   texyFactory: Presidos\Presentation\Generator\TexyFactory
   texy: @texyFactory::createTexy()
   generator: Presidos\Presentation\Generator\Generator

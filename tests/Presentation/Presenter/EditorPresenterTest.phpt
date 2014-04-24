@@ -7,7 +7,7 @@ use Nette\Application\Responses\JsonResponse;
 use Nette\Application\Responses\RedirectResponse;
 use Nette\Application\Responses\TextResponse;
 use Presidos\Presentation\Presenter\EditorPresenter;
-use Presidos\Test\PresenterTestCase;
+use Presidos\Test\IntegrationTestCase;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -16,7 +16,7 @@ require __DIR__ . '/../../bootstrap.php';
  * @author Jan Marek
  * @testCase
  */
-class EditorPresenterTest extends PresenterTestCase
+class EditorPresenterTest extends IntegrationTestCase
 {
 
 	/** @var EditorPresenter */
