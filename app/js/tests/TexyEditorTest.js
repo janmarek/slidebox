@@ -244,7 +244,7 @@ describe('TexyEditor', function () {
 			texyEditor.select(1, 3, 3, 2);
 			texyEditor.unorderedList();
 			expect(editor.getValue()).to.eql("lorem\n- ipsum\n- dolor\n- sit\named");
-			expectSelection(1, 5, 3, 4);
+			expectSelection(1, 0, 3, 5);
 		});
 
 		it('can add list which is already partially list', function () {
@@ -252,7 +252,7 @@ describe('TexyEditor', function () {
 			texyEditor.select(1, 5, 3, 2);
 			texyEditor.unorderedList();
 			expect(editor.getValue()).to.eql("lorem\n- ipsum\n- dolor\n- sit\named");
-			expectSelection(1, 5, 3, 4);
+			expectSelection(1, 0, 3, 5);
 		});
 
 		it('can remove list', function () {
@@ -260,7 +260,7 @@ describe('TexyEditor', function () {
 			texyEditor.select(1, 0, 3, 4);
 			texyEditor.unorderedList();
 			expect(editor.getValue()).to.eql("lorem\nipsum\ndolor\nsit\named");
-			expectSelection(1, 0, 3, 2);
+			expectSelection(1, 0, 3, 3);
 		});
 
 		it('can switch list type', function () {
@@ -268,7 +268,59 @@ describe('TexyEditor', function () {
 			texyEditor.select(1, 7, 3, 3);
 			texyEditor.unorderedList();
 			expect(editor.getValue()).to.eql("lorem\n- ipsum\n- dolor\n- sit\named");
-			expectSelection(1, 4, 3, 2);
+			expectSelection(1, 0, 3, 5);
+		});
+
+		it('insert empty list', function () {
+			setValue("lorem\n\n");
+			texyEditor.select(2, 0, 2, 0);
+			texyEditor.unorderedList();
+			expect(editor.getValue()).to.eql("lorem\n\n- ");
+			expectSelection(2, 2, 2, 2);
+		});
+
+		// TODO switch type with spaces at line beginning
+	});
+
+	describe('ordered lists', function () {
+		it('can add list', function () {
+			setValue("lorem\nipsum\ndolor\nsit\named");
+			texyEditor.select(1, 3, 3, 2);
+			texyEditor.orderedList();
+			expect(editor.getValue()).to.eql("lorem\n1) ipsum\n2) dolor\n3) sit\named");
+			expectSelection(1, 0, 3, 6);
+		});
+
+		it('can add list which is already partially list', function () {
+			setValue("lorem\n1) ipsum\n2) dolor\nsit\named");
+			texyEditor.select(1, 5, 3, 2);
+			texyEditor.orderedList();
+			expect(editor.getValue()).to.eql("lorem\n1) ipsum\n2) dolor\n3) sit\named");
+			expectSelection(1, 0, 3, 6);
+		});
+
+		it('can remove list', function () {
+			setValue("lorem\n1) ipsum\n2) dolor\n3) sit\named");
+			texyEditor.select(1, 0, 3, 4);
+			texyEditor.orderedList();
+			expect(editor.getValue()).to.eql("lorem\nipsum\ndolor\nsit\named");
+			expectSelection(1, 0, 3, 3);
+		});
+
+		it('can switch list type', function () {
+			setValue("lorem\n123) ipsum\n- dolor\na) sit\named");
+			texyEditor.select(1, 7, 3, 3);
+			texyEditor.orderedList();
+			expect(editor.getValue()).to.eql("lorem\n1) ipsum\n2) dolor\n3) sit\named");
+			expectSelection(1, 0, 3, 6);
+		});
+
+		it('insert empty list', function () {
+			setValue("lorem\n\n");
+			texyEditor.select(2, 0, 2, 0);
+			texyEditor.orderedList();
+			expect(editor.getValue()).to.eql("lorem\n\n1) ");
+			expectSelection(2, 3, 2, 3);
 		});
 
 		// TODO switch type with spaces at line beginning

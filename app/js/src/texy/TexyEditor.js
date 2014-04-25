@@ -219,19 +219,18 @@ TexyEditor.prototype.select = function (startRow, startColumn, endRow, endColumn
 	this.editor.selection.setSelectionRange(new Range(startRow, startColumn, endRow, endColumn));
 };
 
-TexyEditor.prototype.unorderedList = function () {
+TexyEditor.prototype._list = function (addLine, regexp, contentIndex) {
 	var range = this.editor.getSelectionRange();
 	var lines = [];
 	var startRow = range.start.row;
-	var startColumn = range.start.column;
 	var endRow = range.end.row;
-	var endColumn = range.end.column;
+	var oneEmptyLine = startRow === endRow && this.document.getLine(startRow) === '';
 	var i, matches;
 
 	// remove list if every line is part of list
 	var removeMode = true;
 	for (i = startRow; i <= endRow; i++) {
-		if (!this.document.getLine(i).match(TexyEditor.REGEXP_UL)) {
+		if (!this.document.getLine(i).match(regexp)) {
 			removeMode = false;
 			break;
 		}
@@ -242,60 +241,55 @@ TexyEditor.prototype.unorderedList = function () {
 
 		// remove list
 		if (removeMode) {
-			lines.push(line.substring(2));
+			matches = line.match(regexp);
+			lines.push(matches[contentIndex]);
 			continue;
 		}
 
-		// partial list - line ok
-		if (line.match(TexyEditor.REGEXP_UL)) {
-			lines.push(line);
+		// unordered list
+		matches = line.match(TexyEditor.REGEXP_UL);
+		if (matches) {
+			lines.push(addLine(matches[2]));
 			continue;
 		}
 
-		// change list type
-		var lineContent = null;
-
+		// remove and add ordered list
 		matches = line.match(TexyEditor.REGEXP_OL);
 		if (matches) {
-			lineContent = matches[3];
-		} else {
-			matches = line.match(TexyEditor.REGEXP_LETTER_OL);
-			lineContent = matches ? matches[2] : null;
-		}
-
-		if (matches) {
-			lines.push('- ' + lineContent);
-
-			// {123}) {text} -> - {text}
-			if (i === startRow) {
-				startColumn = startColumn - matches[1].length;
-			}
-			if (i === endRow) {
-				endColumn = endColumn - matches[1].length;
-			}
+			lines.push(addLine(matches[3]));
 			continue;
 		}
 
-		// add list or change partial list to complete list
-		lines.push('- ' + line);
-		if (i === startRow) {
-			startColumn += 2;
+		// remove and add letter list
+		matches = line.match(TexyEditor.REGEXP_LETTER_OL);
+		if (matches) {
+			lines.push(addLine(matches[2]));
+			continue;
 		}
-		if (i === endRow) {
-			endColumn += 2;
-		}
-	}
 
-	// move selection left when removing list
-	if (removeMode) {
-		startColumn = Math.max(0, startColumn - 2);
-		endColumn = Math.max(0, endColumn - 2);
+		// not yet list
+		lines.push(addLine(line));
 	}
 
 	this.document.removeLines(startRow, endRow);
 	this.document.insertLines(startRow, lines);
-	this.select(startRow, startColumn, endRow, endColumn);
+	var endColumn = lines[lines.length - 1].length;
+	this.select(startRow, oneEmptyLine ? endColumn : 0, endRow, endColumn);
 	this.editor.focus();
+};
+
+TexyEditor.prototype.orderedList = function () {
+	var counter = 1;
+	function addLine(content) {
+		return (counter++) + ') ' + content;
+	}
+	this._list(addLine, TexyEditor.REGEXP_OL, 3);
+};
+
+TexyEditor.prototype.unorderedList = function () {
+	this._list(function (content) {
+		return '- ' + content;
+	}, TexyEditor.REGEXP_UL, 2);
 };
 
 TexyEditor.prototype.table = function (cols, rows, header) {
