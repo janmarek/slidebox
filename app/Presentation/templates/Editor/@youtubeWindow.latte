@@ -1,0 +1,24 @@
+<!-- ko with: youtubeWindow -->
+<div class="modal" data-bind="css: { 'modal-visible': opened }">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-bind="click: opened.bind($data, false)">&times;</a>
+				<h4 class="modal-title">Insert YouTube video</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="youtube">Video URL or id:</label><br>
+					<input id="youtube" type="text" class="form-control" data-bind="value: youtube, valueUpdate: 'keyup'">
+				</div>
+				<div data-bind="if: youtube">
+					<img data-bind="attr: { src: thumbnail }">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bind="click: insert">Insert</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /ko -->

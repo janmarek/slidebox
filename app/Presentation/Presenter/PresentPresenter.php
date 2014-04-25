@@ -4,6 +4,7 @@ namespace Presidos\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
 use Presidos\Presentation\Generator\Generator;
+use Presidos\Presentation\Generator\TexyFactory;
 use Presidos\Presentation\Presentation;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presenter\BasePresenter;
@@ -23,12 +24,16 @@ class PresentPresenter extends BasePresenter
 	/** @var Presentation */
 	private $presentation;
 
+	/** @var TexyFactory */
+	private $texyFactory;
+
 	public function __construct(PresentationRepository $presentationRepository, Generator $generator,
-		EntityManager $em)
+		EntityManager $em, TexyFactory $texyFactory)
 	{
 		$this->presentationRepository = $presentationRepository;
 		$this->generator = $generator;
 		$this->em = $em;
+		$this->texyFactory = $texyFactory;
 	}
 
 	protected function startup()
@@ -48,7 +53,9 @@ class PresentPresenter extends BasePresenter
 		$this->em->flush();
 
 		$this->template->presentation = $this->presentation;
-		$this->template->html = $this->generator->getPresentation($this->presentation->getTexy())->getHtml();
+		$texy = $this->presentation->getTexy();
+		$html = $this->texyFactory->createTexy()->process($texy);
+		$this->template->html = $this->generator->getPresentation($html)->getHtml();
 	}
 
 	public function renderDefault($id, $edit = FALSE)

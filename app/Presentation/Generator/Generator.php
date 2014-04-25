@@ -11,21 +11,12 @@ use Texy;
 class Generator
 {
 
-	private $texy;
-
-	public function __construct(Texy $texy)
-	{
-		$this->texy = $texy;
-	}
-
 	/**
-	 * @param string $texySource
+	 * @param string $html
 	 * @return Presentation
 	 */
-	public function getPresentation($texySource)
+	public function getPresentation($html)
 	{
-		$html = $this->texy->process($texySource);
-
 		$presentation = new Presentation();
 
 		$dom = new Crawler();

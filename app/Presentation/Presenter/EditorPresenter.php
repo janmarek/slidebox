@@ -4,6 +4,7 @@ namespace Presidos\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
 use Presidos\Presentation\Generator\Generator;
+use Presidos\Presentation\Generator\TexyFactory;
 use Presidos\Presentation\Presentation;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presentation\ThemeRepository;
@@ -41,9 +42,13 @@ class EditorPresenter extends BasePresenter
 	/** @var UploadedImageRepository */
 	private $uploadedImageRepository;
 
+	/** @var TexyFactory */
+	private $texyFactory;
+
 	public function __construct(Generator $generator, PresentationRepository $presentationRepository,
 		ThemeRepository $themeRepository, UserRepository $userRepository, EntityManager $em,
-		UploadedImageFileRepository $uploadedImageFileRepository, UploadedImageRepository $uploadedImageRepository)
+		UploadedImageFileRepository $uploadedImageFileRepository, UploadedImageRepository $uploadedImageRepository,
+		TexyFactory $texyFactory)
 	{
 		$this->generator = $generator;
 		$this->presentationRepository = $presentationRepository;
@@ -52,6 +57,7 @@ class EditorPresenter extends BasePresenter
 		$this->userRepository = $userRepository;
 		$this->uploadedImageFileRepository = $uploadedImageFileRepository;
 		$this->uploadedImageRepository = $uploadedImageRepository;
+		$this->texyFactory = $texyFactory;
 	}
 
 	protected function startup()
@@ -99,8 +105,9 @@ class EditorPresenter extends BasePresenter
 	public function handlePreview()
 	{
 		$texy = $this->getPostParameter('text');
+		$html = $this->texyFactory->createTexy()->process($texy);
 
-		$presentation = $this->generator->getPresentation($texy);
+		$presentation = $this->generator->getPresentation($html);
 		$html = $presentation->getHtml();
 		$name = $presentation->getName();
 

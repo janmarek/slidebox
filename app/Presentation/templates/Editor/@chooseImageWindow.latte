@@ -29,9 +29,9 @@
 					<div class="alert alert-danger" data-bind="text: $data"></div>
 					<!-- /ko -->
 
-					<div class="form-group" style="background: #EEE; padding: 10px;">
+					<div class="form-group image-upload-form">
 						<label for="image-upload">New file:</label>
-						<input id="image-upload" type="file" style="display: inline-block" data-bind="files: files">
+						<input id="image-upload" type="file" data-bind="files: files">
 						<a class="btn btn-primary" data-bind="click: upload, visible: !uploading()">Upload</a>
 						<span data-bind="visible: uploading">
 							<i class="fa fa-spinner fa-spin"></i> Uploading…
