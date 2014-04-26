@@ -1,16 +1,92 @@
 New Presentation .[main]
 ****************
 
-Short presentation description.
+Feel free to edit this template.
 
-Example Slide
-*************
+How to add new slide?
+*********************
 
-- You can use lists
-- Item two text
-- Item three text
+- Presentation slides are divided by main headings.
+- You can try H1 button in toolbar.
+- This also works as an example of bulleted list.
 
----------------
+-------------
 
-.<>
-Any questions? Thank for your attention!
+If you don't want main heading in next slide, you can divide slides with horizontal line.
+
+Smaller headings (H2, H3)
+================
+
+Are not dividing slides.
+
+Basic formatting
+****************
+
+This is *italic*, **bold** and ***italic bold text***.
+
+And this is a "link":www.presidos.com
+
+How to add list?
+***************
+
+1) You have already seen bulleted list.
+2) Now you can try ordered list.
+  - Or nested bulleted list.
+
+How to add an image?
+*******************
+
+There is a toolbar button for it.
+
+[* http://presidos.dev/example.jpg *]
+
+How to add an image with text?
+*******************
+
+[* http://presidos.dev/example.jpg <]
+
+- Align image to left (or right).
+- Text goes to the second column.
+
+Two images side by side
+*******************
+
+[* http://presidos.dev/example.jpg <]
+
+[* http://presidos.dev/example.jpg >] *** this one has description
+
+Add quote if you want to look smart
+********************
+
+> Something said by some famous guy.
+
+Someone
+
+Tables
+******
+
+With header on top:
+
+|------------------------
+| lorem | ipsum | dolor
+|------------------------
+| sit | amed | 123
+| 564 | 1000 | something else
+
+With header on left:
+
+|* name | value | | |
+|* numbers | 1 | 2 | 3 |
+
+Help
+****
+
+If you want to know more about Texy syntax, click the help button.
+
+--------------- .[last]
+
+Thank for your attention!
+
+Last slide is marked with .[last] modifier to be specially formatted.
+
+Same thing is used on the first slide.
