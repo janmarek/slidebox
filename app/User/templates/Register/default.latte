@@ -2,9 +2,13 @@
 
 {block #content}
 
-<h1>{$title}</h1>
-
-<p>You can simple use your <a n:href="FacebookLogin:">Facebook account</a> to login.</p><br>
+<p>
+	You can simply use your
+	<a n:href="FacebookLogin:" class="btn btn-facebook">
+		<i class="fa fa-facebook"></i> Facebook account
+	</a>
+	to login.
+</p><br>
 
 <p class="alert alert-danger" n:foreach="$control['registrationForm']->getErrors() as $message">{$message}</p>
 

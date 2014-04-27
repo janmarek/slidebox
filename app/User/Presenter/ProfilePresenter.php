@@ -41,28 +41,28 @@ class ProfilePresenter extends BasePresenter
 		$form = new Form();
 
 		if ($user->hasPassword()) {
-			$form->addPassword('oldPassword', 'Zadejte své heslo:');
+			$form->addPassword('oldPassword', 'Fill your password:');
 		}
 
-		$form->addText('name', 'Jméno:')
-			->setRequired('Zadejte prosím jméno.');
-		$form->addText('email', 'E-mail:')
-			->setRequired('Zadejte prosím heslo.');
+		$form->addText('name', 'Name:')
+			->setRequired('Please fill your name.');
+		$form->addText('email', 'Email:')
+			->setRequired('Please fill your password.');
 
-		$form->addPassword('newPassword', 'Zvolte si nové heslo:')
-			->setOption('description', 'Pokud nechcete heslo měnit, nechte toto pole volné.');
-		$form->addPassword('newPassword2', 'Kontrola nového hesla:')
-			->setOption('description', 'Pokud zadáváte nové heslo, napište ho pro kontrolu ještě jednou.')
+		$form->addPassword('newPassword', 'Choose a new password:')
+			->setOption('description', 'Keep this field blank if you don\'t want to change your password.');
+		$form->addPassword('newPassword2', 'New password one more time:')
+			->setOption('description', 'Fill your new password one more time if you want to change it.')
 			->addConditionOn($form['newPassword'], Form::FILLED)
-			->addRule(Form::FILLED, 'Zadejte prosím kontrolu hesla.');
+			->addRule(Form::FILLED, 'Please fill your password one more time.');
 
 		$form->setDefaults(array(
 			'name' => $user->getName(),
 			'email' => $user->getEmail(),
 		));
 
-		$form->addSubmit('s', 'Uložit')
-			->getControlPrototype()->class('btn btn-blue');
+		$form->addSubmit('s', 'Save')
+			->getControlPrototype()->class('btn btn-primary');
 
 		$form->onSuccess[] = $this->submitEditProfileForm;
 
@@ -76,7 +76,7 @@ class ProfilePresenter extends BasePresenter
 		$values = $form->getValues();
 
 		if ($user->hasPassword() && !$user->checkPassword($values->oldPassword)) {
-			$form->addError('Zadejte správné heslo.');
+			$form->addError('Please insert your password correctly.');
 			return;
 		}
 
@@ -89,7 +89,7 @@ class ProfilePresenter extends BasePresenter
 
 		$this->em->flush();
 
-		$this->flashMessage('Uživatelské údaje byly úspěšně nastaveny.');
+		$this->flashMessage('User settings has been successfully saved.');
 		$this->redirect('User:');
 	}
 

@@ -42,11 +42,11 @@ class PasswordPresenter extends BasePresenter
 	{
 		$form = new Form();
 		$form->addText('email', 'E-mail:')
-			->setRequired('Vyplňte prosím váš e-mail, pod kterým jste registrováni.')
-			->addRule(Form::EMAIL, 'Vyplňte prosím e-mail správně.')
+			->setRequired('Please fill your email.')
+			->addRule(Form::EMAIL, 'Please fill your email correctly.')
 			->getControlPrototype()->class('form-control');
-		$form->addSubmit('s', 'Získat nové heslo')
-			->getControlPrototype()->class('btn btn-blue');
+		$form->addSubmit('s', 'Reset password')
+			->getControlPrototype()->class('btn btn-primary');
 		$form->onSuccess[] = $this->submitSendNewPasswordForm;
 
 		return $form;
@@ -57,7 +57,7 @@ class PasswordPresenter extends BasePresenter
 		$user = $this->userRepository->findAllowedByEmail($form->values->email);
 
 		if (!$user) {
-			$form->addError('Uživatel s mailem ' . $form->values->email . ' není v systému registrován.');
+			$form->addError('User ' . $form->values->email . ' has not been found.');
 			return;
 		}
 
@@ -68,7 +68,7 @@ class PasswordPresenter extends BasePresenter
 		$message = $this->forgottenEmailFactory->create($this, $user);
 		$this->mailer->send($message);
 
-		$this->flashMessage('E-mail s instrukcemi pro zadání nového hesla byl úspěšně zaslán.');
+		$this->flashMessage('Email with instructions to set new password has been successfully changed.');
 		$this->redirect(':Homepage:');
 	}
 
@@ -77,7 +77,7 @@ class PasswordPresenter extends BasePresenter
 		$user = $this->userRepository->findByEmailAndHash($email, $hash);
 
 		if (!$user) {
-			$this->flashMessage('Uživatel nebyl nalezen nebo heslo již bylo změněno.', 'error');
+			$this->flashMessage('User has not been found. Maybe password has been already changed.', 'error');
 			$this->redirect(':Homepage:');
 		}
 	}
@@ -85,13 +85,13 @@ class PasswordPresenter extends BasePresenter
 	protected function createComponentNewPasswordForm()
 	{
 		$form = new Form();
-		$form->addPassword('password', 'Nové heslo:')
-			->setRequired('Zadejte prosím heslo.');
-		$form->addPassword('password2', 'Heslo ještě jedno:')
-			->setRequired('Zadejte heslo pro kontrolu ještě jednou.')
-			->addRule(Form::EQUAL, 'Hesla se musí shodovat.', $form['password']);
-		$form->addSubmit('s', 'Změnit heslo')
-			->getControlPrototype()->class('btn btn-blue');
+		$form->addPassword('password', 'New password:')
+			->setRequired('Please fill password.');
+		$form->addPassword('password2', 'Password one more time:')
+			->setRequired('Please insert your password one more time.')
+			->addRule(Form::EQUAL, 'Passwords has to match.', $form['password']);
+		$form->addSubmit('s', 'Change password')
+			->getControlPrototype()->class('btn btn-primary');
 		$form->onSuccess[] = $this->submitNewPasswordForm;
 
 		return $form;
@@ -108,7 +108,7 @@ class PasswordPresenter extends BasePresenter
 		$this->em->flush();
 
 		$this->user->login($user);
-		$this->flashMessage('Heslo bylo úspěšně změněno.');
+		$this->flashMessage('Your password has been successfully changed.');
 		$this->redirect('User:');
 	}
 

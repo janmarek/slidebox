@@ -108,11 +108,11 @@ class RegisterPresenter extends BasePresenter
 			$this->em->flush();
 
 			$this->user->login($user);
-			$this->flashMessage('Uživatel byl úspěšně povolen.');
+			$this->flashMessage('User has been successfully allowed.');
 		} elseif ($user->isAllowed()) {
-			$this->flashMessage('Uživatele je již povolený.');
+			$this->flashMessage('User is already allowed.');
 		} else {
-			$this->flashMessage('Uživatele se nepodařilo povolit.', 'danger');
+			$this->flashMessage('Error while trying to allow user.', 'danger');
 			$this->redirect(':Homepage:');
 		}
 

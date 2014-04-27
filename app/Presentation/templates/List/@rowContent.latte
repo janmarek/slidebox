@@ -1,6 +1,6 @@
 <td>
 	{if !$presentation->deleted}<a n:href="Detail: id => $presentation->id">{/if}
-	{$presentation->name}
+	{if $presentation->name}{$presentation->name}{else}<i>noname</i>{/if}
 	{if !$presentation->deleted}</a>{/if}
 </td>
 <td>
