@@ -63,7 +63,7 @@ class Generator
 
 	public function hasClass($el, $class)
 	{
-		return in_array($class, explode(' ', $el->getAttribute('class')));
+		return in_array($class, explode(' ', $el->getAttribute('class')), TRUE);
 	}
 
 } 

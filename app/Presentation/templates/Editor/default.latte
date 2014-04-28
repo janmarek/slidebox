@@ -39,7 +39,7 @@
 			<p data-bind="visible: published">Presentation is published.</p>
 
 			<p>
-				<a class="btn btn-default" data-bind="click: shareWindow.open.bind(shareWindow); visible: published">
+				<a class="btn btn-default" data-bind="click: shareWindow.open.bind(shareWindow), visible: published">
 					<i class="fa fa-share"></i> Share
 				</a>
 				<a class="btn btn-primary" data-bind="click: publish, visible: !published()">
