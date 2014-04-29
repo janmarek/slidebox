@@ -34,10 +34,18 @@ class Generator
 				$presentation->addLeftContent($child);
 			} elseif ($child->nodeName === 'div' && $this->hasClass($child, 'figure-right')) {
 				$presentation->addRightContent($child);
-			} elseif ($this->firstAndOnlyChildIsImage($child) && $this->hasClass($child->firstChild, 'image-left')) {
+			} elseif ($this->firstAndOnlyChildOfDivIsImage($child) && $this->hasClass($child->firstChild, 'image-left')) {
 				$presentation->addLeftContent($child);
-			} elseif ($this->firstAndOnlyChildIsImage($child) && $this->hasClass($child->firstChild, 'image-right')) {
+			} elseif ($this->firstAndOnlyChildOfDivIsImage($child) && $this->hasClass($child->firstChild, 'image-right')) {
 				$presentation->addRightContent($child);
+			} elseif ($this->firstChildOfPIsImage($child) && $this->hasClass($child->firstChild, 'image-left')) {
+				$presentation->addLeftContent($child->firstChild);
+				$child->removeChild($child->firstChild);
+				$presentation->addContent($child);
+			} elseif ($this->firstChildOfPIsImage($child) && $this->hasClass($child->firstChild, 'image-right')) {
+				$presentation->addRightContent($child->firstChild);
+				$child->removeChild($child->firstChild);
+				$presentation->addContent($child);
 			} else {
 				$presentation->addContent($child);
 			}
@@ -56,9 +64,14 @@ class Generator
 		}
 	}
 
-	private function firstAndOnlyChildIsImage($el)
+	private function firstAndOnlyChildOfDivIsImage($el)
 	{
 		return $el->nodeName === 'div' && $el->childNodes->length === 1 && $el->firstChild->nodeName === 'img';
+	}
+
+	private function firstChildOfPIsImage($el)
+	{
+		return $el->nodeName === 'p' && $el->childNodes->length > 0 && $el->firstChild->nodeName === 'img';
 	}
 
 	public function hasClass($el, $class)
