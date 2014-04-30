@@ -116,7 +116,7 @@ class RegisterPresenter extends BasePresenter
 			$this->redirect(':Homepage:');
 		}
 
-		$this->redirect('User:');
+		$this->redirect(':Presentation:List:');
 	}
 
 }

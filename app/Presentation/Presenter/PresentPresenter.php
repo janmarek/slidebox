@@ -45,7 +45,7 @@ class PresentPresenter extends BasePresenter
 
 		$user = $this->getUser()->getIdentity();
 
-		if (!$this->presentation->isPublished() && !$this->presentation->canEditPresentation($user)) {
+		if (!$this->presentation->isPublished() && !$this->presentation->isEditableBy($user)) {
 			$this->error('Unauthorized access to presentation.');
 		}
 

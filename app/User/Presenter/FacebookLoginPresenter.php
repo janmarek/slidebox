@@ -47,7 +47,7 @@ class FacebookLoginPresenter extends BasePresenter
 
 		$this->flashMessage('You have been successfully logged in.');
 		$this->restoreRequest($backlink);
-		$this->redirect('User:');
+		$this->redirect(':Presentation:List:');
 	}
 
 }

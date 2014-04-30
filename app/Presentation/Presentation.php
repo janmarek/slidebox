@@ -175,7 +175,7 @@ class Presentation extends Entity implements \JsonSerializable
 
 	public function increaseVisits(User $user = NULL)
 	{
-		if (!$this->canEditPresentation($user)) {
+		if (!$this->isEditableBy($user)) {
 			$this->visits++;
 		}
 	}
@@ -185,7 +185,7 @@ class Presentation extends Entity implements \JsonSerializable
 		return $this->visits;
 	}
 
-	public function canEditPresentation(User $user = NULL)
+	public function isEditableBy(User $user = NULL)
 	{
 		return $user !== NULL && ($this->isOwner($user) || $this->collaborators->contains($user));
 	}

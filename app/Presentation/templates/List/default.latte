@@ -14,7 +14,9 @@
 	</a>
 </p>
 
-<table class="table-list">
+<p n:if="count($presentations) === 0">You have not created any presentation yet.</p>
+
+<table class="table-list" n:if="count($presentations) > 0">
 	<tr>
 		<th>Name</th>
 		<th>Created at</th>
@@ -30,9 +32,9 @@
 				<i class="fa fa-pencil"></i>
 				Edit
 			</a>
-			<a n:href="Present: id => $presentation->id" class="btn btn-default">
+			<a n:href="Detail: id => $presentation->id" class="btn btn-default">
 				<i class="fa fa-play"></i>
-				Present
+				Detail
 			</a>
 			<a n:href="delete! id => $presentation->id" class="btn btn-danger" n:if="$presentation->isOwner($user->identity)">
 				<i class="fa fa-trash-o"></i>

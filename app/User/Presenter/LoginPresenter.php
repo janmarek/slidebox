@@ -54,7 +54,7 @@ class LoginPresenter extends BasePresenter
 
 			$this->restoreRequest($this->getParameter('backlink'));
 			$this->flashMessage('You have been successfully logged in.');
-			$this->redirect('User:');
+			$this->redirect(':Presentation:List:');
 
 		} catch (AuthenticationException $e) {
 			$form->addError('You have filled wrong email or password.');

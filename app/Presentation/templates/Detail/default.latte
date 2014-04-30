@@ -3,16 +3,25 @@
 {block h1}{/block}
 
 {block content}
+<div class="alert alert-danger" n:if="!$presentation->published">
+	Presentation is not yet published.
+</div>
 
 <div id="detail">
 <div class="detail-presentation">
 	<iframe src="{link Present:embed id => $presentation->id}"></iframe>
 </div>
 
-<h1 class="detail">{$presentation->name}</h1>
+<h1 class="detail">
+	{$presentation->name}
+	<a class="btn btn-default" n:if="$presentation->isEditableBy($user->identity)" n:href="Editor: id => $presentation->id">
+		<i class="fa fa-pencil"></i> Edit
+	</a>
+</h1>
 
-<div n:if="$presentation->published" class="detail-presentation-info">
+<div class="detail-presentation-info">
 	by <strong><a n:href="Profile: id => $presentation->user->id">{$presentation->user->name}</a></strong>
+	{if $presentation->published}
 	at {$presentation->publishedAt|datetime}
 	<span class="sep">|</span>
 	<i class="fa fa-eye"></i> {$presentation->visits} views
@@ -21,6 +30,7 @@
 	<strong><a data-bind="click: shareWindow.open.bind(shareWindow)">Share</a></strong>
 	<span class="sep">|</span>
 	<div class="fb-like" data-href="{link //this}" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div>
+	{/if}
 </div>
 
 <p n:if="$presentation->description">

@@ -3,14 +3,13 @@
 namespace Presidos\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
+use Nette\Utils\Html;
 use Presidos\Presentation\PresentationFactory;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presenter\BasePresenter;
 
 class ListPresenter extends BasePresenter
 {
-
-	use DeletePresentationTrait;
 
 	/** @var PresentationRepository */
 	private $presentationRepository;
@@ -56,6 +55,28 @@ class ListPresenter extends BasePresenter
 		$this->redirect('Editor:', [
 			'id' => $presentation->getId(),
 		]);
+	}
+
+	/**
+	 * @secured
+	 */
+	public function handleDelete($id)
+	{
+		$this->checkLoggedIn();
+		$presentation = $this->presentationRepository->findByUserAndId($this->getUser()->getIdentity(), $id);
+		$this->checkExistence($presentation);
+
+		$presentation->setDeleted(TRUE);
+		$this->em->flush();
+
+		$msg = Html::el();
+		$msg->add('Presentation has been successfully deleted. ');
+		$msg->add(Html::el('a', [
+			'href' => $this->link('recover!', ['id' => $id]),
+		])->setText('Undo'));
+
+		$this->flashMessage($msg);
+		$this->redirect('default');
 	}
 
 	/**

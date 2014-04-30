@@ -16,8 +16,6 @@ use Presidos\User\UserRepository;
 class EditorPresenter extends BasePresenter
 {
 
-	use DeletePresentationTrait;
-
 	/** @var Generator */
 	private $generator;
 
@@ -70,7 +68,7 @@ class EditorPresenter extends BasePresenter
 
 		$user = $this->getUser()->getIdentity();
 
-		if (!$this->presentation->canEditPresentation($user)) {
+		if (!$this->presentation->isEditableBy($user)) {
 			$this->error('You cannot edit this presentation', 403);
 		}
 

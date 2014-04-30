@@ -1,5 +1,5 @@
 <td>
-	{if !$presentation->deleted}<a n:href="Detail: id => $presentation->id">{/if}
+	{if !$presentation->deleted}<a n:href="Editor: id => $presentation->id">{/if}
 	{if $presentation->name}{$presentation->name}{else}<i>noname</i>{/if}
 	{if !$presentation->deleted}</a>{/if}
 </td>
@@ -7,7 +7,7 @@
 	{$presentation->created|datetime}
 </td>
 <td>
-	{if $presentation->published}{$presentation->publishedAt|datetime}{else}not yet{/if}
+	{if $presentation->published}{$presentation->publishedAt|datetime}{else}<strong>not yet</strong>{/if}
 </td>
 <td>
 	{$presentation->updated|datetime}
