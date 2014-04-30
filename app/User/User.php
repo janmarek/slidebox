@@ -28,6 +28,11 @@ class User extends Entity implements IIdentity, \JsonSerializable
 	private $email;
 
 	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $description;
+
+	/**
 	 * @ORM\Column(type="string", length=40, nullable=true)
 	 */
 	private $password;
@@ -150,6 +155,16 @@ class User extends Entity implements IIdentity, \JsonSerializable
 	public function isAllowed()
 	{
 		return $this->allowed;
+	}
+
+	public function setDescription($description)
+	{
+		$this->description = $description ?: NULL;
+	}
+
+	public function getDescription()
+	{
+		return $this->description;
 	}
 
 	public function jsonSerialize()

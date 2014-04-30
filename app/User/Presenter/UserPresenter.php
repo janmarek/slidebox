@@ -70,6 +70,7 @@ class UserPresenter extends BasePresenter
 			->setRequired('Please fill your name.');
 		$form->addText('email', 'Email:')
 			->setRequired('Please fill your password.');
+		$form->addTextArea('description', 'Description:');
 
 		$form->addPassword('newPassword', 'Choose a new password:');
 		$form->addPassword('newPassword2', 'New password one more time:')
@@ -80,6 +81,7 @@ class UserPresenter extends BasePresenter
 		$form->setDefaults(array(
 			'name' => $user->getName(),
 			'email' => $user->getEmail(),
+			'description' => $user->getDescription(),
 		));
 
 		$form->addSubmit('s', 'Save')
@@ -103,6 +105,7 @@ class UserPresenter extends BasePresenter
 
 		$user->setName($values->name);
 		$user->setEmail($values->email);
+		$user->setDescription($values->description);
 
 		if ($values->newPassword) {
 			$user->changePassword($values->newPassword);

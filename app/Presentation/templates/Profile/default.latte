@@ -1,13 +1,27 @@
-{var $title = 'Published presentations by ' . $currentUser->name}
+{var $title = $currentUser->name . ' - published presentations'}
 
 {block h1}
-	<h1>{$user->identity|userIcon} {$title}</h1>
+	<p n:if="$user->identity === $currentUser" class="pull-right">
+		<a class="btn btn-default" n:href=":User:User:">
+			<i class="fa fa-pencil"></i>
+			Edit user setting
+		</a>
+	</p>
+	<h1>{$currentUser|userIcon} {$currentUser->name}</h1>
 {/block}
 
 {block content}
 
+<p n:if="$currentUser->description" class="description">{$currentUser->description}</p>
+
+<h2>Published presentations</h2>
+
+{if count($presentations) === 0}
+<p>User {$currentUser->name} has no published presentations yet.</p>
+{else}
 <div class="row preview-list">
 	<div n:foreach="$presentations as $presentation" class="col-md-3 col-sm-4 col-xs-6">
 		{control presentationPreview $presentation}
 	</div>
 </div>
+{/if}
