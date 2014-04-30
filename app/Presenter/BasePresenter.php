@@ -6,6 +6,7 @@ use Nette\Application\Request;
 use Nette\Application\UI\Presenter;
 use Nette\Utils\Arrays;
 use Nextras\Application\UI\SecuredLinksPresenterTrait;
+use Presidos\View\UserIconHelper;
 
 abstract class BasePresenter extends Presenter
 {
@@ -27,6 +28,7 @@ abstract class BasePresenter extends Presenter
 				return $datetime->format('Y-m-d H:i');
 			}
 		});
+		$template->registerHelper('userIcon', new UserIconHelper());
 		return $template;
 	}
 

@@ -1,5 +1,9 @@
 {var $title = $user->identity->name . ' - user settings'}
 
+{block h1}
+	<h1>{$user->identity|userIcon} {$title}</h1>
+{/block}
+
 {block content}
 
 <div class="row">
