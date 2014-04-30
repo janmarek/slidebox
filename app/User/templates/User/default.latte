@@ -1,14 +1,67 @@
-{var $title = 'User'}
+{var $title = $user->identity->name . ' - user settings'}
 
 {block content}
 
-<ul class="user-menu">
-	<li n:if="!$user->identity->facebookUid">
-		<a href="{$facebookConnectUrl}">Connect account with Facebook</a><br>
-		<span class="muted">If you want to use Facebook for signing in.</span>
-	</li>
-	<li>
-		<a n:href="Profile:edit">Edit user profile</a><br>
-		<span class="muted">Change your name, email or password.</span>
-	</li>
-</ul>
+<div class="row">
+	<div class="col-md-8">
+		{form editProfileForm}
+			{foreach $control['editProfileForm']->getErrors() as $error}
+				<div class="alert alert-danger">{$error}</div>
+			{/foreach}
+
+			{if $user->identity->hasPassword()}
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							{label oldPassword /}
+							{input oldPassword class => 'form-control'}
+						</div>
+					</div>
+				</div>
+				<br>
+			{/if}
+
+			<div class="form-group">
+				{label name /}
+				{input name class => 'form-control'}
+			</div>
+			<div class="form-group">
+				{label email /}
+				{input email class => 'form-control'}
+			</div><br>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						{label newPassword /}
+						{input newPassword class => 'form-control'}
+
+						<span class="text-muted">
+							Keep this field blank if you don't want to change your password.
+						</span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						{label newPassword2 /}
+						{input newPassword2 class => 'form-control'}
+
+						<span class="text-muted">
+							Fill your new password one more time if you want to change it.
+						</span>
+					</div>
+				</div>
+			</div><br>
+
+			<p>{input s class => 'btn btn-primary'}</p>
+		{/form}
+	</div>
+	<div class="col-md-4">
+		<p n:if="!$user->identity->facebookUid">
+			<a href="{$facebookConnectUrl}" class="btn btn-facebook">
+				<i class="fa fa-facebook"></i> Connect account with Facebook
+			</a><br><br>
+			<span class="text-muted">If you want to use Facebook for signing in.</span>
+		</p>
+	</div>
+</div>
+

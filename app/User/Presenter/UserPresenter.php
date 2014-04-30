@@ -3,31 +3,17 @@
 namespace Presidos\User\Presenter;
 
 use Doctrine\ORM\EntityManager;
+use Facebook;
 use Nette\Application\UI\Form;
-use Nette\Mail\IMailer;
-use Nette\Security\AuthenticationException;
 use Presidos\Presenter\BasePresenter;
-use Presidos\User\Email\ForgottenEmailFactory;
-use Presidos\User\Email\RegisterEmailFactory;
-use Presidos\User\FacebookAuthenticator;
-use Presidos\User\PasswordAuthenticator;
 use Presidos\User\User;
 use Presidos\User\UserRepository;
 
 class UserPresenter extends BasePresenter
 {
 
-	/** @persistent */
-	public $backlink = '';
-
-	/** @var \Facebook */
+	/** @var Facebook */
 	private $facebook;
-
-	/** @var FacebookAuthenticator */
-	private $facebookAuthenticator;
-
-	/** @var PasswordAuthenticator */
-	private $passwordAuthenticator;
 
 	/** @var EntityManager */
 	private $em;
@@ -35,27 +21,11 @@ class UserPresenter extends BasePresenter
 	/** @var UserRepository */
 	private $userRepository;
 
-	/** @var RegisterEmailFactory */
-	private $registerEmailFactory;
-
-	/** @var ForgottenEmailFactory */
-	private $forgottenEmailFactory;
-
-	/** @var IMailer */
-	private $mailer;
-
-	public function __construct(\Facebook $facebook, FacebookAuthenticator $facebookAuthenticator,
-		PasswordAuthenticator $passwordAuthenticator, EntityManager $em, UserRepository $userRepository,
-		RegisterEmailFactory $registerEmailFactory, ForgottenEmailFactory $forgottenEmailFactory, IMailer $mailer)
+	public function __construct(Facebook $facebook, EntityManager $em, UserRepository $userRepository)
 	{
 		$this->facebook = $facebook;
-		$this->facebookAuthenticator = $facebookAuthenticator;
-		$this->passwordAuthenticator = $passwordAuthenticator;
 		$this->em = $em;
 		$this->userRepository = $userRepository;
-		$this->registerEmailFactory = $registerEmailFactory;
-		$this->forgottenEmailFactory = $forgottenEmailFactory;
-		$this->mailer = $mailer;
 	}
 
 	public function actionDefault()
@@ -79,6 +49,64 @@ class UserPresenter extends BasePresenter
 
 		$this->flashMessage('Your account has been successfully connected with facebook.');
 		$this->redirect('default');
+	}
+
+	protected function createComponentEditProfileForm()
+	{
+		$user = $this->user->getIdentity();
+
+		$form = new Form();
+
+		if ($user->hasPassword()) {
+			$form->addPassword('oldPassword', 'Fill your password:');
+		}
+
+		$form->addText('name', 'Name:')
+			->setRequired('Please fill your name.');
+		$form->addText('email', 'Email:')
+			->setRequired('Please fill your password.');
+
+		$form->addPassword('newPassword', 'Choose a new password:');
+		$form->addPassword('newPassword2', 'New password one more time:')
+			->addConditionOn($form['newPassword'], Form::FILLED)
+			->addRule(Form::FILLED, 'Please fill your password one more time.')
+			->addRule(Form::EQUAL, 'New passwords has to match', $form['newPassword']);
+
+		$form->setDefaults(array(
+			'name' => $user->getName(),
+			'email' => $user->getEmail(),
+		));
+
+		$form->addSubmit('s', 'Save')
+			->getControlPrototype();
+
+		$form->onSuccess[] = $this->submitEditProfileForm;
+
+		return $form;
+	}
+
+	public function submitEditProfileForm(Form $form)
+	{
+		/** @var User $user */
+		$user = $this->user->getIdentity();
+		$values = $form->getValues();
+
+		if ($user->hasPassword() && !$user->checkPassword($values->oldPassword)) {
+			$form->addError('Please insert your password correctly.');
+			return;
+		}
+
+		$user->setName($values->name);
+		$user->setEmail($values->email);
+
+		if ($values->newPassword) {
+			$user->changePassword($values->newPassword);
+		}
+
+		$this->em->flush();
+
+		$this->flashMessage('User settings has been successfully saved.');
+		$this->redirect('User:');
 	}
 
 }
