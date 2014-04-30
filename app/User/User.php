@@ -23,7 +23,7 @@ class User extends Entity implements IIdentity, \JsonSerializable
 	private $name;
 
 	/**
-	 * @ORM\Column(type="string", length=60)
+	 * @ORM\Column(type="string", length=60, unique=true)
 	 */
 	private $email;
 
@@ -38,7 +38,7 @@ class User extends Entity implements IIdentity, \JsonSerializable
 	private $salt;
 
 	/**
-	 * @ORM\Column(name="facebook_uid", type="string", length=60, nullable=true)
+	 * @ORM\Column(name="facebook_uid", type="string", length=60, nullable=true, unique=true)
 	 */
 	private $facebookUid;
 

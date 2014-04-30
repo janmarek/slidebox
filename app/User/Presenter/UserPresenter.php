@@ -45,9 +45,14 @@ class UserPresenter extends BasePresenter
 
 		$user = $this->getUser()->getIdentity();
 		$user->setFacebookUid($this->facebook->getUser());
-		$this->em->flush();
 
-		$this->flashMessage('Your account has been successfully connected with facebook.');
+		if ($this->userRepository->hasUniqueFacebook($user)) {
+			$this->em->flush();
+			$this->flashMessage('Your account has been successfully connected with facebook.');
+		} else {
+			$this->flashMessage('Facebook user is already registered.', 'danger');
+		}
+
 		$this->redirect('default');
 	}
 

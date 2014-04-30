@@ -61,10 +61,15 @@ class UserRepository extends Repository
 	{
 		return $this->hasUniqueField($user->getId(), $user->getEmail(), 'email');
 	}
-	
+
 	public function hasUniqueUsername(User $user)
 	{
 		return $this->hasUniqueField($user->getId(), $user->getName(), 'name');
+	}
+
+	public function hasUniqueFacebook(User $user)
+	{
+		return $this->hasUniqueField($user->getId(), $user->getFacebookUid(), 'facebookUid');
 	}
 	
 	private function hasUniqueField($id, $value, $field)
