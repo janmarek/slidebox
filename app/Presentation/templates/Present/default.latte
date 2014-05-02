@@ -18,7 +18,7 @@
 				<i class="fa fa-compress" data-bind="visible: fullscreenActive"></i>
 				fullscreen
 			</a>
-			<a href="{if $edit}{link Editor: id => $presentation->id}{else}{link Detail: id => $presentation->id}{/if}">
+			<a href="{$exitLink}">
 				<i class="fa fa-sign-out"></i> exit
 			</a>
 			<span class="sep">|</span>
@@ -37,7 +37,7 @@
 {include #parent}
 <script>
 var maxPage = $('#presentation-content > *').size();
-var presentView = new PresentView(maxPage);
+var presentView = new PresentView(maxPage, {$exitLink});
 presentView.registerHashHandling(window.location);
 presentView.registerKeys(window);
 ko.applyBindings(presentView);

@@ -1,6 +1,7 @@
-function PresentView(maxPage) {
+function PresentView(maxPage, exitLink) {
 	var self = this;
 	this.maxPage = maxPage;
+	this.exitLink = exitLink;
 	this.internalPage = ko.observable(1);
 	this.barOpened = ko.observable(true);
 	this.fullscreenSupported = Fullscreen.isSupported();
@@ -39,12 +40,16 @@ PresentView.prototype = {
 	registerKeys: function (window) {
 		var self = this;
 		$(window).keyup(function (e) {
-			if (e.keyCode == 37) {
+			if (e.keyCode === 37) {
 				self.prev();
 			}
 
-			if (e.keyCode == 39) {
+			if (e.keyCode === 39) {
 				self.next();
+			}
+
+			if (e.keyCode === 27 && self.exitLink) {
+				window.location.href = self.exitLink;
 			}
 		});
 	},

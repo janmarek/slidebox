@@ -62,11 +62,13 @@ class PresentPresenter extends BasePresenter
 	{
 		$this->template->isEmbed = FALSE;
 		$this->template->edit = $edit;
+		$this->template->exitLink = $edit ? $this->link('Editor:', ['id' => $id]) : $this->link('Detail:', ['id' => $id]);
 	}
 
 	public function renderEmbed($id)
 	{
 		$this->template->isEmbed = TRUE;
+		$this->template->exitLink = NULL;
 		$this->setView('default');
 	}
 
