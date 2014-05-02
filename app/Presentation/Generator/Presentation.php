@@ -14,7 +14,7 @@ class Presentation
 {
 
 	/** @var DOMDocument */
-	private $document = [];
+	private $document;
 
 	/** @var bool */
 	private $newSlideIsEmpty;

@@ -20,9 +20,6 @@ class Theme extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="string", name="class_name") */
 	private $className;
 
-	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
-	private $user;
-
 	public function setClassName($className)
 	{
 		$this->className = $className;
@@ -41,16 +38,6 @@ class Theme extends Entity implements \JsonSerializable
 	public function getName()
 	{
 		return $this->name;
-	}
-
-	public function setUser($user)
-	{
-		$this->user = $user;
-	}
-
-	public function getUser()
-	{
-		return $this->user;
 	}
 
 	public function jsonSerialize()
