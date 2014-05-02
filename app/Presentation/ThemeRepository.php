@@ -26,7 +26,7 @@ class ThemeRepository extends Repository
 	 */
 	public function getDefaultTheme()
 	{
-		return $this->findByName('Default');
+		return $this->findByName('Orange');
 	}
 
 }

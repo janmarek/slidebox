@@ -1,0 +1,35 @@
+.theme-forest {
+	@heading-text: #f5fb27;
+	@body: #397335;
+	@body-text: white;
+
+	.slide a, &.presentation-preview a {color: @heading-text;}
+
+	.slide, &.presentation-preview {
+		background-color: @body;
+		color: @body-text;
+	}
+
+	.slide-header {
+		color: @heading-text;
+	}
+
+	.slide {
+		table {
+			th, td {
+				border: 0.1em solid #FFF;
+			}
+			th {
+				background: lighten(@body, 10%);
+			}
+		}
+
+		pre {
+			color: @body-text;
+		}
+
+		blockquote {
+			border-color: @heading-text; color: @heading-text;
+		}
+	}
+}

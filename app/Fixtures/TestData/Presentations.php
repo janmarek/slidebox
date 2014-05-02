@@ -19,7 +19,7 @@ class Presentations extends AbstractFixture implements DependentFixtureInterface
 		$honza = $this->getReference('user-honza');
 		$pepa = $this->getReference('user-pepa');
 		$petr = $this->getReference('user-petr');
-		$theme = $this->getReference('theme-default');
+		$theme = $this->getReference('theme-orange');
 
 		$presentation1 = new Presentation($honza);
 		$presentation1->setTheme($theme);

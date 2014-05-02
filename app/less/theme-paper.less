@@ -1,0 +1,42 @@
+.theme-paper {
+	@heading-text: #8c0000;
+	@body: #f4f0e7;
+	@body-text: black;
+	@link: #3a87da;
+
+	.slide-content {
+		font-family: "Times New Roman", serif;
+	}
+
+	&.presentation-preview a, .slide a {color: @heading-text;}
+
+	.slide, &.presentation-preview {
+		background-color: @body;
+		color: @body-text;
+	}
+
+	.slide-header {
+		h2, h1 {font-weight: bold;}
+		color: @heading-text;
+		text-shadow: 0.1em 0.1em 0.2em #CCC;
+	}
+
+	.slide {
+		table {
+			th, td {
+				border: 0.1em solid #CCC;
+			}
+			th {
+				background: darken(@body, 10%);
+			}
+		}
+
+		pre {
+			color: @body-text;
+		}
+
+		blockquote {
+			border-color: @heading-text; color: @heading-text;
+		}
+	}
+}

@@ -1,0 +1,26 @@
+.theme-plain {
+	@heading-text: #536688;
+	@body: white;
+	@body-text: black;
+	@th: #DDD;
+
+	&.presentation-preview, .slide {
+		background: @body; color: @body-text;
+	}
+
+	.slide-header, .slide.main, .slide.last {
+		color: @heading-text;
+		a {color: @heading-text;}
+	}
+
+	.slide-content {
+		table {
+			th, td {
+				border: 0.1em solid #AAA;
+			}
+			th {
+				background: @th;
+			}
+		}
+	}
+}
