@@ -21,10 +21,7 @@ class DetailPresenter extends BasePresenter
 		$presentation = $this->presentationRepository->find($id);
 		$this->checkExistence($presentation);
 
-		if (!$presentation->isPublished() && $this->getUser()->getIdentity() !== $presentation->getUser()) {
-			$this->error('Unauthorized access to presentation.', 403);
-		}
-
+		$this->template->presentationVisible = $presentation->isPublished() || $presentation->isEditableBy($this->getUser()->getIdentity());
 		$this->template->presentation = $presentation;
 		$this->template->ogType = 'presentation';
 	}

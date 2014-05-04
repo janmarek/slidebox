@@ -8,7 +8,7 @@
 </div>
 
 <div id="detail">
-<div class="detail-presentation">
+<div class="detail-presentation" n:if="$presentationVisible">
 	<iframe src="{link Present:embed id => $presentation->id}"></iframe>
 </div>
 
@@ -19,6 +19,7 @@
 	</a>
 </h1>
 
+{if $presentationVisible}
 <div class="detail-presentation-info">
 	by <strong><a n:href="Profile: id => $presentation->user->id">{$presentation->user->name}</a></strong>
 	{if $presentation->published}
@@ -38,6 +39,7 @@
 </p>
 
 {include ../@shareWindow.latte}
+{/if}
 </div>
 {/block}
 
