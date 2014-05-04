@@ -1,0 +1,27 @@
+<!-- ko with: newSlideWindow -->
+<div class="modal" data-bind="css: { 'modal-visible': opened }">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-bind="click: opened.bind($data, false)">&times;</a>
+				<h4 class="modal-title">Add new slide</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="slide-name">Slide heading text (optional):</label>
+					<input id="slide-name" type="text" class="form-control" data-bind="value: name, hasFocus: nameFocused">
+				</div>
+				<div class="form-group">
+					<label for="slide-type">Slide appearance:</label>
+					<select id="slide-text" class="form-control" data-bind="
+						options: slideTypes, value: type, optionsText: 'name', optionsValue: 'id'
+					"></select>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bind="click: insert">Add</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /ko -->

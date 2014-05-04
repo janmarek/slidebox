@@ -26,6 +26,7 @@ function PresidosEditor(texyEditor, presentation, isOwner, themes, config) {
 	this.editDetailsWindow = new EditDetailsWindow(config, this);
 	this.shareWindow = new ShareWindow();
 	this.collaboratorsWindow = new CollaboratorsWindow(config, this);
+	this.newSlideWindow = new NewSlideWindow(texyEditor.editor);
 
 	this.texyEditor.editor.on('change', function (e) {
 		this.editorContent(this.texyEditor.document.getValue());
