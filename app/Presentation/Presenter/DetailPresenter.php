@@ -2,7 +2,6 @@
 
 namespace Presidos\Presentation\Presenter;
 
-use Presidos\Presentation\Generator\Generator;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presenter\BasePresenter;
 

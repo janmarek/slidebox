@@ -2,14 +2,14 @@ function InsertImageWindow(texyEditor) {
 	this.texyEditor = texyEditor;
 	this.opened = ko.observable(false);
 	this.url = ko.observable();
-	this.alt = ko.observable();
+	this.description = ko.observable();
 	this.align = ko.observable();
 }
 
 InsertImageWindow.prototype.open = function (url) {
 	this.opened(true);
 	this.url(url);
-	this.alt('');
+	this.description('');
 	this.align('center');
 };
 
@@ -22,6 +22,6 @@ InsertImageWindow.prototype.insert = function () {
 		right: '>'
 	};
 
-	this.texyEditor.image(this.url(), this.alt(), aligns[this.align()]);
+	this.texyEditor.image(this.url(), null, aligns[this.align()], this.description());
 };
 

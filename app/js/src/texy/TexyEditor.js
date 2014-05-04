@@ -5,7 +5,7 @@ function TexyEditor(aceEditor) {
 }
 
 TexyEditor.UNDERLINE_MIN = 3;
-TexyEditor.UNDERLINE_MAX = 20;
+TexyEditor.UNDERLINE_MAX = 40;
 TexyEditor.REGEXP_UL = /^\s*([\-\*]) (.*)/;
 TexyEditor.REGEXP_OL = /^\s*([\d]+)([\)\.]) (.*)/;
 TexyEditor.REGEXP_LETTER_OL = /^\s*([a-zA-Z]+)\) (.*)/;
@@ -319,8 +319,9 @@ TexyEditor.prototype.table = function (cols, rows, header) {
 	this.editor.focus();
 };
 
-TexyEditor.prototype.image = function (src, alt, align) {
-	var texy = '[* ' + src + ' ' + (alt ? '.(' + alt + ') ' : '') + (align ? align : '*') + ']';
+TexyEditor.prototype.image = function (src, alt, align, figureDescription) {
+	var texy = '[* ' + src + ' ' + (alt ? '.(' + alt + ') ' : '') + (align ? align : '*') + ']' +
+		(figureDescription ? ' *** ' + figureDescription : '');
 
 	var selection = this.editor.getSelectionRange();
 	this.document.replace(selection, texy);
