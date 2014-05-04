@@ -56,6 +56,7 @@ class PresentPresenter extends BasePresenter
 		$texy = $this->presentation->getTexy();
 		$html = $this->texyFactory->createTexy()->process($texy);
 		$this->template->html = $this->generator->getPresentation($html)->getHtml();
+		$this->template->ogType = 'presentation';
 	}
 
 	public function renderDefault($id, $edit = FALSE)

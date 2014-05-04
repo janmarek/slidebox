@@ -26,6 +26,7 @@ class DetailPresenter extends BasePresenter
 		}
 
 		$this->template->presentation = $presentation;
+		$this->template->ogType = 'presentation';
 	}
 
 }
