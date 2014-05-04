@@ -51,7 +51,10 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
 	private $user;
 
-	/** @ORM\ManyToMany(targetEntity="Presidos\User\User") */
+	/**
+	 * @ORM\ManyToMany(targetEntity="Presidos\User\User")
+	 * @ORM\JoinTable(name="collaborator")
+	 */
 	private $collaborators;
 
 	/** @ORM\ManyToOne(targetEntity="Presidos\Presentation\Theme") */

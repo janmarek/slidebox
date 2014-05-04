@@ -84,7 +84,9 @@
 		{/block}
 		{block contentContainer}
 		<div class="container content">
+			{block flashes}
 			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">{$flash->message}</div>
+			{/block}
 
 			{block h1}<h1 n:ifset="$title">{$title}</h1>{/block}
 

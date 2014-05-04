@@ -7,6 +7,7 @@ use Nette\Application\UI\Form;
 use Nette\Mail\IMailer;
 use Nette\Security\AuthenticationException;
 use Presidos\Presenter\BasePresenter;
+use Presidos\User\DuplicateEmailException;
 use Presidos\User\Email\ForgottenEmailFactory;
 use Presidos\User\Email\RegisterEmailFactory;
 use Presidos\User\FacebookAuthenticator;
@@ -42,12 +43,20 @@ class FacebookLoginPresenter extends BasePresenter
 	public function actionFacebookLogin($backlink = NULL)
 	{
 		$me = $this->facebook->api('/me');
-		$identity = $this->facebookAuthenticator->authenticate($me);
-		$this->getUser()->login($identity);
+		try {
+			$identity = $this->facebookAuthenticator->authenticate($me);
+			$this->getUser()->login($identity);
 
-		$this->flashMessage('You have been successfully logged in.');
-		$this->restoreRequest($backlink);
-		$this->redirect(':Presentation:List:');
+			$this->flashMessage('You have been successfully logged in.');
+			$this->restoreRequest($backlink);
+			$this->redirect(':Presentation:List:');
+		} catch (DuplicateEmailException $e) {
+			$this->flashMessage(
+				'User with email ' . $me['email'] . ' is already registered. ' .
+				'You can login via password and then connect account with Facebook.'
+			);
+			$this->redirect(':Homepage:');
+		}
 	}
 
 }

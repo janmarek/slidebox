@@ -40,6 +40,10 @@ class FacebookAuthenticator
 		$user->setFacebookUid($me['id']);
 		$user->allow();
 
+		if (!$this->userRepository->hasUniqueEmail($user)) {
+			throw new DuplicateEmailException('User with email ' . $user->getEmail() . ' is already registered.');
+		}
+
 		$this->em->persist($user);
 		$this->em->flush();
 
