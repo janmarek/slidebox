@@ -7,42 +7,21 @@ a {cursor: pointer}
 .nav-tabs {margin-bottom: 10px}
 
 .header {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	z-index: 2;
-
-	padding: 0 15px;
-	height: 60px;
-	line-height: 60px;
-	background: @dark-blue;
 	font-size: 115%;
 
+	.navbar-brand {
+		padding: 15px;
+	}
+
 	.logo {
-		display: inline-block;
+		display: block;
 		height: 30px;
 		width: 108px;
 		background: url(../images/logo.png);
-		position: relative;
-		top: 7px;
-		font-size: 130%;
-		margin-right: 30px;
-		text-decoration: none;
 
-		.triangle {color: white; display: none;}
-		.label {color: @orange; font-weight: bold; display: none;}
 		&:hover {
-			opacity: 0.9;
+			opacity: 0.8;
 		}
-	}
-
-	a {color: #61aeda}
-	a:hover {color: white; text-decoration: none;}
-
-	.sep {
-		margin: 0 5px;
-		color: #405a73;
 	}
 }
 
@@ -78,7 +57,7 @@ a {cursor: pointer}
 }
 
 .content {
-	padding: 30px 0;
+	padding: 30px 15px;
 
 	h1 {
 		color: @dark-blue;

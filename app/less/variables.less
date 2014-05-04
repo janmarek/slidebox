@@ -2,6 +2,7 @@
 
 @orange: #ff903e;
 @dark-blue: #1b2837;
+@light-blue: #61aeda;
 
 // redefine bootstrap variables
 @brand-primary: @orange;
@@ -23,3 +24,29 @@
 
 @padding-xs-vertical: 1px;
 @padding-xs-horizontal: 5px;
+
+// top navbar
+@navbar-height: 60px;
+@navbar-inverse-color: @light-blue;
+@navbar-inverse-bg: @dark-blue;
+@navbar-inverse-border: darken(@navbar-inverse-bg, 10%);
+
+// Inverted navbar links
+@navbar-inverse-link-color: @light-blue;
+@navbar-inverse-link-hover-color: #fff;
+@navbar-inverse-link-hover-bg: lighten(@dark-blue, 5%);
+@navbar-inverse-link-active-color: @navbar-inverse-link-hover-color;
+@navbar-inverse-link-active-bg: darken(@navbar-inverse-bg, 10%);
+@navbar-inverse-link-disabled-color: #444;
+@navbar-inverse-link-disabled-bg: transparent;
+
+// Inverted navbar brand label
+@navbar-inverse-brand-color: @navbar-inverse-link-color;
+@navbar-inverse-brand-hover-color: #fff;
+@navbar-inverse-brand-hover-bg: transparent;
+
+// Inverted navbar toggle
+@navbar-inverse-toggle-hover-bg: lighten(@dark-blue, 10%);
+@navbar-inverse-toggle-icon-bar-bg: #fff;
+@navbar-inverse-toggle-border-color: lighten(@dark-blue, 15%);
+

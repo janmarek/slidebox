@@ -31,35 +31,57 @@
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
 	{block body}
-		<div class="header">
-			<div class="container">
-			{block headerContent}
-			<span class="pull-right">
-				{if $user->loggedIn}
-				<a n:href=":User:User:">
-					<i class="fa fa-user"></i> {$user->identity->name}
-				</a>
-				<span class="sep">|</span>
-				<a n:href=":User:Login:logout">log out</a>
-				{else}
-				<a n:href=":User:Login:">log in</a>
-				<span class="sep">|</span>
-				<a n:href=":User:Register:">register</a>
-				{/if}
-			</span>
+		{block header}
+		<div class="header navbar navbar-inverse navbar-fixed-top">
+			<div class="container{if $presenter->name === 'Presentation:Editor'}-fluid{/if}">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-content">
+						<span class="sr-only">Toggle menu</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
 
-			<a n:href=":Homepage:" class="logo">
-				<span class="label">Presidos</span>
-			</a>
+					<a n:href=":Homepage:" class="navbar-brand">
+						<span class="logo">
+							<span class="sr-only">Presidos</span>
+						</span>
+					</a>
+				</div>
 
-			{if $user->loggedIn}
-			<a n:href=":Presentation:List:default">My presentations</a>
-			<span class="sep">|</span>
-			<a n:href=":Presentation:List:create"><i class="fa fa-plus"></i> Create new</a>
-			{/if}
-			{/block}
+				<div class="collapse navbar-collapse" id="menu-content">
+					<ul class="nav navbar-nav" n:if="$user->loggedIn">
+						<li n:class="$presenter->name === 'Presentation:List' ? active">
+							<a n:href=":Presentation:List:default">My presentations</a>
+						</li>
+						<li>
+							<a n:href=":Presentation:List:create"><i class="fa fa-plus"></i> Create new</a>
+						</li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						{if $user->loggedIn}
+						<li n:class="$presenter->name === 'User:User' ? active">
+							<a n:href=":User:User:">
+								<i class="fa fa-user"></i> {$user->identity->name}
+							</a>
+						</li>
+						<li>
+							<a n:href=":User:Login:logout">log out</a>
+						</li>
+						{else}
+						<li n:class="$presenter->name === 'User:Login' ? active">
+							<a n:href=":User:Login:">log in</a>
+						</li>
+						<li n:class="$presenter->name === 'User:Register' ? active">
+							<a n:href=":User:Register:">register</a>
+						</li>
+						{/if}
+					</ul>
+				</div>
 			</div>
 		</div>
+		{/block}
 		{block contentContainer}
 		<div class="container content">
 			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">{$flash->message}</div>
