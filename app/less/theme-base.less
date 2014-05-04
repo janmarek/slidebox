@@ -1,3 +1,26 @@
+.present-mode, .pdf-mode {
+	font-size: 250%;
+	margin: 0;
+	padding: 0;
+}
+
+.pdf-mode {
+	.slide {
+		page-break-after: always;
+		min-height: 219.5mm;
+	}
+}
+
+.embed-mode {
+	font-size: 180%;
+	margin: 0; padding: 0;
+}
+
+.present-mode #presentation-content, .embed-mode #presentation-content {
+	height: 100%;
+	.slide {min-height: 100%}
+}
+
 .presentation-preview {
 	min-height: 5em;
 	text-align: center;

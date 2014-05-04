@@ -1,6 +1,7 @@
 parameters:
   email: presidos@presidos.com
   emailName: Presidos
+  wkhtmltopdfOptions: {}
 
 php:
   date.timezone: Europe/Prague
@@ -63,6 +64,7 @@ services:
   texyFactory: Presidos\Presentation\Generator\TexyFactory
   texy: @texyFactory::createTexy()
   generator: Presidos\Presentation\Generator\Generator
+  wkhtmltopdfFactory: Presidos\Presentation\Generator\WkHtmlToPdfFactory( %tempDir%/pdf, %wkhtmltopdfOptions% )
 
   #fixtures
   fixtures: Presidos\Fixtures\Fixtures
