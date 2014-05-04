@@ -5,6 +5,7 @@ namespace Presidos\Presenter;
 use Nette\Application\Request;
 use Nette\Application\UI\Presenter;
 use Nette\Utils\Arrays;
+use Nette\Utils\Html;
 use Nextras\Application\UI\SecuredLinksPresenterTrait;
 use Presidos\View\UserIconHelper;
 
@@ -27,6 +28,9 @@ abstract class BasePresenter extends Presenter
 			if ($datetime instanceof \DateTime) {
 				return $datetime->format('Y-m-d H:i');
 			}
+		});
+		$template->registerHelper('untitled', function ($value) {
+			return $value ?: Html::el('i')->setText('untitled');
 		});
 		$template->registerHelper('userIcon', new UserIconHelper());
 		return $template;
