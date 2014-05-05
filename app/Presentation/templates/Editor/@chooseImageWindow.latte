@@ -43,7 +43,7 @@
 					</p>
 
 					<div data-bind="visible: loaded">
-						<h3>Insert uploaded image</h3>
+						<h3 data-bind="visible: uploadedFiles().length > 0">Insert uploaded image</h3>
 						<ul class="list-unstyled" data-bind="foreach: uploadedFiles">
 							<li>
 								<i class="fa fa-picture-o"></i>

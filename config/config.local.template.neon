@@ -6,6 +6,16 @@ parameters:
     user: root
     password:
 
+  facebook:
+    appId: "508700992568621"
+    appSecret: "bdbe0b2e21932ad5ef3e76504ace3d2e"
+
+  upload:
+    urlPrefix: "http://images.presidos.dev"
+
+  wkhtmltopdfOptions:
+    binPath: "/usr/local/bin/wkhtmltopdf"
+
 services:
   nette.mailer:
     class: Nextras\MailPanel\SessionMailer
