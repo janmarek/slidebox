@@ -2,6 +2,20 @@
 
 {block h1}{/block}
 
+{block bodyTag}
+	{include #parent}
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=" + {$facebookAppId};
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+{/block}
+
 {block content}
 <div class="alert alert-danger" n:if="!$presentation->published">
 	Presentation is not yet published.
