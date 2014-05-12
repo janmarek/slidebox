@@ -49,15 +49,30 @@
 				<div class="theme-column">
 					<div class="theme-wrapper" data-bind="
 						css: { active: $data === $parent.selectedTheme() },
-						click: $parent.selectTheme.bind($parent),
+						click: $parent.selectTheme.bind($parent, $data),
 						event: {
-							mouseover: $parent.showPreviewTheme.bind($parent),
-							mouseout: $parent.resetPreviewTheme.bind($parent)
+							mouseenter: $parent.showPreviewTheme.bind($parent, $data),
+							mouseleave: $parent.resetPreviewTheme.bind($parent)
 						}
 					">
-						<div data-bind="attr: { 'class': 'presentation-preview ' + className }">
+						<div data-bind="attr: { 'class': 'presentation-preview ' + className + ' ' + defaultVariant().className }">
 							<div class="slide-header" data-bind="text: name"></div>
-							<div class="slide-content">text</div>
+							<div class="slide-content">
+								<div class="text">text</div>
+								<div data-bind="foreach: variants" class="variants">
+									<div class="variant-preview" data-bind="
+										css: { active: $data === $root.selectedThemeVariant() },
+										attr: {
+											style: 'background: #' + mainColor
+										},
+										click: $root.selectThemeVariant.bind($root, $data),
+										event: {
+											mouseenter: $root.showPreviewThemeVariant.bind($root, $data),
+											{*mouseleave: $root.resetPreviewThemeVariant.bind($root)*}
+                                       	}
+									"></div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -76,7 +91,10 @@
 				<h3>Preview</h3>
 			</div>
 			<div class="preview-content">
-				<div data-bind="html: previewHtml, attr: { 'class': previewTheme().className }"></div>
+				<div data-bind="
+					html: previewHtml,
+					attr: { 'class': previewTheme().className + ' ' + previewThemeVariant().className }
+				"></div>
 			</div>
 		</div>
 

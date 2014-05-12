@@ -8,6 +8,7 @@ use Presidos\Presentation\Generator\TexyFactory;
 use Presidos\Presentation\Presentation;
 use Presidos\Presentation\PresentationRepository;
 use Presidos\Presentation\ThemeRepository;
+use Presidos\Presentation\ThemeVariantRepository;
 use Presidos\Presentation\UploadedImageFileRepository;
 use Presidos\Presentation\UploadedImageRepository;
 use Presidos\Presenter\BasePresenter;
@@ -43,10 +44,13 @@ class EditorPresenter extends BasePresenter
 	/** @var TexyFactory */
 	private $texyFactory;
 
+	/** @var ThemeVariantRepository */
+	private $themeVariantRepository;
+
 	public function __construct(Generator $generator, PresentationRepository $presentationRepository,
 		ThemeRepository $themeRepository, UserRepository $userRepository, EntityManager $em,
 		UploadedImageFileRepository $uploadedImageFileRepository, UploadedImageRepository $uploadedImageRepository,
-		TexyFactory $texyFactory)
+		TexyFactory $texyFactory, ThemeVariantRepository $themeVariantRepository)
 	{
 		$this->generator = $generator;
 		$this->presentationRepository = $presentationRepository;
@@ -56,6 +60,7 @@ class EditorPresenter extends BasePresenter
 		$this->uploadedImageFileRepository = $uploadedImageFileRepository;
 		$this->uploadedImageRepository = $uploadedImageRepository;
 		$this->texyFactory = $texyFactory;
+		$this->themeVariantRepository = $themeVariantRepository;
 	}
 
 	protected function startup()
@@ -90,7 +95,7 @@ class EditorPresenter extends BasePresenter
 	public function renderDefault($id)
 	{
 		$user = $this->getUser()->getIdentity();
-		$themes = $this->themeRepository->findAll();
+		$themes = $this->themeRepository->getAll();
 
 		$this->template->presentation = $this->presentation;
 		$this->template->themes = $themes;
@@ -127,9 +132,9 @@ class EditorPresenter extends BasePresenter
 	 */
 	public function handleSaveTheme()
 	{
-		$theme = $this->themeRepository->find($this->getPostParameter('theme'));
+		$themeVariant = $this->themeVariantRepository->find($this->getPostParameter('themeVariant'));
 
-		$this->presentation->setTheme($theme);
+		$this->presentation->setThemeVariant($themeVariant);
 		$this->em->flush();
 
 		$this->sendJson([

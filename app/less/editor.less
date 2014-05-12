@@ -22,8 +22,12 @@
 		.make-row(14px);
 		.theme-wrapper {
 			padding: 4px; background: #DDD;
+			.variants {display: none}
+
 			&:hover {
 				background: #AAA;
+				.variants {display: block}
+				.text {display: none}
 			}
 			&.active {
 				background: #ff6f1d;
@@ -33,6 +37,31 @@
 			.make-sm-column(6);
 			padding: 0 7px;
 			margin-bottom: 15px;
+		}
+
+		.slide-content {
+			padding: 5px; min-height: 4em;
+		}
+
+		.text {
+			padding: 10px; margin: 0;
+		}
+		.variants, .variants div {
+			margin: 0;
+		}
+		.variant-preview {
+			display: inline-block; width: 18px; height: 18px;
+			border: 4px solid #FFF;
+			cursor: pointer;
+			box-shadow: 0 0 3px #AAA;
+			border-radius: 2px;
+			&:hover {
+				box-shadow: 0 0 3px #000;
+			}
+			&.active {
+				border-width: 1px !important;
+				box-shadow: 0 0 3px #000;
+			}
 		}
 	}
 }

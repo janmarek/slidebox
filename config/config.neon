@@ -55,6 +55,9 @@ services:
   themeRepository:
     class: Presidos\Presentation\ThemeRepository
     factory: @em::getRepository('Presidos\Presentation\Theme')
+  themeVariantRepository:
+    class: Presidos\Presentation\ThemeVariantRepository
+    factory: @em::getRepository('Presidos\Presentation\ThemeVariant')
 
   uploadFileRepository: Presidos\Presentation\UploadedImageFileRepository(@em, %appDir%/../upload, %upload.urlPrefix%)
   uploadedImageRepository:

@@ -32,18 +32,27 @@ function PresidosEditor(texyEditor, presentation, isOwner, themes, config) {
 		this.editorContent(this.texyEditor.document.getValue());
 	}.bind(this));
 
-	this.themes = themes;
+	this.themes = themes.map(function (theme) {
+		return new Theme(theme);
+	});
 
 	var selectedTheme = null;
-	for (var i = 0; i < themes.length; i++) {
-		if (themes[i].id === presentation.theme.id) {
-			selectedTheme = themes[i];
-			break;
+	var selectedVariant = null;
+	for (var i = 0; i < this.themes.length; i++) {
+		for (var j = 0; j < this.themes[i].variants.length; j++) {
+			if (this.themes[i].variants[j].id === presentation.themeVariant.id) {
+				selectedVariant = this.themes[i].variants[j];
+				selectedTheme = selectedVariant.theme;
+				selectedTheme.defaultVariant(selectedVariant);
+				break;
+			}
 		}
 	}
 
 	this.selectedTheme = ko.observable(selectedTheme);
 	this.previewTheme = ko.observable(selectedTheme);
+	this.selectedThemeVariant = ko.observable(selectedVariant);
+	this.previewThemeVariant = ko.observable(selectedVariant);
 
 	var self = this;
 	ko.computed(function () {
@@ -63,20 +72,45 @@ function PresidosEditor(texyEditor, presentation, isOwner, themes, config) {
 }
 
 PresidosEditor.prototype.selectTheme = function (theme) {
+	var variant = theme.defaultVariant();
 	this.selectedTheme(theme);
+	this.selectedThemeVariant(variant);
 	this.previewTheme(theme);
+	this.previewThemeVariant(variant);
 	$.post(this.config.saveThemeUrl, {
 		id: this.id,
-		theme: theme.id
+		themeVariant: variant.id
 	});
 };
 
+PresidosEditor.prototype.selectThemeVariant = function (themeVariant) {
+	themeVariant.theme.defaultVariant(themeVariant);
+	this.selectTheme(themeVariant.theme);
+};
+
 PresidosEditor.prototype.showPreviewTheme = function (theme) {
+	console.log('set');
 	this.previewTheme(theme);
+	this.previewThemeVariant(theme.defaultVariant());
 };
 
 PresidosEditor.prototype.resetPreviewTheme = function () {
+	console.log('reset');
 	this.previewTheme(this.selectedTheme());
+	this.previewThemeVariant(this.selectedThemeVariant());
+};
+
+PresidosEditor.prototype.showPreviewThemeVariant = function (themeVariant) {
+
+	this.previewTheme(themeVariant.theme);
+	this.previewThemeVariant(themeVariant);
+	console.log('set variant');
+	console.log(this.previewThemeVariant().className);
+};
+
+PresidosEditor.prototype.resetPreviewThemeVariant = function () {
+	console.log('reset variant');
+	this.previewThemeVariant(this.selectedThemeVariant());
 };
 
 PresidosEditor.prototype.publish = function () {

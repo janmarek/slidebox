@@ -100,22 +100,7 @@ class EditorPresenterTest extends IntegrationTestCase
 
 		$response = $this->presenter->runGet('default', ['id' => $presentation->getId()]);
 		Assert::type(RedirectResponse::class, $response);
-		Assert::contains('/presentation.list/', $response->getUrl());
-	}
-
-	public function testDelete()
-	{
-		$this->login('Honza');
-		$presentation = $this->presentationByName('Presentation 1');
-
-		$response = $this->presenter->runGet('default', [
-			'do' => 'delete',
-			'_sec' => 'csrf',
-			'id' => $presentation->getId(),
-		]);
-
-		Assert::type(RedirectResponse::class, $response);
-		Assert::true($presentation->isDeleted());
+		Assert::contains('/presentation-list', $response->getUrl());
 	}
 
 	public function testEditDetails()
@@ -181,7 +166,7 @@ class EditorPresenterTest extends IntegrationTestCase
 	{
 		$this->login('Pepa');
 		$presentation = $this->presentationByName('Presentation 3');
-		$theme = $this->getContainer()->themeRepository->findOneBy(['name' => 'Dark']);
+		$themeVariant = $this->getContainer()->themeVariantRepository->findOneBy(['className' => 'variant-dark-blue']);
 
 		$response = $this->presenter->runPost('default', [
 			'do' => 'saveTheme',
@@ -189,11 +174,11 @@ class EditorPresenterTest extends IntegrationTestCase
 			'_sec' => 'csrf',
 		], [
 			'id' => $presentation->getId(),
-			'theme' => $theme->getId(),
+			'themeVariant' => $themeVariant->getId(),
 		]);
 
 		Assert::type(JsonResponse::class, $response);
-		Assert::same('Dark', $presentation->getTheme()->getName());
+		Assert::same('variant-dark-blue', $presentation->getThemeVariant()->getClassName());
 	}
 
 	public function testSaveCollaborators()

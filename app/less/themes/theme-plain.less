@@ -1,0 +1,78 @@
+.theme-plain-variant(@body, @heading, @text, @th, @border, @blockquote) {
+	.slide a, &.presentation-preview a {color: @heading;}
+
+	.slide, &.presentation-preview {
+		background-color: @body;
+		color: @text;
+	}
+
+	.slide-header {
+		color: @heading;
+	}
+
+	.slide {
+		table {
+			th, td {border: 0.1em solid @border;}
+			th {background: @th;}
+		}
+
+		pre {color: @text;}
+
+		blockquote {border-color: @blockquote; color: @blockquote;}
+	}
+}
+
+.variant-plain-green {
+	@heading: #f5fb27;
+	@body: #397335;
+	@text: white;
+	@th: lighten(@body, 10%);
+	@border: white;
+	@blockquote: @heading;
+
+	.theme-plain-variant(@body, @heading, @text, @th, @border, @blockquote);
+}
+
+.variant-plain-white {
+	@heading: #536688;
+	@body: white;
+	@text: black;
+	@th: #DDD;
+	@border: #AAA;
+	@blockquote: @heading;
+
+	.theme-plain-variant(@body, @heading, @text, @th, @border, @blockquote);
+}
+
+.variant-plain-blue {
+	@body: #2b5288;
+	@heading: #84d1fb;
+	@text: white;
+	@th: lighten(@body, 10%);
+	@border: white;
+	@blockquote: @heading;
+
+	.theme-plain-variant(@body, @heading, @text, @th, @border, @blockquote);
+}
+
+.variant-plain-black {
+	@heading: rgb(195, 214, 241);
+	@body: black;
+	@text: white;
+	@th: #536688;
+	@border: white;
+	@blockquote: @heading;
+
+	.theme-plain-variant(@body, @heading, @text, @th, @border, @blockquote);
+}
+
+.variant-plain-violet {
+	@heading: #fffb7d;
+	@body: #431c86;
+	@text: white;
+	@th: lighten(@body, 10%);
+	@border: white;
+	@blockquote: @heading;
+
+	.theme-plain-variant(@body, @heading, @text, @th, @border, @blockquote);
+}

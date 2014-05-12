@@ -1,0 +1,81 @@
+.theme-classic-variant(@heading, @heading-text, @body, @body-text) {
+	@th: #DDD;
+
+	&.presentation-preview, .slide {
+		background: @body; color: @body-text;
+	}
+
+	.slide-header, .slide.main, .slide.last {
+		background: @heading;
+		color: @heading-text;
+		a {color: @heading-text;}
+	}
+
+	.slide-content {
+		table {
+			background: white;
+			th, td {
+				border: 0.1em solid #AAA;
+			}
+			th {
+				background: @th;
+			}
+		}
+
+		blockquote {border-left-color: @heading; color: @heading;}
+	}
+}
+
+.variant-classic-orange {
+	@heading: #ff681f;
+	@heading-text: white;
+	@body: white;
+	@body-text: black;
+
+	.theme-classic-variant(@heading, @heading-text, @body, @body-text);
+}
+
+.variant-classic-green {
+	@heading: #2c6b00;
+	@heading-text: white;
+	@body: white;
+	@body-text: black;
+
+	.theme-classic-variant(@heading, @heading-text, @body, @body-text);
+}
+
+.variant-classic-blue {
+	@heading: #3483D2;
+	@heading-text: white;
+	@body: white;
+	@body-text: black;
+
+	.theme-classic-variant(@heading, @heading-text, @body, @body-text);
+}
+
+.variant-classic-red {
+	@heading: #ae0006;
+	@heading-text: white;
+	@body: #F8F8F8;
+	@body-text: black;
+
+	.theme-classic-variant(@heading, @heading-text, @body, @body-text);
+}
+
+.variant-classic-violet {
+	@heading: #431c86;
+	@heading-text: white;
+	@body: #F8F8F8;
+	@body-text: black;
+
+	.theme-classic-variant(@heading, @heading-text, @body, @body-text);
+}
+
+.variant-classic-azure {
+	@heading: #028092;
+	@heading-text: white;
+	@body: #E9ECF1;
+	@body-text: black;
+
+	.theme-classic-variant(@heading, @heading-text, @body, @body-text);
+}

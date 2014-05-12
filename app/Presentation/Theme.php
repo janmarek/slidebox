@@ -2,6 +2,7 @@
 
 namespace Presidos\Presentation;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Presidos\Doctrine\Entity;
 
@@ -17,11 +18,16 @@ class Theme extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="string") */
 	private $name;
 
-	/** @ORM\Column(type="string", name="class_name") */
+	/** @ORM\Column(type="string", name="class_name", unique=true) */
 	private $className;
 
-	public function setClassName($className)
+	/** @ORM\OneToMany(targetEntity="ThemeVariant", mappedBy="theme", cascade={"persist"}) */
+	private $variants;
+
+	public function __construct($name, $className)
 	{
+		$this->variants = new ArrayCollection();
+		$this->name = $name;
 		$this->className = $className;
 	}
 
@@ -30,14 +36,28 @@ class Theme extends Entity implements \JsonSerializable
 		return $this->className;
 	}
 
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-
 	public function getName()
 	{
 		return $this->name;
+	}
+
+	public function getVariants()
+	{
+		return $this->variants->toArray();
+	}
+
+	/**
+	 * @param string $name
+	 * @param string $className
+	 * @param string $mainColor
+	 * @return ThemeVariant
+	 */
+	public function addVariant($name, $className, $mainColor)
+	{
+		$variant = new ThemeVariant($this, $name, $className, $mainColor);
+		$this->variants->add($variant);
+
+		return $variant;
 	}
 
 	public function jsonSerialize()
@@ -46,6 +66,7 @@ class Theme extends Entity implements \JsonSerializable
 			'id' => $this->getId(),
 			'name' => $this->name,
 			'className' => $this->className,
+			'variants' => $this->getVariants(),
 		];
 	}
 

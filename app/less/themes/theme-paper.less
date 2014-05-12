@@ -1,0 +1,61 @@
+.theme-paper .slide-content {
+	font-family: "Times New Roman", serif;
+}
+
+.theme-paper-variant(@body, @heading, @text, @link, @blockquote) {
+	.slide-content {
+		font-family: "Times New Roman", serif;
+	}
+
+	&.presentation-preview a, .slide a {color: @heading;}
+
+	.slide, &.presentation-preview {
+		background-color: @body;
+		color: @text;
+	}
+
+	.slide-header {
+		h2, h1 {font-weight: bold;}
+		color: @heading;
+		text-shadow: 0.1em 0.1em 0.2em #CCC;
+	}
+
+	.slide {
+		table {
+			th, td {
+				border: 0.1em solid #CCC;
+			}
+			th {
+				background: darken(@body, 10%);
+			}
+		}
+
+		pre {
+			color: @text;
+		}
+
+		blockquote {
+			border-color: @blockquote; color: @blockquote;
+		}
+	}
+}
+
+.variant-paper-beige {
+	@heading: #8c0000;
+	@body: #f4f0e7;
+	@text: black;
+	@link: #3a87da;
+	@blockquote: @heading;
+
+	.theme-paper-variant(@body, @heading, @text, @link, @blockquote);
+}
+
+.variant-paper-gray {
+	@heading: #235681;
+	@body: #bfd1dd;
+	@text: black;
+	@link: #da4573;
+	@blockquote: @heading;
+
+	.theme-paper-variant(@body, @heading, @text, @link, @blockquote);
+}

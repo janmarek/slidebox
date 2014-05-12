@@ -15,10 +15,21 @@ require __DIR__ . '/../../bootstrap.php';
 class GeneratorTest extends BaseTestCase
 {
 
+	/** @var Generator */
+	private $generator;
+
+	private $html;
+
+	public function setUp()
+	{
+		parent::setUp();
+		$this->html = $this->getContainer()->texy->process(file_get_contents(__DIR__ . '/input.texy'));
+		$this->generator = new Generator();
+	}
+
 	public function testEmpty()
 	{
-		$generator = new Generator($this->getContainer()->texy);
-		$presentation = $generator->getPresentation('');
+		$presentation = $this->generator->getPresentation('');
 		$html = $presentation->getHtml();
 		Assert::equal(file_get_contents(__DIR__ . '/empty.html'), $html);
 		Assert::null($presentation->getName());
@@ -26,15 +37,13 @@ class GeneratorTest extends BaseTestCase
 
 	public function testColumns()
 	{
-		$generator = new Generator($this->getContainer()->texy);
-		$html = $generator->getPresentation(file_get_contents(__DIR__ . '/input.texy'))->getHtml();
+		$html = $this->generator->getPresentation($this->html)->getHtml();
 		Assert::equal(file_get_contents(__DIR__ . '/output.html'), $html);
 	}
 
 	public function testName()
 	{
-		$generator = new Generator($this->getContainer()->texy);
-		$name = $generator->getPresentation(file_get_contents(__DIR__ . '/input.texy'))->getName();
+		$name = $this->generator->getPresentation($this->html)->getName();
 		Assert::same('Presentation title', $name);
 	}
 

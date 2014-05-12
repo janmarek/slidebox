@@ -11,13 +11,13 @@ class PresentationFactory
 {
 
 	/**
-	 * @var ThemeRepository
+	 * @var ThemeVariantRepository
 	 */
-	private $themeRepository;
+	private $themeVariantRepository;
 
-	public function __construct(ThemeRepository $themeRepository)
+	public function __construct(ThemeVariantRepository $themeVariantRepository)
 	{
-		$this->themeRepository = $themeRepository;
+		$this->themeVariantRepository = $themeVariantRepository;
 	}
 
 	public function create(User $user)
@@ -25,7 +25,7 @@ class PresentationFactory
 		$presentation = new Presentation($user);
 		$presentation->setName('New Presentation');
 		$presentation->setTexy(file_get_contents(__DIR__ . '/defaultPresentation.texy'));
-		$presentation->setTheme($this->themeRepository->getDefaultTheme());
+		$presentation->setThemeVariant($this->themeVariantRepository->getDefault());
 
 		return $presentation;
 	}

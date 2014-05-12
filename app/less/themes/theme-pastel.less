@@ -1,0 +1,68 @@
+.theme-pastel {
+	.slide-header {
+		font-family: "Courier New", monospace;
+		font-weight: bold;
+		h1, h2 {font-weight: bold}
+	}
+}
+
+.theme-pastel-variant(@body, @text, @heading, @th, @td, @border, @blockquote) {
+	.slide a, &.presentation-preview a {color: @heading;}
+
+	.slide, &.presentation-preview {
+		background-color: @body;
+		color: @text;
+	}
+
+	.slide-header {
+		color: @heading;
+	}
+
+	.slide {
+		table {
+			th, td {border: 0.1em solid @border;}
+			th {background: @th;}
+			td {background: @td;}
+		}
+
+		pre {color: @text;}
+
+		blockquote {border-color: @blockquote; color: @heading;}
+	}
+}
+
+.variant-pastel-blue {
+	@body: #d1e8ff;
+	@border: #ccc;
+	@th: darken(@body, 10%);
+	@bq: darken(@body, 15%);
+	@text: #444;
+	@heading: black;
+	@td: #fff;
+
+	.theme-pastel-variant(@body, @text, @heading, @th, @td, @border, @bq);
+}
+
+.variant-pastel-banana {
+	@body: #fff38f;
+	@text: black;
+	@heading: #ff681f;
+	@th: darken(@body, 10%);
+	@td: #fff;
+	@border: #daccaf;
+	@bq: @border;
+
+	.theme-pastel-variant(@body, @text, @heading, @th, @td, @border, @bq);
+}
+
+.variant-pastel-lime {
+	@body: #c8ff8b;
+	@text: black;
+	@heading: #3b741d;
+	@th: darken(@body, 10%);
+	@td: #fff;
+	@border: #587440;
+	@bq: @border;
+
+	.theme-pastel-variant(@body, @text, @heading, @th, @td, @border, @bq);
+}

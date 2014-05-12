@@ -1,6 +1,6 @@
 {var $title = $presentation->name}
 
-{block bodyTag}<body class="{if $isEmbed}embed-mode{else}present-mode{/if} {$presentation->theme->className}">{/block}
+{block bodyTag}<body class="{if $isEmbed}embed-mode{else}present-mode{/if} {$presentation->themeVariant->theme->className} {$presentation->themeVariant->className}">{/block}
 
 {block body}
 <div data-bind="showNth: page() - 1" id="presentation-content">

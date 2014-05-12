@@ -1,5 +1,5 @@
 <div class="presentation">
-	<div class="presentation-preview {$presentation->theme->className}">
+	<div class="presentation-preview {$presentation->themeVariant->theme->className} {$presentation->themeVariant->className}">
 		<div class="slide-header">
 			<h3><a n:href=":Presentation:Detail: id => $presentation->id">{$presentation->name|untitled}</a></h3>
 		</div>

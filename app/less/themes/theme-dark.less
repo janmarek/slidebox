@@ -1,0 +1,63 @@
+.theme-dark-variant(@heading, @heading-text, @body, @body-text, @blockquote) {
+
+	.slide a, &.presentation-preview a {color: @heading-text;}
+
+	.slide, &.presentation-preview {
+		background-color: @body;
+		color: @body-text;
+	}
+
+	.slide-header {
+		#gradient > .vertical(@heading, @body);
+		color: @heading-text;
+	}
+
+	.slide {
+		table {
+			th, td {
+				border: 0.1em solid #AAA;
+			}
+			th {
+				background: @heading;
+			}
+		}
+
+		pre {
+			color: @body-text;
+		}
+
+		blockquote {
+			border-color: @blockquote; color: @blockquote;
+		}
+	}
+}
+
+.variant-dark-blue {
+	@heading: #2c576f;
+	@heading-text: #84d1fb;
+	@body: black;
+	@body-text: white;
+	@blockquote: @heading-text;
+
+	.theme-dark-variant(@heading, @heading-text, @body, @body-text, @blockquote);
+}
+
+.variant-dark-green {
+	@heading: #154221;
+	@heading-text: #c8ff8b;
+	@body: black;
+	@body-text: white;
+	@blockquote: @heading-text;
+
+	.theme-dark-variant(@heading, @heading-text, @body, @body-text, @blockquote);
+}
+
+.variant-dark-brown {
+	@heading: #795729;
+	@heading-text: #fffb88;
+	@body: #503720;
+	@body-text: white;
+	@blockquote: @heading-text;
+
+	.theme-dark-variant(@heading, @heading-text, @body, @body-text, @blockquote);
+}

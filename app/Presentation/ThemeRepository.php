@@ -10,23 +10,14 @@ use Presidos\Doctrine\Repository;
 class ThemeRepository extends Repository
 {
 
-	/**
-	 * @param string $name
-	 * @return Theme|NULL
-	 */
-	public function findByName($name)
+	public function getAll()
 	{
-		return $this->findOneBy([
-			'name' => $name,
-		]);
-	}
+		$qb = $this->createQueryBuilder('t');
+		$qb->leftJoin('t.variants', 'v');
+		$qb->addSelect('v');
+		$qb->orderBy('t.id, v.id');
 
-	/**
-	 * @return Theme
-	 */
-	public function getDefaultTheme()
-	{
-		return $this->findByName('Orange');
+		return $qb->getQuery()->getResult();
 	}
 
 }

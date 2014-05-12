@@ -57,8 +57,11 @@ class Presentation extends Entity implements \JsonSerializable
 	 */
 	private $collaborators;
 
-	/** @ORM\ManyToOne(targetEntity="Presidos\Presentation\Theme") */
-	private $theme;
+	/**
+	 * @ORM\ManyToOne(targetEntity="Presidos\Presentation\ThemeVariant")
+	 * @ORM\JoinColumn(name="theme_variant_id")
+	 */
+	private $themeVariant;
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="Presidos\User\User")
@@ -112,14 +115,14 @@ class Presentation extends Entity implements \JsonSerializable
 		return $this->user;
 	}
 
-	public function setTheme(Theme $theme)
+	public function setThemeVariant(ThemeVariant $themeVariant)
 	{
-		$this->theme = $theme;
+		$this->themeVariant = $themeVariant;
 	}
 
-	public function getTheme()
+	public function getThemeVariant()
 	{
-		return $this->theme;
+		return $this->themeVariant;
 	}
 
 	public function publish()
@@ -228,7 +231,8 @@ class Presentation extends Entity implements \JsonSerializable
 			'nameLocked' => $this->nameLocked,
 			'description' => $this->description,
 			'texy' => $this->texy,
-			'theme' => $this->theme,
+			'theme' => $this->themeVariant->getTheme(),
+			'themeVariant' => $this->themeVariant,
 			'user' => $this->user,
 			'collaborators' => $this->getCollaborators(),
 			'published' => $this->published,
