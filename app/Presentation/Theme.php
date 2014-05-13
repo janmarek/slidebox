@@ -50,11 +50,12 @@ class Theme extends Entity implements \JsonSerializable
 	 * @param string $name
 	 * @param string $className
 	 * @param string $mainColor
+	 * @param string $sourceCodeTheme
 	 * @return ThemeVariant
 	 */
-	public function addVariant($name, $className, $mainColor)
+	public function addVariant($name, $className, $mainColor, $sourceCodeTheme)
 	{
-		$variant = new ThemeVariant($this, $name, $className, $mainColor);
+		$variant = new ThemeVariant($this, $name, $className, $mainColor, $sourceCodeTheme);
 		$this->variants->add($variant);
 
 		return $variant;

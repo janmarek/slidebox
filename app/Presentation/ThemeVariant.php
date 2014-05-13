@@ -23,15 +23,19 @@ class ThemeVariant extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="string", name="class_name", unique=true) */
 	private $className;
 
+	/** @ORM\Column(type="string", name="source_code_theme") */
+	private $sourceCodeTheme;
+
 	/** @ORM\ManyToOne(targetEntity="Theme") */
 	private $theme;
 
-	public function __construct(Theme $theme, $name, $className, $mainColor)
+	public function __construct(Theme $theme, $name, $className, $mainColor, $sourceCodeTheme)
 	{
 		$this->theme = $theme;
 		$this->name = $name;
 		$this->className = $className;
 		$this->mainColor = $mainColor;
+		$this->sourceCodeTheme = $sourceCodeTheme;
 	}
 
 	public function getClassName()
@@ -54,6 +58,11 @@ class ThemeVariant extends Entity implements \JsonSerializable
 		return $this->mainColor;
 	}
 
+	public function getSourceCodeTheme()
+	{
+		return $this->sourceCodeTheme;
+	}
+
 	public function jsonSerialize()
 	{
 		return [
@@ -61,6 +70,7 @@ class ThemeVariant extends Entity implements \JsonSerializable
 			'name' => $this->name,
 			'mainColor' => $this->mainColor,
 			'className' => $this->className,
+			'sourceCodeTheme' => $this->sourceCodeTheme,
 		];
 	}
 

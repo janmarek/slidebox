@@ -5,6 +5,7 @@ namespace Presidos\Presentation\Generator;
 use DOMDocument;
 use DOMElement;
 use Nette\Utils\Html;
+use Symfony\Component\DomCrawler\Crawler;
 use TexyHtml;
 
 /**
@@ -127,6 +128,44 @@ class Presentation
 	public function addSlideClass($class)
 	{
 		$this->newSlide->setAttribute('class', $this->newSlide->getAttribute('class') . ' ' . $class);
+	}
+
+	public function getSourceCodes()
+	{
+		$available = [
+			'actionscript', 'apache_conf', 'c_cpp', 'clojure', 'coffee', 'csharp', 'css',
+			'diff', 'ejs', 'erlang', 'groovy', 'haml', 'haskell', 'html', 'ini',
+			'java', 'javascript', 'json', 'jsx', 'latex', 'less', 'lisp', 'lua', 'makefile',
+			'objectivec', 'pascal', 'perl', 'php', 'prolog', 'python', 'ruby', 'sass', 'scala',
+			'scss', 'sh', 'smarty', 'sql', 'stylus', 'twig', 'typescript', 'xml', 'xquery', 'yaml'
+		];
+
+		$aliases = [
+			'js' => 'javascript',
+			'c' => 'c_cpp',
+			'cpp' => 'c_cpp',
+		];
+
+		$present = [];
+
+		$crawler = new Crawler($this->document);
+		foreach ($available as $lang) {
+			if ($crawler->filterXPath($this->getSourceCodeXPath($lang))->count() > 0) {
+				$present[$lang] = TRUE;
+			}
+		}
+		foreach ($aliases as $alias => $lang) {
+			if ($crawler->filterXPath($this->getSourceCodeXPath($alias))->count() > 0) {
+				$present[$lang] = TRUE;
+			}
+		}
+
+		return array_keys($present);
+	}
+
+	private function getSourceCodeXPath($lang)
+	{
+		return "descendant-or-self::pre[@class = '$lang']/descendant::code";
 	}
 
 }

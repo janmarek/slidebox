@@ -33,11 +33,22 @@
 
 {block js}
 {include #parent}
+{if !empty($sourceCodes)}
+<script src="{$basePath}/libs/ace/ace.js"></script>
+<script src="{$basePath}/libs/ace/ext-static_highlight.js"></script>
+<script src="{$basePath}/libs/ace/theme-{$presentation->themeVariant->sourceCodeTheme}.js"></script>
+<script src="{$basePath}/libs/ace/mode-{$codeLang}.js" n:foreach="$sourceCodes as $codeLang"></script>
+{/if}
+
 <script>
 var maxPage = $('#presentation-content > *').size();
 var presentView = new PresentView(maxPage, {$exitLink});
 presentView.registerHashHandling(window.location);
 presentView.registerKeys(window);
 ko.applyBindings(presentView);
+
+{foreach $sourceCodes as $codeLang}
+initSourceCode({$codeLang}, {$presentation->themeVariant->sourceCodeTheme});
+{/foreach}
 </script>
 {/block}
