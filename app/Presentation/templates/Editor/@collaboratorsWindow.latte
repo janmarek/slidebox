@@ -17,7 +17,7 @@
 					<li>
 						<span data-bind="text: name"></span>
 						(<span data-bind="text: email"></span>)
-						<a class="btn btn-danger" data-bind="click: $parent.remove.bind($parent, $data), visible: $parent.isOwner">
+						<a class="btn btn-danger" data-bind="click: $parent.remove.bind($parent, $data), visible: $root.isOwner">
 							<i class="fa fa-times"></i>
 						</a>
 					</li>

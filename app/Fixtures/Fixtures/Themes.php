@@ -22,7 +22,6 @@ class Themes extends AbstractFixture
 		$defaultTheme->addVariant('Green', 'variant-classic-green', '3b741d');
 		$defaultTheme->addVariant('Red', 'variant-classic-red', 'ae0006');
 		$defaultTheme->addVariant('Violet', 'variant-classic-violet', '43229e');
-		$defaultTheme->addVariant('Azure', 'variant-classic-azure', '028092');
 		$em->persist($defaultTheme);
 
 		$darkTheme = new Theme('Dark', 'theme-dark');

@@ -89,27 +89,21 @@ PresidosEditor.prototype.selectThemeVariant = function (themeVariant) {
 };
 
 PresidosEditor.prototype.showPreviewTheme = function (theme) {
-	console.log('set');
 	this.previewTheme(theme);
 	this.previewThemeVariant(theme.defaultVariant());
 };
 
 PresidosEditor.prototype.resetPreviewTheme = function () {
-	console.log('reset');
 	this.previewTheme(this.selectedTheme());
 	this.previewThemeVariant(this.selectedThemeVariant());
 };
 
 PresidosEditor.prototype.showPreviewThemeVariant = function (themeVariant) {
-
 	this.previewTheme(themeVariant.theme);
 	this.previewThemeVariant(themeVariant);
-	console.log('set variant');
-	console.log(this.previewThemeVariant().className);
 };
 
 PresidosEditor.prototype.resetPreviewThemeVariant = function () {
-	console.log('reset variant');
 	this.previewThemeVariant(this.selectedThemeVariant());
 };
 
