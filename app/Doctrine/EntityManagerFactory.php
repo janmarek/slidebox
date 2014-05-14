@@ -3,6 +3,8 @@
 namespace Presidos\Doctrine;
 
 use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Event\Listeners\MysqlSessionInit;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Kdyby\Doctrine\Diagnostics\Panel;
@@ -46,7 +48,10 @@ class EntityManagerFactory
 			FALSE
 		);
 
-		$em = EntityManager::create($this->dbParams, $configuration);
+		$evm = new EventManager();
+		$evm->addEventSubscriber(new MysqlSessionInit('utf8', 'utf8_general_ci'));
+
+		$em = EntityManager::create($this->dbParams, $configuration, $evm);
 
 		if ($this->devMode) {
 			Panel::register($em->getConnection());
