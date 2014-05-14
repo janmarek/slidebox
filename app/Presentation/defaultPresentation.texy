@@ -38,12 +38,12 @@ How to add an image?
 
 There is a toolbar button for it.
 
-[* http://presidos.dev/example.jpg *]
+[* http://presidos.com/example.jpg *]
 
 How to add an image with text?
 *******************
 
-[* http://presidos.dev/example.jpg <]
+[* http://presidos.com/example.jpg <]
 
 - Align image to left (or right).
 - Text goes to the second column.
@@ -51,9 +51,9 @@ How to add an image with text?
 Two images side by side
 *******************
 
-[* http://presidos.dev/example.jpg <]
+[* http://presidos.com/example.jpg <]
 
-[* http://presidos.dev/example.jpg >] *** this one has description
+[* http://presidos.com/example.jpg >] *** this one has description
 
 Add quote if you want to look smart
 ********************
