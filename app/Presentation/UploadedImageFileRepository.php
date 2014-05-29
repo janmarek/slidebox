@@ -5,6 +5,7 @@ namespace Presidos\Presentation;
 use Doctrine\ORM\EntityManager;
 use Nette\Http\FileUpload;
 use Nette\Image;
+use Nette\Utils\Strings;
 
 /**
  * @author Jan Marek
@@ -54,9 +55,15 @@ class UploadedImageFileRepository
 		// get image from file
 		$image = $upload->toImage()->resize(self::MAX_WIDTH, self::MAX_HEIGHT, Image::SHRINK_ONLY);
 
+		if ($upload->getImageSize()[2] === IMG_JPEG) {
+			$extension = 'jpg';
+		} else {
+			$extension = 'png';
+		}
+
 		// save to database
 		$entity = new UploadedImage($presentation);
-		$entity->setName(pathinfo($upload->getSanitizedName(), PATHINFO_FILENAME));
+		$entity->setName(pathinfo($upload->getSanitizedName(), PATHINFO_FILENAME) . '.' . $extension);
 		$this->em->persist($entity);
 		$this->em->flush();
 
@@ -73,7 +80,7 @@ class UploadedImageFileRepository
 
 	public function getFullKey(UploadedImage $image)
 	{
-		return $image->getPresentation()->getUser()->getId() . '/' . $image->getId() . '-' . $image->getName() . '.jpg';
+		return $image->getPresentation()->getUser()->getId() . '/' . $image->getId() . '-' . $image->getName();
 	}
 
 	public function getPath(UploadedImage $image)
