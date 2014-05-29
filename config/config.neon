@@ -1,6 +1,6 @@
 parameters:
-  email: presidos@presidos.com
-  emailName: Presidos
+  email: info@slideboxapp.com
+  emailName: SlideBox
   wkhtmltopdfOptions: {}
 
 php:

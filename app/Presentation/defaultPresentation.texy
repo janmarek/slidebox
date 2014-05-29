@@ -24,7 +24,7 @@ Basic formatting
 
 This is *italic*, **bold** and ***italic bold text***.
 
-And this is a "link":www.presidos.com
+And this is a "link":www.slideboxapp.com
 
 How to add list?
 ***************
@@ -38,12 +38,12 @@ How to add an image?
 
 There is a toolbar button for it.
 
-[* http://presidos.com/example.jpg *]
+[* http://slideboxapp.com/example.jpg *]
 
 How to add an image with text?
 *******************
 
-[* http://presidos.com/example.jpg <]
+[* http://slideboxapp.com/example.jpg <]
 
 - Align image to left (or right).
 - Text goes to the second column.
@@ -51,9 +51,9 @@ How to add an image with text?
 Two images side by side
 *******************
 
-[* http://presidos.com/example.jpg <]
+[* http://slideboxapp.com/example.jpg <]
 
-[* http://presidos.com/example.jpg >] *** this one has description
+[* http://slideboxapp.com/example.jpg >] *** this one has description
 
 Add quote if you want to look smart
 ********************
