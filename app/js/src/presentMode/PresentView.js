@@ -51,6 +51,10 @@ PresentView.prototype = {
 				window.location.href = self.exitLink;
 			}
 		});
+
+		this.page.subscribe(function () {
+			$(window).scrollTop(0);
+		});
 	},
 	toggleFullscreen: function () {
 		var newState = !this.fullscreenActive();
