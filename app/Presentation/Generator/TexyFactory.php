@@ -3,6 +3,7 @@
 namespace Presidos\Presentation\Generator;
 
 use Nette\Utils\Strings;
+use Presidos\User\User;
 use Texy;
 use TexyConfigurator;
 use TexyHtml;
@@ -15,10 +16,18 @@ class TexyFactory
 
 	const REGEXP_YOUTUBE = '/^youtube:(.*)$/';
 
+	private $imageRoot;
+
+	public function __construct($imageRoot)
+	{
+		$this->imageRoot = $imageRoot;
+	}
+
 	/**
+	 * @param User $presentationOwner
 	 * @return Texy
 	 */
-	private function createPlainTexy()
+	private function createPlainTexy(User $presentationOwner)
 	{
 		$texy = new Texy();
 		TexyConfigurator::safeMode($texy);
@@ -28,6 +37,7 @@ class TexyFactory
 		$texy->tabWidth = 4;
 		$texy->headingModule->balancing = 'fixed';
 
+		$texy->imageModule->root = $this->imageRoot . '/' . $presentationOwner->getId();
 		$texy->imageModule->leftClass = 'image-left';
 		$texy->imageModule->rightClass = 'image-right';
 		$texy->figureModule->leftClass = 'figure-left';
@@ -41,22 +51,24 @@ class TexyFactory
 	}
 
 	/**
+	 * @param User $presentationOwner
 	 * @return Texy
 	 */
-	public function createTexy()
+	public function createTexy(User $presentationOwner)
 	{
-		$texy = $this->createPlainTexy();
+		$texy = $this->createPlainTexy($presentationOwner);
 		$texy->addHandler('image', [$this, 'youtubeHandler']);
 
 		return $texy;
 	}
 
 	/**
+	 * @param User $presentationOwner
 	 * @return Texy
 	 */
-	public function createPdfTexy()
+	public function createPdfTexy(User $presentationOwner)
 	{
-		$texy = $this->createPlainTexy();
+		$texy = $this->createPlainTexy($presentationOwner);
 		$texy->addHandler('image', [$this, 'youtubePdfHandler']);
 
 		return $texy;

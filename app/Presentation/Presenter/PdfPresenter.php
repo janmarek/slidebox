@@ -46,7 +46,7 @@ class PdfPresenter extends BasePresenter
 		$template = $this->createTemplate()->setFile(__DIR__ . '/../templates/Pdf/default.latte');
 		$template->presentation = $presentation;
 		$texy = $presentation->getTexy();
-		$html = $this->texyFactory->createPdfTexy()->process($texy);
+		$html = $this->texyFactory->createPdfTexy($presentation->getUser())->process($texy);
 		$template->html = $this->generator->getPresentation($html)->getHtml();
 
 		if ($format === 'pdf') {

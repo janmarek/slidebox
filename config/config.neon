@@ -2,6 +2,7 @@ parameters:
   email: info@slideboxapp.com
   emailName: SlideBox
   wkhtmltopdfOptions: {}
+  texy: {}
 
 php:
   date.timezone: Europe/Prague
@@ -59,13 +60,12 @@ services:
     class: Presidos\Presentation\ThemeVariantRepository
     factory: @em::getRepository('Presidos\Presentation\ThemeVariant')
 
-  uploadFileRepository: Presidos\Presentation\UploadedImageFileRepository(@em, %appDir%/../upload, %upload.urlPrefix%)
+  uploadFileRepository: Presidos\Presentation\UploadedImageFileRepository(@em, %texy.fileRoot%)
   uploadedImageRepository:
     class: Presidos\Presentation\UploadedImageRepository
     factory: @em::getRepository('Presidos\Presentation\UploadedImage')
 
-  texyFactory: Presidos\Presentation\Generator\TexyFactory
-  texy: @texyFactory::createTexy()
+  texyFactory: Presidos\Presentation\Generator\TexyFactory(%texy.root%)
   generator: Presidos\Presentation\Generator\Generator
   wkhtmltopdfFactory: Presidos\Presentation\Generator\WkHtmlToPdfFactory( %tempDir%/pdf, %wkhtmltopdfOptions% )
 

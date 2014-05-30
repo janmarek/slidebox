@@ -24,13 +24,10 @@ class UploadedImageFileRepository
 
 	private $rootDir;
 
-	private $urlPrefix;
-
-	public function __construct(EntityManager $em, $rootDir, $urlPrefix)
+	public function __construct(EntityManager $em, $rootDir)
 	{
 		$this->em = $em;
 		$this->rootDir = $rootDir;
-		$this->urlPrefix = $urlPrefix;
 	}
 
 	/**
@@ -80,7 +77,7 @@ class UploadedImageFileRepository
 
 	public function getFullKey(UploadedImage $image)
 	{
-		return $image->getPresentation()->getUser()->getId() . '/' . $image->getId() . '-' . $image->getName();
+		return $image->getPresentation()->getUser()->getId() . '/' . $this->getFileName($image);
 	}
 
 	public function getPath(UploadedImage $image)
@@ -88,9 +85,9 @@ class UploadedImageFileRepository
 		return $this->rootDir . '/' . $this->getFullKey($image);
 	}
 
-	public function getUrl(UploadedImage $image)
+	public function getFileName(UploadedImage $image)
 	{
-		return $this->urlPrefix . '/' . $this->getFullKey($image);
+		return $image->getId() . '-' . $image->getName();
 	}
 
 } 

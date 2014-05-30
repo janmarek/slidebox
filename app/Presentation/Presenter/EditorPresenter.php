@@ -88,8 +88,6 @@ class EditorPresenter extends BasePresenter
 			$this->presentation->lockForEdit($user);
 			$this->em->flush();
 		}
-
-		$this->context->texy->process($this->presentation->getTexy());
 	}
 
 	public function renderDefault($id)
@@ -108,7 +106,7 @@ class EditorPresenter extends BasePresenter
 	public function handlePreview()
 	{
 		$texy = $this->getPostParameter('text');
-		$html = $this->texyFactory->createTexy()->process($texy);
+		$html = $this->texyFactory->createTexy($this->presentation->getUser())->process($texy);
 
 		$presentation = $this->generator->getPresentation($html);
 		$html = $presentation->getHtml();
@@ -222,7 +220,7 @@ class EditorPresenter extends BasePresenter
 		foreach ($this->uploadedImageRepository->findByPresentation($this->presentation) as $image) {
 			$images[] = [
 				'name' => $image->getName(),
-				'url' => $this->uploadedImageFileRepository->getUrl($image),
+				'url' => $this->uploadedImageFileRepository->getFileName($image),
 			];
 		}
 
