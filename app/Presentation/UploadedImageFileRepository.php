@@ -69,7 +69,7 @@ class UploadedImageFileRepository
 		@mkdir(pathinfo($path, PATHINFO_DIRNAME));
 		$image->save($path, self::QUALITY);
 
-		$result->setUrl($this->getUrl($entity));
+		$result->setUrl($this->getFileName($entity));
 		$result->setImage($entity);
 
 		return $result;
