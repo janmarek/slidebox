@@ -3,7 +3,6 @@ function PresentView(maxPage, exitLink) {
 	this.maxPage = maxPage;
 	this.exitLink = exitLink;
 	this.internalPage = ko.observable(1);
-	this.barOpened = ko.observable(true);
 	this.fullscreenSupported = Fullscreen.isSupported();
 	this.fullscreenActive = ko.observable(false);
 

@@ -1,8 +1,8 @@
 .present-bar-wrapper {
-	position: fixed; bottom: 2px; left: 2px; right: 2px;
+	position: fixed; bottom: 0; left: 0; right: 0;
 }
 .embed-mode .present-bar-wrapper {
-	text-align: center;
+	text-align: center; bottom: 2px;
 }
 .present-bar {
 	display: inline-block;
@@ -21,10 +21,6 @@
 		cursor: pointer;
 		text-decoration: none;
 		padding: 0 5px;
-	}
-	a.bar-close {
-		color: #ba191e;
-		&:hover {color: #97191e}
 	}
 	a.disabled {
 		color: #AAA; cursor: default;
