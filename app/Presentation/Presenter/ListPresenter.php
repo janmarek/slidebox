@@ -70,7 +70,7 @@ class ListPresenter extends BasePresenter
 		$this->em->flush();
 
 		$msg = Html::el();
-		$msg->add('Presentation has been successfully deleted. ');
+		$msg->add('Presentation "' . $presentation->getName() . '" has been successfully deleted. ');
 		$msg->add(Html::el('a', [
 			'href' => $this->link('recover!', ['id' => $id]),
 		])->setText('Undo'));
