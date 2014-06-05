@@ -63,7 +63,7 @@ class LoginPresenter extends BasePresenter
 
 	public function actionLogout()
 	{
-		$this->getUser()->logout();
+		$this->getUser()->logout(TRUE);
 		$this->flashMessage('You have been successfully logged out.');
 		$this->redirect(':Homepage:');
 	}
