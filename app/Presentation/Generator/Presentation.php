@@ -148,14 +148,15 @@ class Presentation
 
 		$present = [];
 
-		$crawler = new Crawler($this->document);
+		$xpath = new \DOMXPath($this->document);
+
 		foreach ($available as $lang) {
-			if ($crawler->filterXPath($this->getSourceCodeXPath($lang))->count() > 0) {
+			if ($xpath->query($this->getSourceCodeXPath($lang))->length > 0) {
 				$present[$lang] = TRUE;
 			}
 		}
 		foreach ($aliases as $alias => $lang) {
-			if ($crawler->filterXPath($this->getSourceCodeXPath($alias))->count() > 0) {
+			if ($xpath->query($this->getSourceCodeXPath($alias))->length > 0) {
 				$present[$lang] = TRUE;
 			}
 		}
@@ -165,7 +166,7 @@ class Presentation
 
 	private function getSourceCodeXPath($lang)
 	{
-		return "descendant-or-self::pre[@class = '$lang']/descendant::code";
+		return "//pre[@class='$lang']/code";
 	}
 
 }
