@@ -3,7 +3,7 @@
 namespace SlideBox\Test\Presentation;
 
 use Nette\Http\FileUpload;
-use Nette\Image;
+use Nette\Utils\Image;
 use SlideBox\Presentation\Presentation;
 use SlideBox\Presentation\UploadedImageFileRepository;
 use SlideBox\Test\IntegrationTestCase;
@@ -63,6 +63,7 @@ class UploadedImageFileRepositoryTest extends IntegrationTestCase
 			'isImage' => TRUE,
 			'toImage' => Image::fromFile(__DIR__ . '/example.jpg'),
 			'getSanitizedName' => 'example.jpg',
+			'getImageSize' => [3000, 2000, IMG_JPEG]
 		]);
 
 		$result = $this->repository->upload($this->presentation, $ok);
@@ -70,7 +71,7 @@ class UploadedImageFileRepositoryTest extends IntegrationTestCase
 		Assert::equal([], $result->getErrors());
 		$image = $result->getImage();
 		Assert::equal(
-			'http://files.slidebox.dev/' . $this->presentation->getUser()->getId() . '/' . $image->getId() . '-example.jpg',
+			$image->getId() . '-example.jpg',
 			$result->getUrl()
 		);
 

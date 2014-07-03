@@ -4,6 +4,7 @@ namespace SlideBox\Test\Presentation\Generator;
 
 use SlideBox\Presentation\Generator\Generator;
 use SlideBox\Test\BaseTestCase;
+use SlideBox\User\User;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -20,10 +21,14 @@ class GeneratorTest extends BaseTestCase
 
 	private $html;
 
+	private $texy;
+
 	public function setUp()
 	{
 		parent::setUp();
-		$this->html = $this->getContainer()->texy->process(file_get_contents(__DIR__ . '/input.texy'));
+		$userMock = $this->mockista->create(User::class, ['getId' => 123]);
+		$this->texy = $this->getContainer()->texyFactory->createTexy($userMock);
+		$this->html = $this->texy->process(file_get_contents(__DIR__ . '/input.texy'));
 		$this->generator = new Generator();
 	}
 
