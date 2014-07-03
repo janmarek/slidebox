@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# pull
+git pull --rebase
+
+# empty cache and generate proxies
+if [ $? == 0 ];
+then
+        rm -rf temp/cache
+        php cli.php orm:generate-proxies
+fi
+
+grunt
