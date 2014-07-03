@@ -12,7 +12,7 @@
 		}
 	],
 	"require": {
-		"nette/nette": "~2.1.0",
+		"nette/nette": "~2.2.0",
 		"texy/texy": "~2.4.0",
 		"kdyby/doctrine": "~1.0",
 		"facebook/php-sdk": "~3.0",
