@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Presenter;
+namespace SlideBox\Presenter;
 
 use Nette\Application\BadRequestException;
 use Nette\Diagnostics\Debugger;

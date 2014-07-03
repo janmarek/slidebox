@@ -1,13 +1,13 @@
 <?php
 
-namespace Presidos\User\Presenter;
+namespace SlideBox\User\Presenter;
 
 use Doctrine\ORM\EntityManager;
 use Facebook;
 use Nette\Application\UI\Form;
-use Presidos\Presenter\BasePresenter;
-use Presidos\User\User;
-use Presidos\User\UserRepository;
+use SlideBox\Presenter\BasePresenter;
+use SlideBox\User\User;
+use SlideBox\User\UserRepository;
 
 class UserPresenter extends BasePresenter
 {

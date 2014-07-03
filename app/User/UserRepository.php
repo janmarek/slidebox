@@ -1,10 +1,10 @@
 <?php
 
-namespace Presidos\User;
+namespace SlideBox\User;
 
 use Nette\Utils\Strings;
-use Presidos\Doctrine\Repository;
-use Presidos\Presentation\Presentation;
+use SlideBox\Doctrine\Repository;
+use SlideBox\Presentation\Presentation;
 
 /**
  * @author Jan Marek

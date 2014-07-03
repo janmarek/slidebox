@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Doctrine;
+namespace SlideBox\Doctrine;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;

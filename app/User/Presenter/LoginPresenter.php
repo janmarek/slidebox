@@ -1,18 +1,18 @@
 <?php
 
-namespace Presidos\User\Presenter;
+namespace SlideBox\User\Presenter;
 
 use Doctrine\ORM\EntityManager;
 use Nette\Application\UI\Form;
 use Nette\Mail\IMailer;
 use Nette\Security\AuthenticationException;
-use Presidos\Presenter\BasePresenter;
-use Presidos\User\Email\ForgottenEmailFactory;
-use Presidos\User\Email\RegisterEmailFactory;
-use Presidos\User\FacebookAuthenticator;
-use Presidos\User\PasswordAuthenticator;
-use Presidos\User\User;
-use Presidos\User\UserRepository;
+use SlideBox\Presenter\BasePresenter;
+use SlideBox\User\Email\ForgottenEmailFactory;
+use SlideBox\User\Email\RegisterEmailFactory;
+use SlideBox\User\FacebookAuthenticator;
+use SlideBox\User\PasswordAuthenticator;
+use SlideBox\User\User;
+use SlideBox\User\UserRepository;
 
 class LoginPresenter extends BasePresenter
 {

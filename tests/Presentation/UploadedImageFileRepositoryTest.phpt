@@ -1,12 +1,12 @@
 <?php
 
-namespace Presidos\Test\Presentation;
+namespace SlideBox\Test\Presentation;
 
 use Nette\Http\FileUpload;
 use Nette\Image;
-use Presidos\Presentation\Presentation;
-use Presidos\Presentation\UploadedImageFileRepository;
-use Presidos\Test\IntegrationTestCase;
+use SlideBox\Presentation\Presentation;
+use SlideBox\Presentation\UploadedImageFileRepository;
+use SlideBox\Test\IntegrationTestCase;
 use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
@@ -34,7 +34,7 @@ class UploadedImageFileRepositoryTest extends IntegrationTestCase
 		$this->repository = new UploadedImageFileRepository(
 			$this->getContainer()->em,
 			$rootDir,
-			'http://files.presidos.dev'
+			'http://files.slidebox.dev'
 		);
 
 		$this->presentation = $this->getContainer()->presentationRepository->findOneBy(['name' => 'Presentation 1']);
@@ -70,7 +70,7 @@ class UploadedImageFileRepositoryTest extends IntegrationTestCase
 		Assert::equal([], $result->getErrors());
 		$image = $result->getImage();
 		Assert::equal(
-			'http://files.presidos.dev/' . $this->presentation->getUser()->getId() . '/' . $image->getId() . '-example.jpg',
+			'http://files.slidebox.dev/' . $this->presentation->getUser()->getId() . '/' . $image->getId() . '-example.jpg',
 			$result->getUrl()
 		);
 

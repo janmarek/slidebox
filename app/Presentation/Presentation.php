@@ -1,18 +1,18 @@
 <?php
 
-namespace Presidos\Presentation;
+namespace SlideBox\Presentation;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Presidos\Doctrine\Entity;
-use Presidos\Doctrine\Timestampable;
-use Presidos\User\User;
+use SlideBox\Doctrine\Entity;
+use SlideBox\Doctrine\Timestampable;
+use SlideBox\User\User;
 
 /**
  * @author Jan Marek
  *
  * @ORM\Table(name="presentation")
- * @ORM\Entity(repositoryClass="Presidos\Presentation\PresentationRepository")
+ * @ORM\Entity(repositoryClass="SlideBox\Presentation\PresentationRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Presentation extends Entity implements \JsonSerializable
@@ -48,23 +48,23 @@ class Presentation extends Entity implements \JsonSerializable
 	/** @ORM\Column(type="integer") */
 	private $visits;
 
-	/** @ORM\ManyToOne(targetEntity="Presidos\User\User") */
+	/** @ORM\ManyToOne(targetEntity="SlideBox\User\User") */
 	private $user;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="Presidos\User\User")
+	 * @ORM\ManyToMany(targetEntity="SlideBox\User\User")
 	 * @ORM\JoinTable(name="collaborator")
 	 */
 	private $collaborators;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Presidos\Presentation\ThemeVariant")
+	 * @ORM\ManyToOne(targetEntity="SlideBox\Presentation\ThemeVariant")
 	 * @ORM\JoinColumn(name="theme_variant_id")
 	 */
 	private $themeVariant;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Presidos\User\User")
+	 * @ORM\ManyToOne(targetEntity="SlideBox\User\User")
 	 * @ORM\JoinColumn(name="last_user_id")
 	 */
 	private $lastUser;

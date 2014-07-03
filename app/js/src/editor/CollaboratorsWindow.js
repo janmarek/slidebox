@@ -1,9 +1,9 @@
-function CollaboratorsWindow(config, presidosEditor) {
+function CollaboratorsWindow(config, slideboxEditor) {
 	this.config = config;
-	this.presidosEditor = presidosEditor;
+	this.slideboxEditor = slideboxEditor;
 
 	this.opened = ko.observable(false);
-	this.owner = presidosEditor.user;
+	this.owner = slideboxEditor.user;
 	this.collaborators = ko.observableArray();
 	this.autocompletedUsers = ko.observableArray();
 	this.autocompleteString = ko.observable('');
@@ -37,7 +37,7 @@ CollaboratorsWindow.prototype.getIds = function () {
 CollaboratorsWindow.prototype.open = function () {
 	this.opened(true);
 	this.autocompleteString('');
-	this.collaborators(this.presidosEditor.collaborators());
+	this.collaborators(this.slideboxEditor.collaborators());
 };
 
 CollaboratorsWindow.prototype.add = function (user) {
@@ -52,9 +52,9 @@ CollaboratorsWindow.prototype.remove = function (user) {
 CollaboratorsWindow.prototype.save = function () {
 	this.opened(false);
 	$.post(this.config.saveCollaboratorsUrl, {
-		id: this.presidosEditor.id,
+		id: this.slideboxEditor.id,
 		collaborators: this.getIds()
 	}, function () {
-		this.presidosEditor.collaborators(this.collaborators());
+		this.slideboxEditor.collaborators(this.collaborators());
 	}.bind(this));
 };

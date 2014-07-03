@@ -1,11 +1,11 @@
 /**
  * @param {Object} config
- * @param {PresidosEditor} presidosEditor
+ * @param {SlideBoxEditor} slideboxEditor
  * @constructor
  */
-function EditDetailsWindow(config, presidosEditor) {
+function EditDetailsWindow(config, slideboxEditor) {
 	this.config = config;
-	this.presidosEditor = presidosEditor;
+	this.slideboxEditor = slideboxEditor;
 
 	this.opened = ko.observable(false);
 	this.saving = ko.observable(false);
@@ -15,8 +15,8 @@ function EditDetailsWindow(config, presidosEditor) {
 
 EditDetailsWindow.prototype.open = function () {
 	this.opened(true);
-	this.name(this.presidosEditor.name());
-	this.description(this.presidosEditor.description());
+	this.name(this.slideboxEditor.name());
+	this.description(this.slideboxEditor.description());
 };
 
 EditDetailsWindow.prototype.save = function () {
@@ -28,13 +28,13 @@ EditDetailsWindow.prototype.save = function () {
 
 	var self = this;
 	$.post(this.config.detailsUrl, {
-		id: this.presidosEditor.id,
+		id: this.slideboxEditor.id,
 		name: this.name(),
 		description: this.description()
 	}, function (data) {
-		self.presidosEditor.name(data.presentation.name);
-		self.presidosEditor.nameLocked(data.presentation.nameLocked);
-		self.presidosEditor.description(data.presentation.description);
+		self.slideboxEditor.name(data.presentation.name);
+		self.slideboxEditor.nameLocked(data.presentation.nameLocked);
+		self.slideboxEditor.description(data.presentation.description);
 		self.opened(false);
 		self.saving(false);
 	});

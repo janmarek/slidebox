@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\User;
+namespace SlideBox\User;
 
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;

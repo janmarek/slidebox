@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Doctrine;
+namespace SlideBox\Doctrine;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;

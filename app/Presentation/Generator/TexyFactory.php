@@ -1,9 +1,9 @@
 <?php
 
-namespace Presidos\Presentation\Generator;
+namespace SlideBox\Presentation\Generator;
 
 use Nette\Utils\Strings;
-use Presidos\User\User;
+use SlideBox\User\User;
 use Texy;
 use TexyConfigurator;
 use TexyHtml;

@@ -1,16 +1,16 @@
 <?php
 
-namespace Presidos\Presentation;
+namespace SlideBox\Presentation;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Presidos\Doctrine\Entity;
+use SlideBox\Doctrine\Entity;
 
 /**
  * @author Jan Marek
  *
  * @ORM\Table(name="theme")
- * @ORM\Entity(repositoryClass="Presidos\Presentation\ThemeRepository")
+ * @ORM\Entity(repositoryClass="SlideBox\Presentation\ThemeRepository")
  */
 class Theme extends Entity implements \JsonSerializable
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Doctrine;
+namespace SlideBox\Doctrine;
 
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\EventManager;

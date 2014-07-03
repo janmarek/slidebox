@@ -1,4 +1,4 @@
-function PresidosEditor(texyEditor, presentation, isOwner, themes, config) {
+function SlideBoxEditor(texyEditor, presentation, isOwner, themes, config) {
 	this.id = presentation.id;
 	this.config = config;
 
@@ -71,7 +71,7 @@ function PresidosEditor(texyEditor, presentation, isOwner, themes, config) {
 	});
 }
 
-PresidosEditor.prototype.selectTheme = function (theme) {
+SlideBoxEditor.prototype.selectTheme = function (theme) {
 	var variant = theme.defaultVariant();
 	this.selectedTheme(theme);
 	this.selectedThemeVariant(variant);
@@ -83,31 +83,31 @@ PresidosEditor.prototype.selectTheme = function (theme) {
 	});
 };
 
-PresidosEditor.prototype.selectThemeVariant = function (themeVariant) {
+SlideBoxEditor.prototype.selectThemeVariant = function (themeVariant) {
 	themeVariant.theme.defaultVariant(themeVariant);
 	this.selectTheme(themeVariant.theme);
 };
 
-PresidosEditor.prototype.showPreviewTheme = function (theme) {
+SlideBoxEditor.prototype.showPreviewTheme = function (theme) {
 	this.previewTheme(theme);
 	this.previewThemeVariant(theme.defaultVariant());
 };
 
-PresidosEditor.prototype.resetPreviewTheme = function () {
+SlideBoxEditor.prototype.resetPreviewTheme = function () {
 	this.previewTheme(this.selectedTheme());
 	this.previewThemeVariant(this.selectedThemeVariant());
 };
 
-PresidosEditor.prototype.showPreviewThemeVariant = function (themeVariant) {
+SlideBoxEditor.prototype.showPreviewThemeVariant = function (themeVariant) {
 	this.previewTheme(themeVariant.theme);
 	this.previewThemeVariant(themeVariant);
 };
 
-PresidosEditor.prototype.resetPreviewThemeVariant = function () {
+SlideBoxEditor.prototype.resetPreviewThemeVariant = function () {
 	this.previewThemeVariant(this.selectedThemeVariant());
 };
 
-PresidosEditor.prototype.publish = function () {
+SlideBoxEditor.prototype.publish = function () {
 	$.post(this.config.publishUrl, {
 		id: this.id
 	}, function () {

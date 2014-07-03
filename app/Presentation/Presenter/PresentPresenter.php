@@ -1,13 +1,13 @@
 <?php
 
-namespace Presidos\Presentation\Presenter;
+namespace SlideBox\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
-use Presidos\Presentation\Generator\Generator;
-use Presidos\Presentation\Generator\TexyFactory;
-use Presidos\Presentation\Presentation;
-use Presidos\Presentation\PresentationRepository;
-use Presidos\Presenter\BasePresenter;
+use SlideBox\Presentation\Generator\Generator;
+use SlideBox\Presentation\Generator\TexyFactory;
+use SlideBox\Presentation\Presentation;
+use SlideBox\Presentation\PresentationRepository;
+use SlideBox\Presenter\BasePresenter;
 
 class PresentPresenter extends BasePresenter
 {

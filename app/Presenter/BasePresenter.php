@@ -1,13 +1,13 @@
 <?php
 
-namespace Presidos\Presenter;
+namespace SlideBox\Presenter;
 
 use Nette\Application\Request;
 use Nette\Application\UI\Presenter;
 use Nette\Utils\Arrays;
 use Nette\Utils\Html;
 use Nextras\Application\UI\SecuredLinksPresenterTrait;
-use Presidos\View\UserIconHelper;
+use SlideBox\View\UserIconHelper;
 
 abstract class BasePresenter extends Presenter
 {

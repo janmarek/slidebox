@@ -1,16 +1,16 @@
 <?php
 
-namespace Presidos\User;
+namespace SlideBox\User;
 
 use Doctrine\ORM\Mapping as ORM;
 use Nette\Security\IIdentity;
 use Nette\Utils\Strings;
-use Presidos\Doctrine\Entity;
-use Presidos\Doctrine\Timestampable;
+use SlideBox\Doctrine\Entity;
+use SlideBox\Doctrine\Timestampable;
 
 /**
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="Presidos\User\UserRepository")
+ * @ORM\Entity(repositoryClass="SlideBox\User\UserRepository")
  */
 class User extends Entity implements IIdentity, \JsonSerializable
 {

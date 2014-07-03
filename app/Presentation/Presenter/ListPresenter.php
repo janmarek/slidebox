@@ -1,12 +1,12 @@
 <?php
 
-namespace Presidos\Presentation\Presenter;
+namespace SlideBox\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
 use Nette\Utils\Html;
-use Presidos\Presentation\PresentationFactory;
-use Presidos\Presentation\PresentationRepository;
-use Presidos\Presenter\BasePresenter;
+use SlideBox\Presentation\PresentationFactory;
+use SlideBox\Presentation\PresentationRepository;
+use SlideBox\Presenter\BasePresenter;
 
 class ListPresenter extends BasePresenter
 {

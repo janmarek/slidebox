@@ -1,13 +1,13 @@
 <?php
 
-namespace Presidos\User\Presenter;
+namespace SlideBox\User\Presenter;
 
 use Doctrine\ORM\EntityManager;
 use Nette\Application\UI\Form;
 use Nette\Mail\IMailer;
-use Presidos\Presenter\BasePresenter;
-use Presidos\User\Email\ForgottenEmailFactory;
-use Presidos\User\UserRepository;
+use SlideBox\Presenter\BasePresenter;
+use SlideBox\User\Email\ForgottenEmailFactory;
+use SlideBox\User\UserRepository;
 
 class PasswordPresenter extends BasePresenter
 {

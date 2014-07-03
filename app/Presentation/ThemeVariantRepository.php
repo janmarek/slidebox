@@ -1,8 +1,8 @@
 <?php
 
-namespace Presidos\Presentation;
+namespace SlideBox\Presentation;
 
-use Presidos\Doctrine\Repository;
+use SlideBox\Doctrine\Repository;
 
 /**
  * @author Jan Marek

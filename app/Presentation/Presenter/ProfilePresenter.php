@@ -1,13 +1,13 @@
 <?php
 
-namespace Presidos\Presentation\Presenter;
+namespace SlideBox\Presentation\Presenter;
 
 use Doctrine\ORM\EntityManager;
-use Presidos\Presentation\Control\PresentationPreviewPresenterFactory;
-use Presidos\Presentation\PresentationFactory;
-use Presidos\Presentation\PresentationRepository;
-use Presidos\Presenter\BasePresenter;
-use Presidos\User\UserRepository;
+use SlideBox\Presentation\Control\PresentationPreviewPresenterFactory;
+use SlideBox\Presentation\PresentationFactory;
+use SlideBox\Presentation\PresentationRepository;
+use SlideBox\Presenter\BasePresenter;
+use SlideBox\User\UserRepository;
 
 class ProfilePresenter extends BasePresenter
 {

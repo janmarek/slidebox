@@ -2,7 +2,7 @@
 	"config": {
 		"vendor-dir": "libs"
 	},
-	"name": "janmarek/presidos",
+	"name": "janmarek/slidebox",
 	"description": "Presentations",
 	"license": "MIT",
 	"authors": [
@@ -31,7 +31,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Presidos\\": "app/"
+			"SlideBox\\": "app/"
 		}
 	}
 }

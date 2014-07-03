@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Presentation\Generator;
+namespace SlideBox\Presentation\Generator;
 
 use Symfony\Component\DomCrawler\Crawler;
 use Texy;

@@ -1,9 +1,10 @@
 <?php
 
-namespace Presidos\View;
+namespace SlideBox\View;
+
 use Nette\Utils\Html;
 use Nette\Utils\Strings;
-use Presidos\User\User;
+use SlideBox\User\User;
 
 /**
  * @author Jan Marek

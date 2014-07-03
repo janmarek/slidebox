@@ -1,10 +1,10 @@
 <?php
 
-namespace Presidos\User\Email;
+namespace SlideBox\User\Email;
 
 use Nette\Mail\Message;
-use Presidos\User\User;
-use Presidos\Presenter\BasePresenter;
+use SlideBox\User\User;
+use SlideBox\Presenter\BasePresenter;
 
 /**
  * @author Jan Marek

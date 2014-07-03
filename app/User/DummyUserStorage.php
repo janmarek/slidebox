@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\User;
+namespace SlideBox\User;
 
 use Nette\Security\IIdentity;
 use Nette\Security\IUserStorage;

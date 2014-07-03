@@ -1,5 +1,5 @@
 {
-  "name": "presidos",
+  "name": "slidebox",
   "devDependencies": {
     "mocha": "~1.18.2",
     "chai": "~1.9.1"

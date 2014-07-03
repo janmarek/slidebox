@@ -1,6 +1,6 @@
 <?php
 
-use Presidos\User\DummyUserStorage;
+use SlideBox\User\DummyUserStorage;
 
 define('CANCEL_START_APP', TRUE);
 define('TEST_MODE', TRUE);

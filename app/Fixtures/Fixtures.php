@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Fixtures;
+namespace SlideBox\Fixtures;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;

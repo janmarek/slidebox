@@ -1,10 +1,10 @@
 <?php
 
-namespace Presidos\Fixtures\TestData;
+namespace SlideBox\Fixtures\TestData;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Presidos\User\User;
+use SlideBox\User\User;
 
 /**
  * @author Jan Marek
@@ -16,7 +16,7 @@ class Users extends AbstractFixture
 	{
 		$honza = new User();
 		$honza->setName('Honza');
-		$honza->setEmail('honza@presidos.com');
+		$honza->setEmail('honza@slidebox.com');
 		$honza->changePassword('xxx');
 		$honza->allow();
 		$this->addReference('user-honza', $honza);
@@ -24,7 +24,7 @@ class Users extends AbstractFixture
 
 		$pepa = new User();
 		$pepa->setName('Pepa');
-		$pepa->setEmail('pepa@presidos.com');
+		$pepa->setEmail('pepa@slidebox.com');
 		$pepa->changePassword('xxx');
 		$pepa->allow();
 		$this->addReference('user-pepa', $pepa);
@@ -38,7 +38,7 @@ class Users extends AbstractFixture
 
 		$petr = new User();
 		$petr->setName('Petr');
-		$petr->setEmail('petr@presidos.com');
+		$petr->setEmail('petr@slidebox.com');
 		$petr->changePassword('xxx');
 		$petr->allow();
 		$this->addReference('user-petr', $petr);

@@ -1,11 +1,11 @@
 <?php
 
-namespace Presidos\Test\Presentation\Presenter;
+namespace SlideBox\Test\Presentation\Presenter;
 
 use Nette\Application\BadRequestException;
 use Nette\Application\Responses\TextResponse;
-use Presidos\Presentation\Presenter\EditorPresenter;
-use Presidos\Test\IntegrationTestCase;
+use SlideBox\Presentation\Presenter\EditorPresenter;
+use SlideBox\Test\IntegrationTestCase;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';

@@ -1,14 +1,14 @@
 <?php
 
-namespace Presidos\Presentation\Presenter;
+namespace SlideBox\Presentation\Presenter;
 
 use Nette\InvalidStateException;
 use Nette\Utils\Strings;
-use Presidos\Presentation\Generator\Generator;
-use Presidos\Presentation\Generator\TexyFactory;
-use Presidos\Presentation\Generator\WkHtmlToPdfFactory;
-use Presidos\Presentation\PresentationRepository;
-use Presidos\Presenter\BasePresenter;
+use SlideBox\Presentation\Generator\Generator;
+use SlideBox\Presentation\Generator\TexyFactory;
+use SlideBox\Presentation\Generator\WkHtmlToPdfFactory;
+use SlideBox\Presentation\PresentationRepository;
+use SlideBox\Presenter\BasePresenter;
 
 class PdfPresenter extends BasePresenter
 {

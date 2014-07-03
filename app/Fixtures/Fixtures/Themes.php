@@ -1,11 +1,11 @@
 <?php
 
-namespace Presidos\Fixtures\Fixtures;
+namespace SlideBox\Fixtures\Fixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Presidos\Presentation\Theme;
-use Presidos\Presentation\ThemeVariant;
+use SlideBox\Presentation\Theme;
+use SlideBox\Presentation\ThemeVariant;
 
 /**
  * @author Jan Marek

@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Doctrine;
+namespace SlideBox\Doctrine;
 
 use Doctrine\ORM\Mapping as ORM;
 use Nette\Object;

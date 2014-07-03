@@ -1,9 +1,9 @@
 <?php
 
-namespace Presidos\Test\Presentation\Generator;
+namespace SlideBox\Test\Presentation\Generator;
 
-use Presidos\Presentation\Generator\Generator;
-use Presidos\Test\BaseTestCase;
+use SlideBox\Presentation\Generator\Generator;
+use SlideBox\Test\BaseTestCase;
 use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap.php';

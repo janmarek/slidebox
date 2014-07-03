@@ -14,7 +14,7 @@ nette:
   application:
     errorPresenter: Error
     mapping:
-      *: Presidos\*\Presenter\*Presenter
+      *: SlideBox\*\Presenter\*Presenter
   security:
     frames:
 
@@ -22,11 +22,11 @@ extensions:
   doctrine2identity: Majkl578\NetteAddons\Doctrine2Identity\DI\IdentityExtension
 
 services:
-  router: Presidos\Router\RouterFactory::createRouter
+  router: SlideBox\Router\RouterFactory::createRouter
 
   # doctrine
   emFactory:
-    class: Presidos\Doctrine\EntityManagerFactory
+    class: SlideBox\Doctrine\EntityManagerFactory
     arguments:
       - %database%
       - %debugMode%
@@ -40,35 +40,35 @@ services:
 
   # users
   userRepository:
-    class: Presidos\User\UserRepository
-    factory: @em::getRepository('Presidos\User\User')
-  passwordAuthenticator: Presidos\User\PasswordAuthenticator
+    class: SlideBox\User\UserRepository
+    factory: @em::getRepository('SlideBox\User\User')
+  passwordAuthenticator: SlideBox\User\PasswordAuthenticator
   facebook: Facebook( {appId: %facebook.appId%, secret: %facebook.appSecret%} )
-  facebookAuthenticator: Presidos\User\FacebookAuthenticator
-  registerEmailFactory: Presidos\User\Email\RegisterEmailFactory(%email%, %emailName%)
-  forgottenEmailFactory: Presidos\User\Email\ForgottenEmailFactory(%email%, %emailName%)
+  facebookAuthenticator: SlideBox\User\FacebookAuthenticator
+  registerEmailFactory: SlideBox\User\Email\RegisterEmailFactory(%email%, %emailName%)
+  forgottenEmailFactory: SlideBox\User\Email\ForgottenEmailFactory(%email%, %emailName%)
 
   # presentations
   presentationRepository:
-    class: Presidos\Presentation\PresentationRepository
-    factory: @em::getRepository('Presidos\Presentation\Presentation')
-  presentationFactory: Presidos\Presentation\PresentationFactory
+    class: SlideBox\Presentation\PresentationRepository
+    factory: @em::getRepository('SlideBox\Presentation\Presentation')
+  presentationFactory: SlideBox\Presentation\PresentationFactory
   themeRepository:
-    class: Presidos\Presentation\ThemeRepository
-    factory: @em::getRepository('Presidos\Presentation\Theme')
+    class: SlideBox\Presentation\ThemeRepository
+    factory: @em::getRepository('SlideBox\Presentation\Theme')
   themeVariantRepository:
-    class: Presidos\Presentation\ThemeVariantRepository
-    factory: @em::getRepository('Presidos\Presentation\ThemeVariant')
+    class: SlideBox\Presentation\ThemeVariantRepository
+    factory: @em::getRepository('SlideBox\Presentation\ThemeVariant')
 
-  uploadFileRepository: Presidos\Presentation\UploadedImageFileRepository(@em, %texy.fileRoot%)
+  uploadFileRepository: SlideBox\Presentation\UploadedImageFileRepository(@em, %texy.fileRoot%)
   uploadedImageRepository:
-    class: Presidos\Presentation\UploadedImageRepository
-    factory: @em::getRepository('Presidos\Presentation\UploadedImage')
+    class: SlideBox\Presentation\UploadedImageRepository
+    factory: @em::getRepository('SlideBox\Presentation\UploadedImage')
 
-  texyFactory: Presidos\Presentation\Generator\TexyFactory(%texy.root%)
-  generator: Presidos\Presentation\Generator\Generator
-  wkhtmltopdfFactory: Presidos\Presentation\Generator\WkHtmlToPdfFactory( %tempDir%/pdf, %wkhtmltopdfOptions% )
+  texyFactory: SlideBox\Presentation\Generator\TexyFactory(%texy.root%)
+  generator: SlideBox\Presentation\Generator\Generator
+  wkhtmltopdfFactory: SlideBox\Presentation\Generator\WkHtmlToPdfFactory( %tempDir%/pdf, %wkhtmltopdfOptions% )
 
   #fixtures
-  fixtures: Presidos\Fixtures\Fixtures
-  fixturesCommand: Presidos\Fixtures\FixturesCommand
+  fixtures: SlideBox\Fixtures\Fixtures
+  fixturesCommand: SlideBox\Fixtures\FixturesCommand

@@ -1,15 +1,15 @@
 <?php
 
-namespace Presidos\Presentation;
+namespace SlideBox\Presentation;
 
 use Doctrine\ORM\Mapping as ORM;
-use Presidos\Doctrine\Entity;
+use SlideBox\Doctrine\Entity;
 
 /**
  * @author Jan Marek
  *
  * @ORM\Table(name="theme_variant")
- * @ORM\Entity(repositoryClass="Presidos\Presentation\ThemeVariantRepository")
+ * @ORM\Entity(repositoryClass="SlideBox\Presentation\ThemeVariantRepository")
  */
 class ThemeVariant extends Entity implements \JsonSerializable
 {

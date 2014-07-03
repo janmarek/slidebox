@@ -1,12 +1,12 @@
 <?php
 
-namespace Presidos\Fixtures\TestData;
+namespace SlideBox\Fixtures\TestData;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Presidos\Fixtures\Fixtures\Themes;
-use Presidos\Presentation\Presentation;
+use SlideBox\Fixtures\Fixtures\Themes;
+use SlideBox\Presentation\Presentation;
 
 /**
  * @author Jan Marek

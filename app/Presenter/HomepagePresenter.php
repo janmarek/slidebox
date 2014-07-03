@@ -1,9 +1,9 @@
 <?php
 
-namespace Presidos\Presenter;
+namespace SlideBox\Presenter;
 
-use Presidos\Presentation\Control\PresentationPreviewPresenterFactory;
-use Presidos\Presentation\PresentationRepository;
+use SlideBox\Presentation\Control\PresentationPreviewPresenterFactory;
+use SlideBox\Presentation\PresentationRepository;
 
 class HomepagePresenter extends BasePresenter
 {

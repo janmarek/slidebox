@@ -2,7 +2,7 @@ parameters:
   database:
     driver: pdo_mysql
     host: localhost
-    dbname: presidos
+    dbname: slidebox
     user: root
     password:
 
@@ -11,7 +11,7 @@ parameters:
     appSecret: "bdbe0b2e21932ad5ef3e76504ace3d2e"
 
   upload:
-    urlPrefix: "http://images.presidos.dev"
+    urlPrefix: "http://images.slidebox.dev"
 
   wkhtmltopdfOptions:
     binPath: "/usr/local/bin/wkhtmltopdf"

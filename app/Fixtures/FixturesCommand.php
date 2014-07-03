@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Fixtures;
+namespace SlideBox\Fixtures;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +20,7 @@ class FixturesCommand extends Command
 
 	public function __construct(Fixtures $fixtures)
 	{
-		parent::__construct('presidos:fixtures');
+		parent::__construct('slidebox:fixtures');
 		$this->fixtures = $fixtures;
 	}
 

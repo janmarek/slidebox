@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Test;
+namespace SlideBox\Test;
 
 use Mockista\Registry;
 use Nette\Application\UI\Presenter;

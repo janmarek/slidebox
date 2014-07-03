@@ -1,15 +1,15 @@
 <?php
 
-namespace Presidos\Presentation;
+namespace SlideBox\Presentation;
 
 use Doctrine\ORM\Mapping as ORM;
-use Presidos\Doctrine\Entity;
+use SlideBox\Doctrine\Entity;
 
 /**
  * @author Jan Marek
  *
  * @ORM\Table(name="uploaded_image")
- * @ORM\Entity(repositoryClass="Presidos\Presentation\UploadedImageRepository")
+ * @ORM\Entity(repositoryClass="SlideBox\Presentation\UploadedImageRepository")
  */
 class UploadedImage extends Entity
 {

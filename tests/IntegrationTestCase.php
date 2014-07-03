@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Test;
+namespace SlideBox\Test;
 
 use Nette\Application\UI\Presenter;
 use Tester\Environment;

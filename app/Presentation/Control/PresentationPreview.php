@@ -1,9 +1,9 @@
 <?php
 
-namespace Presidos\Presentation\Control;
+namespace SlideBox\Presentation\Control;
 
 use Nette\Application\UI\Control;
-use Presidos\Presentation\Presentation;
+use SlideBox\Presentation\Presentation;
 
 /**
  * @author Jan Marek

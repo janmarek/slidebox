@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Presentation;
+namespace SlideBox\Presentation;
 
 use Doctrine\ORM\Mapping as ORM;
 

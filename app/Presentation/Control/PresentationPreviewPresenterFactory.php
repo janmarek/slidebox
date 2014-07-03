@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Presentation\Control;
+namespace SlideBox\Presentation\Control;
 
 trait PresentationPreviewPresenterFactory
 {

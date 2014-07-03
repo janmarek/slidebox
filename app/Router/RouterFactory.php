@@ -1,6 +1,6 @@
 <?php
 
-namespace Presidos\Router;
+namespace SlideBox\Router;
 
 use Nette\Application\Routers\RouteList;
 use Nette\Application\Routers\Route;

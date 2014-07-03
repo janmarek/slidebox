@@ -4,7 +4,7 @@
 
 {block body}
 	{include #header}
-	<div id="presidos-editor">
+	<div id="slidebox-editor">
 		<div class="editor-properties">
 			<h3>Details</h3>
 
@@ -118,7 +118,7 @@
 <script>
 	var editor = aceFactory("editor");
 	var texyEditor = new TexyEditor(editor);
-	var presidosEditor = new PresidosEditor(
+	var slideboxEditor = new SlideBoxEditor(
 		texyEditor,
 		{$presentation},
 		{$isOwner},
@@ -134,6 +134,6 @@
 			uploadedImagesListUrl: {link uploadedImagesList!}
 		}
 	);
-	ko.applyBindings(presidosEditor, document.getElementById('presidos-editor'));
+	ko.applyBindings(slideboxEditor, document.getElementById('slidebox-editor'));
 </script>
 {/block}
