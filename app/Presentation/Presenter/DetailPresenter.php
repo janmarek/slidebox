@@ -18,7 +18,7 @@ class DetailPresenter extends BasePresenter
 
 	public function renderDefault($id)
 	{
-		$presentation = $this->presentationRepository->find($id);
+		$presentation = $this->presentationRepository->findNotDeleted($id);
 		$this->checkExistence($presentation);
 
 		$this->template->presentationVisible = $presentation->isPublished() || $presentation->isEditableBy($this->getUser()->getIdentity());

@@ -40,7 +40,7 @@ class PresentPresenter extends BasePresenter
 	{
 		parent::startup();
 
-		$this->presentation = $this->presentationRepository->find($this->getParameter('id'));
+		$this->presentation = $this->presentationRepository->findNotDeleted($this->getParameter('id'));
 		$this->checkExistence($this->presentation);
 
 		$user = $this->getUser()->getIdentity();

@@ -96,7 +96,16 @@ class PresentationRepository extends Repository
 	{
 		$qb = $this->createQueryBuilder('p');
 		$qb->andWhere('p.published = TRUE');
+		$qb->andWhere('p.deleted = FALSE');
 		return $qb;
+	}
+
+	public function findNotDeleted($id)
+	{
+		return $this->findOneBy([
+			'id' => $id,
+			'deleted' => FALSE,
+		]);
 	}
 
 }
